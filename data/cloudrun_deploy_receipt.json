@@ -1,0 +1,17 @@
+{
+  "serviceName": "e2et",
+  "beyondCorpUrl": "https://e2et-248990048888.cr.gclb.goog",
+  "directCloudRunUrl": "https://e2et-mi7l4h536a-uw.a.run.app",
+  "buildProject": "nitina-ggarwal-sandbox-647724",
+  "runProject": "ramp-portal-dev",
+  "region": "us-west1",
+  "latestReadyRevisionName": "e2et-00001-265",
+  "latestCreatedRevisionName": "e2et-00001-265",
+  "readyStatus": "True",
+  "trafficPercent": 100,
+  "image": "us-west1-docker.pkg.dev/ramp-portal-dev/cloud-run-source-deploy/e2et:v20261023-055529-rule58",
+  "startupProbeLog": "Default STARTUP TCP/HTTP probe succeeded for e2et-00001-265",
+  "catalogDemosCount": 13,
+  "catalogTilesCount": 14,
+  "verifiedAt": "2026-10-23T05:56:35Z"
+}
