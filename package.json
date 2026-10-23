@@ -1,0 +1,10 @@
+{
+  "name": "e2e-tester-hub",
+  "version": "1.0.0",
+  "description": "Universal Manual & Assisted End-to-End (E2E) Functional Test Plan, Test Case Matrix & Execution Documentation Hub",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "quality-gate": "node scripts/stop_forensic_gate.mjs"
+  }
+}

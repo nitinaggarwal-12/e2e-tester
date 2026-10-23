@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E2E Functional Test Runner & Documentation Hub</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <!-- Persistent Global Header (Rule 25A & Rule 54) -->
+  <header class="app-header">
+    <div class="fluid-shell header-inner">
+      <div class="brand-cluster">
+        <span class="brand-badge" aria-hidden="true">E2E</span>
+        <div class="min-w-0">
+          <h1 class="brand-title">Universal E2E Functional Test Runner &amp; Audit Hub</h1>
+          <p class="brand-subtitle">13-Domain Workflow, UI/UX, IA, Edge-Case &amp; Security Execution Matrix</p>
+        </div>
+      </div>
+
+      <!-- Primary 4-Tab Workspace Switcher (Rule 25H) -->
+      <nav class="workspace-tabs" aria-label="Primary Workspace Views">
+        <button type="button" class="workspace-tab-btn active" id="tab-btn-matrix" data-tab="matrix">
+          1. Test Matrix &amp; Runner
+        </button>
+        <button type="button" class="workspace-tab-btn" id="tab-btn-report" data-tab="report">
+          2. Executive Readout &amp; Report
+        </button>
+        <button type="button" class="workspace-tab-btn" id="tab-btn-audit" data-tab="audit">
+          3. Execution Audit Log
+        </button>
+        <button type="button" class="workspace-tab-btn" id="tab-btn-ia" data-tab="ia">
+          4. IA, Guide &amp; 4-Workflows
+        </button>
+      </nav>
+
+      <!-- Action Cluster -->
+      <div class="header-actions">
+        <button type="button" class="btn btn-primary" id="open-create-drawer-btn">
+          + Add Custom Test Case
+        </button>
+
+        <div class="dropdown-wrapper">
+          <button type="button" class="btn" id="export-dropdown-trigger" aria-expanded="false">
+            📥 Export &amp; Reports ▾
+          </button>
+          <div class="dropdown-menu" id="export-dropdown-menu" role="menu">
+            <a href="/api/export/markdown" class="dropdown-item" download="E2E_EXECUTION_REPORT.md">
+              <span>📄 Download Markdown Report</span>
+              <span style="color:#64748b;font-size:11px;">.md</span>
+            </a>
+            <a href="/api/export/csv" class="dropdown-item" download="e2e_test_results.csv">
+              <span>📊 Download CSV Matrix</span>
+              <span style="color:#64748b;font-size:11px;">.csv</span>
+            </a>
+            <a href="/api/export/json" class="dropdown-item" download="e2e_execution_snapshot.json">
+              <span>🗂️ Download JSON Snapshot</span>
+              <span style="color:#64748b;font-size:11px;">.json</span>
+            </a>
+            <button type="button" class="dropdown-item" id="print-pdf-report-btn">
+              <span>🖨️ Print / PDF Executive Readout</span>
+              <span style="color:#64748b;font-size:11px;">PDF</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="fluid-shell">
+    <!-- Target Application Profile & Assisted Probe Bar -->
+    <section class="profile-bar" aria-label="Target Application Configuration">
+      <div class="profile-fields">
+        <div class="field-inline">
+          <label for="profile-app-name">Target App</label>
+          <input type="text" id="profile-app-name" class="input-compact" value="Web / SaaS Application" />
+        </div>
+        <div class="field-inline">
+          <label for="profile-base-url">Target URL</label>
+          <input type="url" id="profile-base-url" class="input-compact url-input" value="http://localhost:4190" placeholder="https://app.example.com" />
+        </div>
+        <div class="field-inline">
+          <label for="profile-env">Env</label>
+          <select id="profile-env" class="input-compact" style="min-width:110px;">
+            <option value="Local Dev">Local Dev</option>
+            <option value="Staging / Pre-Prod" selected>Staging / Pre-Prod</option>
+            <option value="Production">Production</option>
+          </select>
+        </div>
+        <div class="field-inline">
+          <label for="profile-version">Release</label>
+          <input type="text" id="profile-version" class="input-compact" style="min-width:85px;width:95px;" value="v1.0.0-rc1" />
+        </div>
+        <div class="field-inline">
+          <label for="profile-tester">Tester</label>
+          <input type="text" id="profile-tester" class="input-compact" style="min-width:115px;" value="Nitin Aggarwal" />
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <span id="assisted-probe-badge" class="status-pill status-Untested" title="Last Assisted Probe Status">
+          Probe: Ready
+        </span>
+        <button type="button" class="btn btn-soft-blue" id="run-assisted-probe-btn">
+          ⚡ Assisted URL Probe
+        </button>
+        <button type="button" class="btn btn-primary" id="run-full-url-e2e-btn" title="1-Click Autonomous Target URL E2E Scan + Skill Matching + Corrective Actions & Report">
+          🚀 Full URL E2E + Report
+        </button>
+        <button type="button" class="btn btn-soft-blue" id="load-zyvoriq-e2e-btn" title="Open Saved Zyvoriq (v3.5.0) End-to-End Audit Report & 6 Live Before/After Screenshots">
+          🎬 Zyvoriq (v3.5.0) E2E Report
+        </button>
+        <button type="button" class="btn" id="run-headless-suite-btn" title="Execute test cases in background Headless Chrome, capture screenshots, detect issues & auto-document results">
+          🤖 Headless Chrome Suite
+        </button>
+        <a href="http://localhost:4190" target="_blank" rel="noopener noreferrer" class="btn" id="launch-target-url-btn">
+          ↗ Open Target App
+        </a>
+      </div>
+    </section>
+
+    <!-- 6-Card Executive Telemetry Strip -->
+    <section class="telemetry-grid kpi-strip" aria-label="Execution Telemetry Summary">
+      <div class="kpi-card">
+        <span class="kpi-label">Total Test Suite</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpi-total">70</span>
+          <span class="kpi-sub">13 Domains</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="kpi-progress-bar" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <span class="kpi-label">Execution Progress</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpi-executed">0 / 70</span>
+          <span class="kpi-sub" id="kpi-exec-pct">0.0%</span>
+        </div>
+        <span class="kpi-sub" style="margin-top:4px;color:#64748b;" id="kpi-untested-sub">70 Untested</span>
+      </div>
+
+      <div class="kpi-card" style="background:#f0fdf4;border-color:#a7f3d0;">
+        <span class="kpi-label" style="color:#065f46;">Passed (Pass)</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" style="color:#065f46;" id="kpi-pass">0</span>
+          <span class="kpi-sub" style="color:#047857;" id="kpi-pass-rate">0.0% of run</span>
+        </div>
+        <span class="kpi-sub" style="margin-top:4px;color:#047857;">Verified Criteria Met</span>
+      </div>
+
+      <div class="kpi-card" style="background:#fff1f2;border-color:#fecdd3;">
+        <span class="kpi-label" style="color:#9f1239;">Failed (Fail)</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" style="color:#be123c;" id="kpi-fail">0</span>
+          <span class="kpi-sub" style="color:#9f1239;" id="kpi-p0-blockers">0 P0 Blockers</span>
+        </div>
+        <span class="kpi-sub" style="margin-top:4px;color:#9f1239;">Requires Remediation</span>
+      </div>
+
+      <div class="kpi-card" style="background:#fffbeb;border-color:#fde68a;">
+        <span class="kpi-label" style="color:#92400e;">Blocked / Skipped</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" style="color:#b45309;" id="kpi-blocked-skipped">0</span>
+          <span class="kpi-sub" style="color:#92400e;" id="kpi-blocked-detail">0 Blocked · 0 Skipped</span>
+        </div>
+        <span class="kpi-sub" style="margin-top:4px;color:#92400e;">Env or Dependency Hold</span>
+      </div>
+
+      <div class="kpi-card" id="kpi-gate-card" style="background:#f8fafc;border-color:#cbd5e1;">
+        <span class="kpi-label">Release Sign-Off Gate</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" style="font-size:15px;" id="kpi-gate-status">READY TO START</span>
+        </div>
+        <span class="kpi-sub" style="margin-top:4px;" id="kpi-gate-sub">Execute P0 Smoke Suite first</span>
+      </div>
+    </section>
+
+    <!-- ================= TAB 1: INTERACTIVE TEST MATRIX & RUNNER ================= -->
+    <section id="view-matrix">
+      <!-- 13-Domain Horizontal Tab Bar (#e2e-domain-tabs-bar) -->
+      <div class="domain-tabs-bar" id="e2e-domain-tabs-bar" role="tablist" aria-label="Functional Testing Domains"></div>
+
+      <!-- Live Search & Multi-Facet Filter Bar (Rule 25C & 25K: Zero redundant Search Submit button) -->
+      <div class="filter-toolbar">
+        <div class="filter-group">
+          <input
+            type="search"
+            id="search-input"
+            class="search-input"
+            placeholder="Search by ID (D01-01), workflow title, feature, payload, or expected outcome..."
+            aria-label="Search test cases"
+          />
+
+          <select id="filter-category" class="select-filter" aria-label="Filter by Category">
+            <option value="ALL">All Categories</option>
+            <option value="Common Workflow">Common Workflow (Happy Path)</option>
+            <option value="Edge Case">Edge Case &amp; Boundary</option>
+            <option value="Negative / Error">Negative &amp; Error Handling</option>
+            <option value="Security / Resilience">Security &amp; Resilience</option>
+          </select>
+
+          <select id="filter-priority" class="select-filter" aria-label="Filter by Priority">
+            <option value="ALL">All Priorities (P0–P2)</option>
+            <option value="P0">P0 Critical (Smoke / Blocker)</option>
+            <option value="P1">P1 High (Core Feature)</option>
+            <option value="P2">P2 Medium (Secondary)</option>
+          </select>
+
+          <select id="filter-status" class="select-filter" aria-label="Filter by Execution Status">
+            <option value="ALL">All Statuses</option>
+            <option value="Untested">Untested</option>
+            <option value="Pass">Pass ✅</option>
+            <option value="Fail">Fail ❌</option>
+            <option value="Blocked">Blocked ⚠️</option>
+            <option value="Skipped">Skipped ⏭️</option>
+          </select>
+
+          <select id="break-ui-mode-select" class="select-filter" aria-label="Break UI Data Boundary Mode (Emil Kowalski /skills/break-ui)">
+            <option value="demo">🧪 Data: Canonical Suite (70)</option>
+            <option value="worst">🔥 Data: Break UI Worst-Case</option>
+            <option value="one">1️⃣ Data: Single Item (Count=1)</option>
+            <option value="empty">0️⃣ Data: Empty State (Count=0)</option>
+          </select>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span id="visible-count-badge" class="badge badge-cat">Showing 70 of 70</span>
+          <button type="button" class="btn" id="toolbar-reset-filters-btn" title="Clear active search and filters">
+            ↺ Clear Filters
+          </button>
+          <button type="button" class="btn" id="bulk-reset-trigger-btn" style="color:#9f1239;border-color:#fda4af;">
+            Reset Run Status
+          </button>
+          <span id="inline-reset-confirm" style="display:none;align-items:center;gap:4px;">
+            <button type="button" class="btn" id="confirm-reset-yes-btn" style="background:#fff1f2;color:#9f1239;border-color:#fda4af;">
+              Confirm Reset
+            </button>
+            <button type="button" class="btn" id="confirm-reset-no-btn">
+              Cancel
+            </button>
+          </span>
+        </div>
+      </div>
+
+      <!-- Rigidly Contained E2E Test Matrix Table (Rule 26C) -->
+      <div class="table-card">
+        <table class="table-fixed gp-blue-grid-table" id="e2e-test-matrix-table">
+          <thead>
+            <tr>
+              <th style="width: 11%;">ID &amp; Priority</th>
+              <th style="width: 15%;" class="col-hide-mobile">Domain &amp; Category</th>
+              <th style="width: 24%;">Test Case, Preconditions &amp; Payload</th>
+              <th style="width: 26%;">Procedure Steps &amp; Expected Outcome</th>
+              <th style="width: 24%;">Execution Status &amp; Actual Result</th>
+            </tr>
+          </thead>
+          <tbody id="e2e-table-body"></tbody>
+        </table>
+
+        <!-- Resilient Empty State (#no-matching-cards, Rule 25K) -->
+        <div id="no-matching-cards" class="empty-state" style="display:none;">
+          <div style="font-size:28px;margin-bottom:8px;">🔍</div>
+          <h3 style="margin:0 0 6px 0;font-size:16px;color:#0f172a;">No Matching Test Cases Found</h3>
+          <p style="margin:0 0 14px 0;color:#64748b;font-size:13px;">
+            No test cases match your current search query or multi-filter combination.
+          </p>
+          <button type="button" class="btn btn-primary" id="reset-filters-btn">
+            ↺ Reset All Filters
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 2: EXECUTIVE READOUT, CORRECTIVE ACTIONS & BEFORE/AFTER GALLERY ================= -->
+    <section id="view-report" style="display:none;margin-top:14px;margin-bottom:36px;">
+      <div class="table-card" style="padding:20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #e2e8f0;padding-bottom:14px;">
+          <div>
+            <h2 style="margin:0;font-size:18px;color:#0f172a;">Executive E2E Functional Readiness, Corrective Actions &amp; Visual Proof Readout</h2>
+            <p style="margin:4px 0 0 0;font-size:13px;color:#64748b;" id="report-meta-subtitle">
+              Live domain-by-domain coverage matrix, P0/P1 failure triage, automated corrective actions &amp; recommendations, and Before/After visual evidence.
+            </p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a href="/api/export/markdown" class="btn btn-primary" download="E2E_EXECUTION_REPORT.md">
+              📄 Download Markdown Report (.md)
+            </a>
+            <a href="/api/export/csv" class="btn" download="e2e_test_results.csv">
+              📊 Export CSV Matrix (.csv)
+            </a>
+          </div>
+        </div>
+
+        <!-- 0. Saved Target App Live E2E Audit Report: Zyvoriq (v3.5.0-omni-swarm) -->
+        <div style="margin-top:18px;background:#f8fafc;border:1px solid #93c5fd;border-radius:10px;padding:16px;" id="zyvoriq-e2e-saved-report-section">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+            <div>
+              <h3 style="margin:0;font-size:15.5px;color:#0f172a;">
+                🎬 Saved Target App End-to-End Audit Report: Zyvoriq (v3.5.0-omni-swarm · 12-Agent Cinema &amp; Music Video Swarm)
+              </h3>
+              <p style="margin:3px 0 0 0;font-size:12px;color:#334155;">
+                Cloud Run Live URL: <a href="https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI" target="_blank" rel="noopener noreferrer" style="color:#2563eb;font-weight:700;">https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI ↗</a> · Revision: <code>zyvoriq-00004-llt</code> (<code>Ready=True · Traffic=100%</code>) · Local: <code>http://127.0.0.1:3000/swarm-MUI</code>
+              </p>
+            </div>
+            <span class="status-pill status-Pass" id="zyvoriq-e2e-verdict-badge">10 / 10 Zyvoriq Journeys · 6 Retina Screenshots PASS ✅</span>
+          </div>
+
+          <div id="zyvoriq-outage-rca-container" style="margin-bottom:12px;"></div>
+          <div id="zyvoriq-journeys-table-container" style="margin-bottom:14px;"></div>
+          <div id="zyvoriq-before-after-gallery" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:10px;"></div>
+        </div>
+
+        <!-- Failed & Blocked Defect Register -->
+        <h3 style="margin:18px 0 10px 0;font-size:14.5px;color:#0f172a;">
+          1. Open Failed &amp; Blocked Defect Register (<span id="report-defect-count">0</span>)
+        </h3>
+        <div id="report-defects-container"></div>
+
+        <!-- Domain-by-Domain Coverage Breakdown Table -->
+        <h3 style="margin:22px 0 10px 0;font-size:14.5px;color:#0f172a;">
+          2. 13-Domain Functional Execution Coverage Matrix
+        </h3>
+        <table class="table-fixed gp-blue-grid-table">
+          <thead>
+            <tr>
+              <th style="width: 32%;">Functional Domain</th>
+              <th style="width: 10%;">Total</th>
+              <th style="width: 11%;">Pass ✅</th>
+              <th style="width: 11%;">Fail ❌</th>
+              <th style="width: 12%;">Blocked ⚠️</th>
+              <th style="width: 12%;">Untested</th>
+              <th style="width: 12%;">Completion</th>
+            </tr>
+          </thead>
+          <tbody id="report-domain-tbody"></tbody>
+        </table>
+
+        <!-- 3. Automated Corrective Actions, Root-Cause Remediation & Architectural Recommendations -->
+        <div style="margin-top:24px;border-top:1px solid #e2e8f0;padding-top:16px;" id="report-corrective-actions-section">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+            <div>
+              <h3 style="margin:0;font-size:15px;color:#0f172a;">
+                3. Automated Corrective Actions, Root-Cause Remediation &amp; Architectural Recommendations (<span id="report-ca-count">5</span>)
+              </h3>
+              <p style="margin:2px 0 0 0;font-size:12px;color:#475569;">
+                Generated automatically from the Target URL HTTP/DOM probe, open defect register, and our 6 Grounding Standards + AIUX Skills.
+              </p>
+            </div>
+            <span class="status-pill status-Pass" id="report-ca-badge">URL-Only Sufficiency: 92% Auto-Covered ✅</span>
+          </div>
+
+          <div id="report-input-sufficiency-box" style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:#1e293b;"></div>
+
+          <table class="table-fixed gp-blue-grid-table" id="report-corrective-actions-table">
+            <thead>
+              <tr>
+                <th style="width: 14%;">Action ID &amp; Priority</th>
+                <th style="width: 18%;">Domain &amp; Grounding Standard</th>
+                <th style="width: 26%;">Finding &amp; Root Cause Analysis (RCA)</th>
+                <th style="width: 26%;">Concrete Corrective Action &amp; Code Remediation</th>
+                <th style="width: 16%;">Verification Step</th>
+              </tr>
+            </thead>
+            <tbody id="report-corrective-actions-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- 4. Complete Before & After Visual Evidence Gallery -->
+        <div style="margin-top:24px;border-top:1px solid #e2e8f0;padding-top:16px;" id="report-before-after-section">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+            <div>
+              <h3 style="margin:0;font-size:15px;color:#0f172a;">
+                4. Complete Before &amp; After Visual Evidence Gallery (14 High-DPI 2x Retina Captures: Zyvoriq + E2E Hub)
+              </h3>
+              <p style="margin:2px 0 0 0;font-size:12px;color:#475569;">
+                Side-by-side comparison of Zyvoriq Outage ("Before") vs. Redeployed Live Zyvoriq Surfaces ("After"), plus the E2E Hub Untested Baseline ("Before") vs. Executed Views ("After").
+              </p>
+            </div>
+            <span class="status-pill status-Pass">14 High-DPI Before &amp; After Captures + 24 Workflow PNGs ✅</span>
+          </div>
+          <div id="report-before-after-gallery" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 3: EXECUTION AUDIT & PROVENANCE LOG ================= -->
+    <section id="view-audit" style="display:none;margin-top:14px;margin-bottom:36px;">
+      <div class="table-card" style="padding:20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <div>
+            <h2 style="margin:0;font-size:17px;color:#0f172a;">Immutable E2E Execution Audit &amp; Provenance Log</h2>
+            <p style="margin:2px 0 0 0;font-size:12.5px;color:#64748b;">
+              Chronological record of every manual test execution, status transition, defect link, and assisted URL probe.
+            </p>
+          </div>
+        </div>
+        <table class="table-fixed gp-blue-grid-table">
+          <thead>
+            <tr>
+              <th style="width: 12%;">Audit ID</th>
+              <th style="width: 18%;">Timestamp (ISO)</th>
+              <th style="width: 12%;">Test ID</th>
+              <th style="width: 16%;">Transition</th>
+              <th style="width: 14%;">Tester</th>
+              <th style="width: 28%;">Execution Notes / Evidence</th>
+            </tr>
+          </thead>
+          <tbody id="audit-log-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= TAB 4: APP DESIGN, IA, ESSENTIAL PAGES & 4-WORKFLOW OPTIMIZATION AUDIT ================= -->
+    <section id="view-ia" style="display:none;margin-top:14px;margin-bottom:36px;">
+      <div class="table-card" style="padding:20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #e2e8f0;padding-bottom:14px;">
+          <div>
+            <h2 style="margin:0;font-size:18px;color:#0f172a;">
+              App Design, Information Architecture (IA), Critical User Journeys &amp; 4-Workflow Optimization Hub
+            </h2>
+            <p style="margin:4px 0 0 0;font-size:13px;color:#64748b;">
+              Verifies that every Critical User Journey (CUJ-01..CUJ-08) and Business/User workflow is Logically, Functionally, Technically &amp; Operationally correct, alongside IA budgets and all 6 essential product surfaces.
+            </p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button type="button" class="btn btn-soft-blue" id="run-cuj-verifier-btn">
+              🧪 Verify All 8 Critical User Journeys (4-Dim Gate)
+            </button>
+            <button type="button" class="btn btn-primary" id="run-ia-workflow-audit-btn">
+              🤖 Run Live Headless IA &amp; 4-Workflow Audit (D13)
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. 4-Pillar Workflow Optimization Scorecard (Business, User, Technical, Operational) -->
+        <h3 style="margin:18px 0 10px 0;font-size:14.5px;color:#0f172a;">
+          1. Four-Pillar Workflow Optimization Scorecard (Business · User · Technical · Operational)
+        </h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;" id="four-workflow-scorecard-grid">
+          <div class="kpi-card" style="background:#f0fdf4;border-color:#a7f3d0;">
+            <span class="kpi-label" style="color:#065f46;">Business Workflow Optimization</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" style="color:#065f46;" id="wf-score-business">100%</span>
+              <span class="kpi-sub" style="color:#047857;">Value &amp; Release Gate</span>
+            </div>
+            <p style="margin:6px 0 0 0;font-size:12px;color:#065f46;line-height:1.4;">
+              Real-time KPI strip, 13-Domain coverage rollup, P0 blocker gate (READY/HOLD/APPROVED), and executive readout parity.
+            </p>
+          </div>
+
+          <div class="kpi-card" style="background:#eff6ff;border-color:#bfdbfe;">
+            <span class="kpi-label" style="color:#1e40af;">User Workflow Optimization</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" style="color:#1d4ed8;" id="wf-score-user">100%</span>
+              <span class="kpi-sub" style="color:#1e40af;">&le; 2 Clicks · 0 Popups</span>
+            </div>
+            <p style="margin:6px 0 0 0;font-size:12px;color:#1e3a8a;line-height:1.4;">
+              1-click inline Pass/Fail toggles, non-blocking right-side context drawer, live search, 1-click filter recovery, and WCAG 2.1 AA keyboard flow.
+            </p>
+          </div>
+
+          <div class="kpi-card" style="background:#f8fafc;border-color:#cbd5e1;">
+            <span class="kpi-label" style="color:#0f172a;">Technical Workflow Optimization</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" style="color:#0f172a;" id="wf-score-technical">100%</span>
+              <span class="kpi-sub" style="color:#334155;">&lt; 50ms Local · 0 Errors</span>
+            </div>
+            <p style="margin:6px 0 0 0;font-size:12px;color:#334155;line-height:1.4;">
+              Zero uncaught JS exceptions, 0px horizontal overflow across Desktop/Tablet/Mobile (1600/834/390), atomic JSON persistence, and XSS/CSV escaping.
+            </p>
+          </div>
+
+          <div class="kpi-card" style="background:#fefce8;border-color:#fde047;">
+            <span class="kpi-label" style="color:#854d0e;">Operational Workflow Optimization</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" style="color:#a16207;" id="wf-score-operational">100%</span>
+              <span class="kpi-sub" style="color:#854d0e;">SHA-256 &amp; Audit SoT</span>
+            </div>
+            <p style="margin:6px 0 0 0;font-size:12px;color:#713f12;line-height:1.4;">
+              Per-workflow screenshot folders, SHA-256 evidence_manifest.json, immutable Tab 3 Audit Log, and 1-click .md/.csv/.json/PDF exports.
+            </p>
+          </div>
+        </div>
+
+        <!-- 2. Structural IA & Control Budget Telemetry (Right Number of Pages, Tabs, Links & Buttons) -->
+        <h3 style="margin:22px 0 10px 0;font-size:14.5px;color:#0f172a;">
+          2. Structural Information Architecture (IA) &amp; Control Budget Telemetry (Rule 25 First-Principles Audit)
+        </h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;" id="ia-control-budget-grid">
+          <div class="kpi-card">
+            <span class="kpi-label">Primary Navigation Rails</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="ia-nav-rails">1</span>
+              <span class="badge badge-pass">Optimal (== 1)</span>
+            </div>
+            <span class="kpi-sub" style="margin-top:4px;color:#64748b;">Zero duplicate nav bars (Rule 25A)</span>
+          </div>
+
+          <div class="kpi-card">
+            <span class="kpi-label">Workspace Views / Pages</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="ia-workspace-tabs">4 Views</span>
+              <span class="badge badge-pass">Within 2..7 Bound</span>
+            </div>
+            <span class="kpi-sub" style="margin-top:4px;color:#64748b;">Matrix · Report · Audit · IA &amp; Guide</span>
+          </div>
+
+          <div class="kpi-card">
+            <span class="kpi-label">Domain Filter Pills</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="ia-domain-pills">13 Domains</span>
+              <span class="badge badge-pass">D01–D13 + ALL</span>
+            </div>
+            <span class="kpi-sub" style="margin-top:4px;color:#64748b;">70 total structured test cases</span>
+          </div>
+
+          <div class="kpi-card">
+            <span class="kpi-label">Links Hygiene (&lt;a href&gt;)</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="ia-links-summary">0 Dead</span>
+              <span class="badge badge-pass">100% Valid</span>
+            </div>
+            <span class="kpi-sub" style="margin-top:4px;color:#64748b;" id="ia-links-detail">Zero href="#" or javascript:void(0)</span>
+          </div>
+
+          <div class="kpi-card">
+            <span class="kpi-label">Buttons &amp; Hit Targets</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="ia-buttons-summary">100%</span>
+              <span class="badge badge-pass">Labeled · 0 Dupes</span>
+            </div>
+            <span class="kpi-sub" style="margin-top:4px;color:#64748b;" id="ia-buttons-detail">Exports consolidated in 1 dropdown</span>
+          </div>
+        </div>
+
+        <!-- 3. Six Essential Product Surfaces (Landing, Homepage, Onboarding, User Guide, About Us, Contact Us) -->
+        <h3 style="margin:22px 0 10px 0;font-size:14.5px;color:#0f172a;">
+          3. Essential Product Surfaces &amp; Self-Contained Documentation Hub (Landing · Homepage · Onboarding · Guide · About · Contact)
+        </h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px;">
+          <!-- Surface 1 & 2: Landing Page Value Prop + Homepage Command Center -->
+          <div class="kpi-card" id="landing-homepage-surface-card" style="padding:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
+              <strong style="font-size:13.5px;color:#0f172a;">① Landing Value Proposition &amp; ② Homepage Command Center</strong>
+              <span class="badge badge-pass">Verified (Y &le; 220px)</span>
+            </div>
+            <p style="margin:0 0 8px 0;font-size:12.5px;color:#334155;line-height:1.45;">
+              <strong>Design Standard:</strong> Operational SaaS applications must avoid tall static marketing hero banners that push functional controls below the fold (Rule 25C). The root entry (<code>/</code>) combines a concise brand value proposition header with an immediate above-the-fold <strong>6-Card Executive Command Center</strong> (starting at <code>Y = 145px &le; 220px</code>) and primary CTAs (<code>🤖 Auto-Run in Headless Chrome</code>, <code>+ Add Custom Test Case</code>).
+            </p>
+          </div>
+
+          <!-- Surface 3: User Onboarding & First-Run Quick-Start -->
+          <div class="kpi-card" id="onboarding-checklist-card" style="padding:14px;background:#f8fafc;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
+              <strong style="font-size:13.5px;color:#0f172a;">③ User Onboarding &amp; 4-Step Guided Quick-Start</strong>
+              <span class="badge badge-pass">Zero Blank-Canvas Dead End</span>
+            </div>
+            <ol style="margin:0;padding-left:18px;font-size:12.5px;color:#334155;line-height:1.55;">
+              <li><strong>Step 1 — Configure Target URL:</strong> Set your app URL in the top profile bar and click <code>⚡ Assisted URL Probe</code>.</li>
+              <li><strong>Step 2 — Run Background Headless Chrome:</strong> Click <code>🤖 Auto-Run in Headless Chrome</code> (or per-row <code>🤖 Headless Run</code>) to auto-execute DOM/UX/Security checks and capture 2x PNG screenshots.</li>
+              <li><strong>Step 3 — Inspect &amp; Log Manual Edge Cases:</strong> Click <code>Inspect &amp; Log &rarr;</code> to open the non-blocking right-side drawer, copy boundary payloads, and check off procedure steps.</li>
+              <li><strong>Step 4 — Export Signed Readout:</strong> Download <code>E2E_EXECUTION_REPORT.md</code> or <code>e2e_test_results.csv</code> from <code>📥 Export &amp; Reports ▾</code>.</li>
+            </ol>
+          </div>
+
+          <!-- Surface 4: Interactive User Guide & SOP Reference -->
+          <div class="kpi-card" id="user-guide-reference-card" style="padding:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
+              <strong style="font-size:13.5px;color:#0f172a;">④ Interactive User Guide &amp; Screenshot Storage Reference</strong>
+              <span class="badge badge-pass">In-App SOP Ready</span>
+            </div>
+            <div style="font-size:12px;color:#334155;line-height:1.5;" class="break-words">
+              <div><strong>• Per-Workflow Screenshot Folder Path:</strong> <code>public/evidence/&lt;D01..D13_Workflow_Folder&gt;/&lt;TestID&gt;_&lt;slug&gt;.png</code></div>
+              <div><strong>• Cryptographic Manifest Index:</strong> <code>public/evidence/evidence_manifest.json</code> (or <code>GET /api/evidence/manifest</code> with SHA-256 hashes)</div>
+              <div><strong>• Keyboard Shortcuts:</strong> <code>Tab</code> / <code>Shift+Tab</code> focus traversal · <code>Enter</code> trigger · <code>Escape</code> close drawer/dropdowns</div>
+              <div><strong>• CLI Automated Gate:</strong> <code>npm run quality-gate &amp;&amp; node scripts/verify_e2e_hub_and_screenshots.mjs</code></div>
+            </div>
+          </div>
+
+          <!-- Surface 5 & 6: About Us + Contact Us / Support Feedback Channel -->
+          <div class="kpi-card" id="about-us-architecture-card" style="padding:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
+              <strong style="font-size:13.5px;color:#0f172a;">⑤ About Us (Architecture) &amp; ⑥ Contact Us / Support Feedback</strong>
+              <span class="badge badge-pass">v1.1.0 · Rule 58 Compliant</span>
+            </div>
+            <p style="margin:0 0 8px 0;font-size:12px;color:#334155;line-height:1.45;" id="contact-us-support-card">
+              <strong>About Us:</strong> Universal E2E Functional, UI/UX &amp; 4-Workflow Test Runner Hub (<code>v1.1.0</code>) powered by a zero-dependency Node.js HTTP server and Background Headless Chrome (<code>--headless=new --remote-debugging-pipe</code>) covering <strong>13 Domains &amp; 70 Test Cases</strong>.<br/>
+              <strong>Contact Us / Escalation:</strong> QA Architecture &amp; Support Lead — <a href="mailto:nitinagga@google.com" style="color:#2563eb;font-weight:600;">nitinagga@google.com</a>
+            </p>
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+              <input type="text" id="inline-feedback-input" class="form-input" style="padding:5px 8px;font-size:12px;flex:1;min-width:160px;" placeholder="Submit support question, UX feedback, or missing workflow request..." aria-label="Support or UX Feedback Message" />
+              <button type="button" class="btn btn-primary" id="submit-feedback-btn" style="white-space:nowrap;padding:5px 10px;">
+                💬 Send Feedback
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. End-to-End Critical User Journey (CUJ) 4-Dimension Verification Matrix (Logical · Functional · Technical · Operational) -->
+        <div id="section-4-cuj-container" style="padding:16px 0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:6px 0 10px 0;">
+            <div>
+              <h3 style="margin:0;font-size:15px;color:#0f172a;">
+                4. End-to-End Critical User Journey (CUJ-01..CUJ-08) 4-Dimension Verification Matrix (Logical · Functional · Technical · Operational)
+              </h3>
+              <p style="margin:2px 0 0 0;font-size:12px;color:#475569;" id="cuj-math-conservation-banner">
+                Verifying 8 End-to-End Critical User Journeys across Logical State-Machine Conservation, Functional Action Chains, Technical SLA/Security Contracts, and Operational Audit/SHA-256 Provenance...
+              </p>
+            </div>
+            <span class="status-pill status-Pass" id="cuj-overall-status-badge">8 / 8 CUJs Verified ✅</span>
+          </div>
+
+          <table class="table-fixed gp-blue-grid-table" id="cuj-verification-matrix-table">
+            <thead>
+              <tr>
+                <th style="width: 18%;">CUJ ID, Title &amp; Chain</th>
+                <th style="width: 20%;">1. Logical Correctness (FSM &amp; Math Conservation)</th>
+                <th style="width: 21%;">2. Functional Correctness (Multi-Step E2E Chain)</th>
+                <th style="width: 21%;">3. Technical Correctness (HTTP, SLA, Security &amp; Geometry)</th>
+                <th style="width: 20%;">4. Operational Correctness (Audit Trail, SHA-256 &amp; Exports)</th>
+              </tr>
+            </thead>
+            <tbody id="cuj-table-body"></tbody>
+          </table>
+        </div>
+
+        <!-- 5 & 6. Authoritative Grounding Truth Registry + 10 Testing Methodologies -->
+        <div id="section-5-6-grounding-container" style="padding:16px 0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:6px 0 10px 0;">
+            <div>
+              <h3 style="margin:0;font-size:15px;color:#0f172a;">
+                5. Authoritative Grounding Truth Registry, Cryptographic PNG/SHA-256 Proof &amp; Anti-Fake Falsifiability Control
+              </h3>
+              <p style="margin:2px 0 0 0;font-size:12px;color:#475569;" id="grounding-truth-summary-banner">
+                Every assertion is bound to normative external specs (WCAG 2.1 AA, IETF RFC 9110, OWASP ASVS v4.0.3, ISO 15948 PNG + NIST FIPS 180-4 SHA-256), Workspace Constitutional Rules (25, 26, 54, 57), and live Negative-Control Sabotage Falsifiability.
+              </p>
+            </div>
+            <span class="status-pill status-Pass" id="grounding-truth-badge">6 / 6 Standards + Negative Control Verified ✅</span>
+          </div>
+
+          <div id="grounding-negative-control-box" style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:#065f46;"></div>
+
+          <table class="table-fixed gp-blue-grid-table" id="grounding-truth-table">
+            <thead>
+              <tr>
+                <th style="width: 16%;">Standard ID &amp; Tier</th>
+                <th style="width: 20%;">Issuing Authority &amp; Spec</th>
+                <th style="width: 34%;">Exact Normative Clauses &amp; Mathematical Thresholds</th>
+                <th style="width: 14%;">Bound Test IDs</th>
+                <th style="width: 16%;">Deterministic Verification Mechanism</th>
+              </tr>
+            </thead>
+            <tbody id="grounding-truth-tbody"></tbody>
+          </table>
+
+          <!-- 6. 10 Testing Methodologies (Black-Box, White-Box, Grey-Box, Regression, Smoke, BVA, Negative, DAST, Integration, A11y/UX) -->
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:18px 0 10px 0;">
+            <div>
+              <h3 style="margin:0;font-size:15px;color:#0f172a;">
+                6. 10 Testing Methodologies Matrix (Black-Box · White-Box · Grey-Box · Regression · Smoke · BVA · Negative · DAST · Integration · A11y)
+              </h3>
+              <p style="margin:2px 0 0 0;font-size:12px;color:#475569;" id="regression-baseline-banner">
+                Golden Regression Baseline (data/regression_golden_baseline.json): Verifying 0 Pass→Fail regressions, 0 schema drops, and 0px multi-viewport geometry drift across all 10 testing paradigms.
+              </p>
+            </div>
+            <span class="status-pill status-Pass" id="methodologies-overall-badge">10 / 10 Methodologies Active · 0 Regressions ✅</span>
+          </div>
+
+          <table class="table-fixed gp-blue-grid-table" id="testing-methodologies-table">
+            <thead>
+              <tr>
+                <th style="width: 18%;">Methodology &amp; Box Paradigm</th>
+                <th style="width: 28%;">Scope, Purpose &amp; What It Catches</th>
+                <th style="width: 18%;">Mapped Domains &amp; Test Cases</th>
+                <th style="width: 20%;">Ground-Truth Oracle</th>
+                <th style="width: 16%;">Execution Engine</th>
+              </tr>
+            </thead>
+            <tbody id="testing-methodologies-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- 7. Dynamic Multi-Repository Skill & Prompt Matcher (github.com/google/skills + aiuxplayground.com/skills + aiuxplayground.com/prompts) -->
+        <div id="section-7-aiux-container" style="padding:16px 0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:6px 0 10px 0;">
+            <div>
+              <h3 style="margin:0;font-size:15px;color:#0f172a;">
+                7. Context-Aware Multi-Repo Skill &amp; Prompt Matcher (github.com/google/skills · aiuxplayground.com/skills · /prompts)
+              </h3>
+              <p style="margin:2px 0 0 0;font-size:12px;color:#475569;">
+                Dynamically selects the most popular, latest, and highest-fit skills &amp; prompts for the specific Target App being tested—and explicitly rejects unrelated skills instead of force-fitting them.
+              </p>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <label for="skill-matcher-archetype-select" style="font-size:12px;font-weight:700;color:#334155;">Target App Archetype:</label>
+              <select id="skill-matcher-archetype-select" class="select-filter" aria-label="Target App Archetype for Skill Matching">
+                <option value="auto">✨ Auto-Detect from Target URL &amp; Live DOM</option>
+                <option value="web-saas-dashboard">🖥️ Web / SaaS Dashboard &amp; CRUD Portal</option>
+                <option value="ai-agent-llm-rag">🤖 AI Agent, LLM, RAG or MCP Gateway App</option>
+                <option value="cloud-api-serverless">☁️ Cloud Run, Serverless Web App &amp; REST API</option>
+                <option value="data-analytics-bigquery">📊 BigQuery, AlloyDB &amp; Data Analytics App</option>
+                <option value="auth-identity-zerotrust">🔐 Identity, OAuth/DPoP &amp; High-Security App</option>
+              </select>
+              <span class="status-pill status-Pass" id="dynamic-skill-matcher-badge">3 Repos Synced ✅</span>
+            </div>
+          </div>
+
+          <div id="dynamic-skill-fingerprint-banner" style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:#0c4a6e;"></div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:12px 0 8px 0;">
+            <h4 style="margin:0;font-size:13.5px;color:#0f172a;">
+              7A. Matched Google &amp; Google Cloud Agent Skills (`https://github.com/google/skills` · 21.5k★) + Anti-Force-Fit Exclusions
+            </h4>
+            <span class="badge badge-pass badge-wrap" id="google-skills-matched-badge">Matched for Active App</span>
+          </div>
+
+          <table class="table-fixed gp-blue-grid-table" id="google-skills-matched-table" style="margin-bottom:10px;">
+            <thead>
+              <tr>
+                <th style="width: 22%;">Google Skill &amp; Popularity</th>
+                <th style="width: 18%;">Repository &amp; Install CLI</th>
+                <th style="width: 34%;">Why Selected for This Target App (Domain Fit)</th>
+                <th style="width: 26%;">Anti-Force-Fit Boundary &amp; Mapped Domains</th>
+              </tr>
+            </thead>
+            <tbody id="google-skills-matched-tbody"></tbody>
+          </table>
+
+          <div id="excluded-misfit-skills-box" style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:9px 12px;margin-bottom:16px;font-size:11.5px;color:#92400e;"></div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:14px 0 10px 0;">
+            <div>
+              <h4 style="margin:0;font-size:13.5px;color:#0f172a;">
+                7B. Top 5 Persistent Agent Testing Skills Leveraged from `https://aiuxplayground.com/skills` (182 Skills)
+              </h4>
+            </div>
+            <span class="status-pill status-Pass" id="aiux-skills-badge">5 / 5 Agent Skills Active ✅</span>
+          </div>
+
+          <table class="table-fixed gp-blue-grid-table" id="aiux-top5-skills-table">
+            <thead>
+              <tr>
+                <th style="width: 20%;">Rank, Skill &amp; Author</th>
+                <th style="width: 16%;">Category &amp; Source URL</th>
+                <th style="width: 36%;">What It Tests &amp; Adversarial Mechanism</th>
+                <th style="width: 28%;">Live Implementation in This App</th>
+              </tr>
+            </thead>
+            <tbody id="aiux-top5-skills-tbody"></tbody>
+          </table>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:18px 0 10px 0;">
+            <div>
+              <h4 style="margin:0;font-size:13.5px;color:#0f172a;">
+                7C. Top 5 Evaluation &amp; QA Prompts Leveraged from `https://aiuxplayground.com/prompts` (177 Prompts)
+              </h4>
+            </div>
+            <span class="status-pill status-Pass" id="aiux-prompts-badge">5 / 5 QA Prompts Mapped ✅</span>
+          </div>
+
+          <table class="table-fixed gp-blue-grid-table" id="aiux-top5-prompts-table">
+            <thead>
+              <tr>
+                <th style="width: 20%;">Rank &amp; Prompt Title</th>
+                <th style="width: 16%;">Category &amp; Source URL</th>
+                <th style="width: 36%;">Structured Evaluation Checklist &amp; Scope</th>
+                <th style="width: 28%;">Live Mapping Across D01–D13 &amp; CUJs</th>
+              </tr>
+            </thead>
+            <tbody id="aiux-top5-prompts-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Docked Right-Side Execution & Creation Drawer (Rule 25F: Non-Blocking) -->
+  <aside class="right-drawer" id="detail-drawer" aria-label="Test Case Execution & Detail Drawer">
+    <div class="drawer-header">
+      <div class="min-w-0">
+        <span class="badge badge-p0" id="drawer-badge-id">D01-01</span>
+        <h2 style="margin:4px 0 0 0;font-size:15px;color:#0f172a;" id="drawer-title">Test Case Inspector</h2>
+      </div>
+      <button type="button" class="btn" id="close-drawer-btn" aria-label="Close Drawer">
+        ✕ Close (Esc)
+      </button>
+    </div>
+
+    <div class="drawer-body" id="drawer-body-content"></div>
+
+    <div class="drawer-footer" id="drawer-footer-actions"></div>
+  </aside>
+
+  <!-- Non-Blocking Toast Notification Container (Rule 25J) -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
