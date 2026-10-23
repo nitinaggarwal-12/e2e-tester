@@ -33,5 +33,8 @@ node scripts/verify_e2e_hub_and_screenshots.mjs
 | [`public/app.js`](file:///Users/nitinagga/Documents/e2e-tester/public/app.js) | Real-time multi-faceted filtering, URL query-state sync (`?tab=`, `?domain=`, `?status=`, `?q=`), interactive step-by-step drawer checklist, and 1-click payload copy. |
 | [`E2E_MASTER_TEST_PLAN.md`](file:///Users/nitinagga/Documents/e2e-tester/E2E_MASTER_TEST_PLAN.md) | Standalone Markdown Master Test Plan with all 12 domains, preconditions, payloads, procedural steps, and pass/fail checkboxes. |
 | [`e2e_test_cases.csv`](file:///Users/nitinagga/Documents/e2e-tester/e2e_test_cases.csv) | RFC-4180 CSV spreadsheet matrix (with formula-injection protection) ready for Google Sheets or Excel import. |
-| [`data/e2e_test_cases.json`](file:///Users/nitinagga/Documents/e2e-tester/data/e2e_test_cases.json) | Canonical 12-Domain JSON seed catalog. |
+| [`data/e2e_test_cases.json`](file:///Users/nitinagga/Documents/e2e-tester/data/e2e_test_cases.json) | Canonical 13-Domain (70-test) JSON seed catalog. |
 | [`data/e2e_execution_state.json`](file:///Users/nitinagga/Documents/e2e-tester/data/e2e_execution_state.json) | Live persisted execution state, defect IDs, notes, and immutable chronological audit trail. |
+| [`data/zyvoriq_e2e_report.json`](file:///Users/nitinagga/Documents/e2e-tester/data/zyvoriq_e2e_report.json) | Saved Target App End-to-End & Multi-Prompt Content Generation Report for **Zyvoriq (`v3.5.0-omni-swarm`)** covering **6 Content Modalities across 8 Unique Prompts**, **12/12 E2E Journeys**, and **10 `2x` Retina Before/After Screenshots** (`public/evidence/zyvoriq/*.png`). |
+| [`scripts/capture_zyvoriq_e2e_screenshots.mjs`](file:///Users/nitinagga/Documents/e2e-tester/scripts/capture_zyvoriq_e2e_screenshots.mjs) | Automated multi-prompt content generator & Headless Chrome `2x` Retina screenshot harvester for Zyvoriq (`/swarm-MUI`, `/personas`, `/admin/feedback`). |
+

@@ -297,10 +297,10 @@ async function runAudit() {
       return { rcaRows, journeyRows, zyvGalleryImgs, totalGalleryImgs };
     })()`);
     if (
-      zyvUiCheck.rcaRows !== 2 ||
-      zyvUiCheck.journeyRows !== 10 ||
-      zyvUiCheck.zyvGalleryImgs !== 6 ||
-      zyvUiCheck.totalGalleryImgs !== 14
+      zyvUiCheck.rcaRows < 5 ||
+      zyvUiCheck.journeyRows < 20 ||
+      zyvUiCheck.zyvGalleryImgs !== 10 ||
+      zyvUiCheck.totalGalleryImgs !== 18
     ) {
       throw new Error(`Zyvoriq saved report section check failed on UI: ${JSON.stringify(zyvUiCheck)}`);
     }

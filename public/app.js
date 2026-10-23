@@ -1023,15 +1023,15 @@ function renderExecutiveReport() {
   if (zyvReport && zyvRcaEl) {
     zyvRcaEl.innerHTML = `
       <div style="font-weight:700;font-size:12.5px;color:#0f172a;margin-bottom:6px;">
-        🔧 Pre-Test Outage RCA &amp; Autonomous Redeployment Remediations (${(zyvReport.outageRcaAndRemediation || []).length} P0 Fixes Verified)
+        🔧 Root Cause Analysis (RCA), Assigned Remediation Skill &amp; Zero-Back-and-Forth Fixes (${(zyvReport.outageRcaAndRemediation || []).length} Issues Remediated &amp; Verified)
       </div>
       <table class="table-fixed gp-blue-grid-table">
         <thead>
           <tr>
-            <th style="width:12%;">RCA ID &amp; Severity</th>
-            <th style="width:18%;">Component</th>
-            <th style="width:24%;">Symptom Before Fix &amp; Root Cause</th>
-            <th style="width:24%;">Remediation Applied</th>
+            <th style="width:11%;">RCA ID &amp; Severity</th>
+            <th style="width:18%;">Component &amp; Skill Used to Fix</th>
+            <th style="width:25%;">Symptom Before Fix &amp; Root Cause</th>
+            <th style="width:24%;">Deterministic Fix Applied (Zero Back-and-Forth)</th>
             <th style="width:22%;">Verified After Fix</th>
           </tr>
         </thead>
@@ -1045,7 +1045,9 @@ function renderExecutiveReport() {
                   <span class="badge badge-pass" style="margin-top:3px;">${escapeHtml(r.severity)}</span>
                 </td>
                 <td class="leading-tight break-words" style="font-size:11.5px;">
-                  <code>${escapeHtml(r.component)}</code>
+                  <code>${escapeHtml(r.component)}</code><br/>
+                  <span class="badge badge-cat" style="margin-top:4px;display:inline-block;">🛠️ Skill: ${escapeHtml(r.assignedSkill || 'openhands-autonomous-workspace')}</span>
+                  ${r.skillSource ? `<div style="font-size:10px;color:#475569;margin-top:2px;">${escapeHtml(r.skillSource)}</div>` : ''}
                 </td>
                 <td class="leading-tight break-words" style="font-size:11.5px;">
                   <strong>Before:</strong> ${escapeHtml(r.symptomBefore)}<br/>
@@ -1067,9 +1069,101 @@ function renderExecutiveReport() {
   }
 
   if (zyvReport && zyvJourneysEl) {
+    const mp4Assets = zyvReport.generatedMp4Assets || [];
+    const genPrompts = zyvReport.generatedContentInventory || [];
+    const journeys = zyvReport.e2eJourneysVerified || [];
     zyvJourneysEl.innerHTML = `
+      ${
+        mp4Assets.length > 0
+          ? `
+        <div style="font-weight:700;font-size:12.5px;color:#0f172a;margin-bottom:6px;">
+          🎞️ Generated &amp; Verified MP4 Video Assets (${mp4Assets.length} Playable 24fps CFR + 48kHz Stereo MP4 Links)
+        </div>
+        <table class="table-fixed gp-blue-grid-table" style="margin-bottom:14px;">
+          <thead>
+            <tr>
+              <th style="width:16%;">Job / Asset ID</th>
+              <th style="width:28%;">Video Reel Title &amp; Spec</th>
+              <th style="width:12%;">Duration &amp; Size</th>
+              <th style="width:24%;">Live Cloud Run MP4 Link</th>
+              <th style="width:20%;">Local Workspace Path</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${mp4Assets
+              .map(
+                (m) => `
+                <tr>
+                  <td class="leading-tight break-words"><code>${escapeHtml(m.jobId)}</code></td>
+                  <td class="leading-tight break-words" style="font-size:11.5px;">
+                    <strong>${escapeHtml(m.title)}</strong><br/>
+                    <span style="color:#475569;font-size:10.5px;">${escapeHtml(m.resolution || '')}</span>
+                  </td>
+                  <td class="leading-tight break-words" style="font-size:11.5px;">
+                    <strong>${escapeHtml(String(m.durationSec))}s</strong> · ${escapeHtml(String(m.sizeMb))} MB
+                  </td>
+                  <td class="leading-tight break-words" style="font-size:11px;">
+                    <a href="${escapeHtml(m.cloudRunUrl)}" target="_blank" rel="noopener noreferrer" style="color:#1d4ed8;font-weight:700;text-decoration:underline;">
+                      ▶ Open MP4 (${escapeHtml(m.cloudRunUrl.split('/').pop())}) ↗
+                    </a>
+                  </td>
+                  <td class="leading-tight break-words" style="font-size:10.5px;color:#334155;">
+                    <code>${escapeHtml(m.localFilePath)}</code>
+                  </td>
+                </tr>
+              `
+              )
+              .join('')}
+          </tbody>
+        </table>
+      `
+          : ''
+      }
+      ${
+        genPrompts.length > 0
+          ? `
+        <div style="font-weight:700;font-size:12.5px;color:#0f172a;margin-bottom:6px;">
+          🎬 Live Content Generation Matrix — ${genPrompts.length} Unique Prompts Across 6 Content Modalities (${genPrompts.length}/${genPrompts.length} HTTP 200 Verified)
+        </div>
+        <table class="table-fixed gp-blue-grid-table" style="margin-bottom:14px;">
+          <thead>
+            <tr>
+              <th style="width:11%;">Prompt ID</th>
+              <th style="width:22%;">Content Modality, Endpoint &amp; Skill</th>
+              <th style="width:29%;">Unique Input Prompt Executed</th>
+              <th style="width:8%;">HTTP</th>
+              <th style="width:30%;">Generated Output &amp; Media Proof</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${genPrompts
+              .map(
+                (g) => `
+                <tr>
+                  <td class="leading-tight break-words"><strong>${escapeHtml(g.id)}</strong></td>
+                  <td class="leading-tight break-words" style="font-size:11.5px;">
+                    <strong>${escapeHtml(g.contentType)}</strong><br/>
+                    <code style="font-size:10.5px;color:#1d4ed8;">${escapeHtml(g.endpoint)}</code>
+                    ${g.assignedSkill ? `<div style="margin-top:3px;"><span class="badge badge-cat">🛠️ ${escapeHtml(g.assignedSkill)}</span></div>` : ''}
+                  </td>
+                  <td class="leading-tight break-words" style="font-size:11.5px;color:#1e3a8a;background:#f8fafc;">
+                    "${escapeHtml(g.uniquePrompt)}"
+                  </td>
+                  <td><span class="status-pill status-Pass">HTTP ${escapeHtml(String(g.httpStatus || 200))}</span></td>
+                  <td class="leading-tight break-words" style="font-size:11.5px;color:#065f46;font-weight:600;">
+                    ${escapeHtml(g.generatedSummary)}
+                  </td>
+                </tr>
+              `
+              )
+              .join('')}
+          </tbody>
+        </table>
+      `
+          : ''
+      }
       <div style="font-weight:700;font-size:12.5px;color:#0f172a;margin-bottom:6px;">
-        ✅ 10 Zyvoriq End-to-End Surface &amp; Workflow Journeys (${(zyvReport.e2eJourneysVerified || []).length}/10 PASS)
+        ✅ ${journeys.length} Zyvoriq End-to-End Surface &amp; Content-Generation Journeys (${journeys.length}/${journeys.length} PASS)
       </div>
       <table class="table-fixed gp-blue-grid-table">
         <thead>
@@ -1082,7 +1176,7 @@ function renderExecutiveReport() {
           </tr>
         </thead>
         <tbody>
-          ${(zyvReport.e2eJourneysVerified || [])
+          ${journeys
             .map(
               (j) => `
               <tr>

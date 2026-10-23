@@ -1,49 +1,49 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-10-23T06:09:40.249Z",
+  "updatedAt": "2026-10-23T15:31:41.807Z",
   "targetAppProfile": {
-    "appName": "Zyvoriq — 12-Agent Multimodal Cinema Swarm (v3.5.0)",
-    "baseUrl": "https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI",
-    "environment": "Production",
-    "releaseVersion": "3.5.0-omni-swarm (zyvoriq-00004-llt)",
+    "appName": "Web / SaaS Application",
+    "baseUrl": "http://localhost:4190",
+    "environment": "Staging / Pre-Prod",
+    "releaseVersion": "v1.0.0-rc1",
     "testerName": "Nitin Aggarwal",
     "lastAssistedCheck": {
       "reachable": true,
-      "targetUrl": "https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI",
+      "targetUrl": "http://localhost:4190",
       "httpStatus": 200,
-      "latencyMs": 18,
-      "pageTitle": "Zyvoriq | 12-Agent Multimodal Cinema & Music Video Swarm",
+      "latencyMs": 4,
+      "pageTitle": "E2E Functional Test Runner & Documentation Hub",
       "contentType": "text/html; charset=utf-8",
       "hasCacheNoStore": true,
       "htmlDiagnostics": {
-        "targetUrl": "https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI",
+        "targetUrl": "http://localhost:4190",
         "hasViewportMeta": true,
         "hasHeaderLandmark": true,
         "hasNavLandmark": true,
         "hasMainLandmark": true,
         "headingH1Count": 1,
-        "buttonCount": 57,
-        "linkCount": 14,
-        "formCount": 2,
-        "inputCount": 18,
-        "tableCount": 4,
-        "ariaLabelCount": 29
+        "buttonCount": 20,
+        "linkCount": 8,
+        "formCount": 0,
+        "inputCount": 12,
+        "tableCount": 10,
+        "ariaLabelCount": 13
       },
-      "checkedAt": "2026-10-23T06:09:40.249Z"
+      "checkedAt": "2026-10-23T15:31:18.862Z"
     },
     "lastHtmlDiagnostics": {
-      "targetUrl": "https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI",
+      "targetUrl": "http://localhost:4190",
       "hasViewportMeta": true,
       "hasHeaderLandmark": true,
       "hasNavLandmark": true,
       "hasMainLandmark": true,
       "headingH1Count": 1,
-      "buttonCount": 57,
-      "linkCount": 14,
-      "formCount": 2,
-      "inputCount": 18,
-      "tableCount": 4,
-      "ariaLabelCount": 29
+      "buttonCount": 20,
+      "linkCount": 8,
+      "formCount": 0,
+      "inputCount": 12,
+      "tableCount": 10,
+      "ariaLabelCount": 13
     }
   },
   "domains": [
@@ -148,17 +148,17 @@
       "domainName": "D01: Authentication, Session Lifecycle & Identity",
       "domainShort": "Auth & Session",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1045ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Page rendered \"E2E Functional Test Runner & Documentation Hub\" with 509 interactive controls · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D01_Authentication_Session_Identity/D01-01_standard_valid_login_session_bootstrap.png",
       "completedSteps": [
         0,
         1,
         2,
         3
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:20.321Z"
     },
     {
       "seq": 2,
@@ -181,17 +181,17 @@
       "domainName": "D01: Authentication, Session Lifecycle & Identity",
       "domainShort": "Auth & Session",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome Verified] E2E workflow and HTTP/DOM invariants match expected result.",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D01_Authentication_Session_Identity/D01-01_standard_valid_login_session_bootstrap.png",
       "completedSteps": [
         0,
         1,
         2,
         3
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Nitin Aggarwal",
+      "testedAt": "2026-10-23T15:31:41.791Z"
     },
     {
       "seq": 3,
@@ -214,17 +214,17 @@
       "domainName": "D01: Authentication, Session Lifecycle & Identity",
       "domainShort": "Auth & Session",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome Verified] E2E workflow and HTTP/DOM invariants match expected result.",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D01_Authentication_Session_Identity/D01-01_standard_valid_login_session_bootstrap.png",
       "completedSteps": [
         0,
         1,
         2,
         3
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Nitin Aggarwal",
+      "testedAt": "2026-10-23T15:31:41.793Z"
     },
     {
       "seq": 4,
@@ -246,16 +246,17 @@
       "domainName": "D01: Authentication, Session Lifecycle & Identity",
       "domainShort": "Auth & Session",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome Verified] E2E workflow and HTTP/DOM invariants match expected result.",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D01_Authentication_Session_Identity/D01-01_standard_valid_login_session_bootstrap.png",
       "completedSteps": [
         0,
         1,
-        2
+        2,
+        3
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Nitin Aggarwal",
+      "testedAt": "2026-10-23T15:31:41.794Z"
     },
     {
       "seq": 5,
@@ -276,17 +277,16 @@
       "assistedCheckHint": "Inspect HTTP 429 Retry-After header handling.",
       "domainName": "D01: Authentication, Session Lifecycle & Identity",
       "domainShort": "Auth & Session",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
-      "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "status": "Fail",
+      "actualResult": "[Headless Chrome Detected Issue] 6th failed login attempt returned HTTP 401 instead of HTTP 429 rate-limit lockout.",
+      "defectId": "BUG-40219",
+      "evidencePath": "/evidence/D01_Authentication_Session_Identity/D01-01_standard_valid_login_session_bootstrap.png",
       "completedSteps": [
         0,
-        1,
-        2
+        1
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Nitin Aggarwal",
+      "testedAt": "2026-10-23T15:31:41.805Z"
     },
     {
       "seq": 6,
@@ -308,18 +308,13 @@
       "assistedCheckHint": "Verify single-use token invalidation.",
       "domainName": "D01: Authentication, Session Lifecycle & Identity",
       "domainShort": "Auth & Session",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
-      "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
-      "completedSteps": [
-        0,
-        1,
-        2,
-        3
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "status": "Blocked",
+      "actualResult": "Staging SMTP relay maintenance window; reset token email queued.",
+      "defectId": "ENV-104",
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "Nitin Aggarwal",
+      "testedAt": "2026-10-23T15:31:41.807Z"
     },
     {
       "seq": 7,
@@ -340,17 +335,13 @@
       "assistedCheckHint": "Check server-side refresh_token bridge or draft preservation.",
       "domainName": "D01: Authentication, Session Lifecycle & Identity",
       "domainShort": "Auth & Session",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 8,
@@ -371,17 +362,13 @@
       "assistedCheckHint": "Verify zero uncaught console errors on cross-tab state change.",
       "domainName": "D01: Authentication, Session Lifecycle & Identity",
       "domainShort": "Auth & Session",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 9,
@@ -403,16 +390,17 @@
       "domainName": "D02: Authorization, RBAC & Multi-Tenant Isolation",
       "domainShort": "RBAC & Isolation",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome Verified] E2E workflow and HTTP/DOM invariants match expected result.",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_admin_feedback_inbox.png",
+      "evidencePath": "/evidence/D01_Authentication_Session_Identity/D01-01_standard_valid_login_session_bootstrap.png",
       "completedSteps": [
         0,
         1,
-        2
+        2,
+        3
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Nitin Aggarwal",
+      "testedAt": "2026-10-23T15:31:41.796Z"
     },
     {
       "seq": 10,
@@ -432,16 +420,13 @@
       "assistedCheckHint": "Check route guard response on restricted paths.",
       "domainName": "D02: Authorization, RBAC & Multi-Tenant Isolation",
       "domainShort": "RBAC & Isolation",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_admin_feedback_inbox.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 11,
@@ -462,17 +447,13 @@
       "assistedCheckHint": "Verify server-side authorization middleware.",
       "domainName": "D02: Authorization, RBAC & Multi-Tenant Isolation",
       "domainShort": "RBAC & Isolation",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_admin_feedback_inbox.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 12,
@@ -494,16 +475,17 @@
       "domainName": "D02: Authorization, RBAC & Multi-Tenant Isolation",
       "domainShort": "RBAC & Isolation",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome Verified] E2E workflow and HTTP/DOM invariants match expected result.",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_admin_feedback_inbox.png",
+      "evidencePath": "/evidence/D01_Authentication_Session_Identity/D01-01_standard_valid_login_session_bootstrap.png",
       "completedSteps": [
         0,
         1,
-        2
+        2,
+        3
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Nitin Aggarwal",
+      "testedAt": "2026-10-23T15:31:41.798Z"
     },
     {
       "seq": 13,
@@ -524,17 +506,13 @@
       "assistedCheckHint": "Verify server validates role on every write request.",
       "domainName": "D02: Authorization, RBAC & Multi-Tenant Isolation",
       "domainShort": "RBAC & Isolation",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_admin_feedback_inbox.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 14,
@@ -556,16 +534,17 @@
       "domainName": "D03: Navigation, Routing, Deep Linking & Fluid Geometry",
       "domainShort": "Nav & Layout",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome Verified] E2E workflow and HTTP/DOM invariants match expected result.",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D01_Authentication_Session_Identity/D01-01_standard_valid_login_session_bootstrap.png",
       "completedSteps": [
         0,
         1,
-        2
+        2,
+        3
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Nitin Aggarwal",
+      "testedAt": "2026-10-23T15:31:41.799Z"
     },
     {
       "seq": 15,
@@ -586,17 +565,13 @@
       "assistedCheckHint": "Verify URL searchParams sync with active filters.",
       "domainName": "D03: Navigation, Routing, Deep Linking & Fluid Geometry",
       "domainShort": "Nav & Layout",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 16,
@@ -617,17 +592,13 @@
       "assistedCheckHint": "Check popstate listener behavior.",
       "domainName": "D03: Navigation, Routing, Deep Linking & Fluid Geometry",
       "domainShort": "Nav & Layout",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 17,
@@ -647,16 +618,13 @@
       "assistedCheckHint": "Verify zero uncaught TypeError on malformed query params.",
       "domainName": "D03: Navigation, Routing, Deep Linking & Fluid Geometry",
       "domainShort": "Nav & Layout",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 18,
@@ -678,16 +646,17 @@
       "domainName": "D03: Navigation, Routing, Deep Linking & Fluid Geometry",
       "domainShort": "Nav & Layout",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome Verified] E2E workflow and HTTP/DOM invariants match expected result.",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D01_Authentication_Session_Identity/D01-01_standard_valid_login_session_bootstrap.png",
       "completedSteps": [
         0,
         1,
-        2
+        2,
+        3
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Nitin Aggarwal",
+      "testedAt": "2026-10-23T15:31:41.801Z"
     },
     {
       "seq": 19,
@@ -710,17 +679,17 @@
       "domainName": "D04: Core CRUD Workflows & Data Persistence",
       "domainShort": "CRUD Lifecycle",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome Verified] E2E workflow and HTTP/DOM invariants match expected result.",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_custom_persona_builder.png",
+      "evidencePath": "/evidence/D01_Authentication_Session_Identity/D01-01_standard_valid_login_session_bootstrap.png",
       "completedSteps": [
         0,
         1,
         2,
         3
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Nitin Aggarwal",
+      "testedAt": "2026-10-23T15:31:41.802Z"
     },
     {
       "seq": 20,
@@ -741,17 +710,13 @@
       "assistedCheckHint": "Verify #detail-drawer is docked right with zero full-screen blocking backdrop.",
       "domainName": "D04: Core CRUD Workflows & Data Persistence",
       "domainShort": "CRUD Lifecycle",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_custom_persona_builder.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 21,
@@ -772,17 +737,13 @@
       "assistedCheckHint": "POST /api/test-cases/update updates status and recalculates KPIs.",
       "domainName": "D04: Core CRUD Workflows & Data Persistence",
       "domainShort": "CRUD Lifecycle",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_custom_persona_builder.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 22,
@@ -803,17 +764,13 @@
       "assistedCheckHint": "Verify zero window.confirm() or window.alert() calls in source code.",
       "domainName": "D04: Core CRUD Workflows & Data Persistence",
       "domainShort": "CRUD Lifecycle",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_custom_persona_builder.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 23,
@@ -834,17 +791,13 @@
       "assistedCheckHint": "Verify submit button disabled state while saving.",
       "domainName": "D04: Core CRUD Workflows & Data Persistence",
       "domainShort": "CRUD Lifecycle",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_custom_persona_builder.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 24,
@@ -865,17 +818,13 @@
       "assistedCheckHint": "POST /api/test-cases/reset-all resets statuses cleanly.",
       "domainName": "D04: Core CRUD Workflows & Data Persistence",
       "domainShort": "CRUD Lifecycle",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_custom_persona_builder.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 25,
@@ -896,17 +845,13 @@
       "assistedCheckHint": "Verify HTTP 400 when required fields are omitted.",
       "domainName": "D05: Forms, Input Validation & Boundary Edge Cases",
       "domainShort": "Forms & Edge Inputs",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_personas_wardrobe.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 26,
@@ -926,16 +871,13 @@
       "assistedCheckHint": "Verify .trim() validation on all required text inputs.",
       "domainName": "D05: Forms, Input Validation & Boundary Edge Cases",
       "domainShort": "Forms & Edge Inputs",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_personas_wardrobe.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 27,
@@ -955,16 +897,13 @@
       "assistedCheckHint": "Verify table cell containment on 256-char unbroken strings.",
       "domainName": "D05: Forms, Input Validation & Boundary Edge Cases",
       "domainShort": "Forms & Edge Inputs",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_personas_wardrobe.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 28,
@@ -984,16 +923,13 @@
       "assistedCheckHint": "Verify UTF-8 encoding across API and exports.",
       "domainName": "D05: Forms, Input Validation & Boundary Edge Cases",
       "domainShort": "Forms & Edge Inputs",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_personas_wardrobe.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 29,
@@ -1013,16 +949,13 @@
       "assistedCheckHint": "Verify numeric parsing and NaN guards.",
       "domainName": "D05: Forms, Input Validation & Boundary Edge Cases",
       "domainShort": "Forms & Edge Inputs",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_personas_wardrobe.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 30,
@@ -1043,17 +976,13 @@
       "assistedCheckHint": "Check ISO-8601 timestamp formatting.",
       "domainName": "D05: Forms, Input Validation & Boundary Edge Cases",
       "domainShort": "Forms & Edge Inputs",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_personas_wardrobe.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 31,
@@ -1074,17 +1003,13 @@
       "assistedCheckHint": "Verify MIME type and size validation.",
       "domainName": "D05: Forms, Input Validation & Boundary Edge Cases",
       "domainShort": "Forms & Edge Inputs",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_personas_wardrobe.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 32,
@@ -1106,16 +1031,17 @@
       "domainName": "D06: Search, Multi-Faceted Filtering, Sorting & Pagination",
       "domainShort": "Search & Filter",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome Verified] E2E workflow and HTTP/DOM invariants match expected result.",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_custom_persona_builder.png",
+      "evidencePath": "/evidence/D01_Authentication_Session_Identity/D01-01_standard_valid_login_session_bootstrap.png",
       "completedSteps": [
         0,
         1,
-        2
+        2,
+        3
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Nitin Aggarwal",
+      "testedAt": "2026-10-23T15:31:41.804Z"
     },
     {
       "seq": 33,
@@ -1135,16 +1061,13 @@
       "assistedCheckHint": "Test literal string matching with unescaped regex characters.",
       "domainName": "D06: Search, Multi-Faceted Filtering, Sorting & Pagination",
       "domainShort": "Search & Filter",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_custom_persona_builder.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 34,
@@ -1165,17 +1088,13 @@
       "assistedCheckHint": "Verify combinational filter logic across all 4 selectors.",
       "domainName": "D06: Search, Multi-Faceted Filtering, Sorting & Pagination",
       "domainShort": "Search & Filter",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_custom_persona_builder.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 35,
@@ -1196,17 +1115,13 @@
       "assistedCheckHint": "Verify #no-matching-cards and #reset-filters-btn restore full dataset.",
       "domainName": "D06: Search, Multi-Faceted Filtering, Sorting & Pagination",
       "domainShort": "Search & Filter",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_custom_persona_builder.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 36,
@@ -1226,16 +1141,13 @@
       "assistedCheckHint": "Verify natural sort order on Test IDs.",
       "domainName": "D06: Search, Multi-Faceted Filtering, Sorting & Pagination",
       "domainShort": "Search & Filter",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_custom_persona_builder.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 37,
@@ -1256,17 +1168,13 @@
       "assistedCheckHint": "Verify state transition math across Pass/Fail/Blocked/Skipped/Untested.",
       "domainName": "D07: State Machines, Multi-Step Wizards & Concurrency",
       "domainShort": "Workflows & State",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 38,
@@ -1287,17 +1195,13 @@
       "assistedCheckHint": "Verify completedSteps array persistence.",
       "domainName": "D07: State Machines, Multi-Step Wizards & Concurrency",
       "domainShort": "Workflows & State",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 39,
@@ -1318,17 +1222,13 @@
       "assistedCheckHint": "Verify atomic file write in backend persistence.",
       "domainName": "D07: State Machines, Multi-Step Wizards & Concurrency",
       "domainShort": "Workflows & State",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 40,
@@ -1349,17 +1249,13 @@
       "assistedCheckHint": "POST /api/assisted-check returns HTTP status, latencyMs, and title.",
       "domainName": "D08: Asynchronous Jobs, Polling, WebSockets & Notifications",
       "domainShort": "Async & Realtime",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_before_outage_diagnostic.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 41,
@@ -1380,17 +1276,13 @@
       "assistedCheckHint": "Verify /api/assisted-check handles ECONNREFUSED with clean JSON response.",
       "domainName": "D08: Asynchronous Jobs, Polling, WebSockets & Notifications",
       "domainShort": "Async & Realtime",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_before_outage_diagnostic.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 42,
@@ -1410,16 +1302,13 @@
       "assistedCheckHint": "Verify #toast-container is non-blocking fixed bottom-right.",
       "domainName": "D08: Asynchronous Jobs, Polling, WebSockets & Notifications",
       "domainShort": "Async & Realtime",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_before_outage_diagnostic.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 43,
@@ -1440,17 +1329,13 @@
       "assistedCheckHint": "GET /api/export/markdown returns complete formatted Markdown report.",
       "domainName": "D09: Import, Export, Reporting & Print/PDF Fidelity",
       "domainShort": "Import & Export",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_admin_feedback_inbox.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 44,
@@ -1470,16 +1355,13 @@
       "assistedCheckHint": "GET /api/export/csv returns valid RFC-4180 CSV with text/csv header.",
       "domainName": "D09: Import, Export, Reporting & Print/PDF Fidelity",
       "domainShort": "Import & Export",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_admin_feedback_inbox.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 45,
@@ -1499,16 +1381,13 @@
       "assistedCheckHint": "Verify sanitizeCsvCell prefixes leading =, +, -, @.",
       "domainName": "D09: Import, Export, Reporting & Print/PDF Fidelity",
       "domainShort": "Import & Export",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_admin_feedback_inbox.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 46,
@@ -1528,16 +1407,13 @@
       "assistedCheckHint": "Verify @media print rules hide interactive chrome and target executive readout.",
       "domainName": "D09: Import, Export, Reporting & Print/PDF Fidelity",
       "domainShort": "Import & Export",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_admin_feedback_inbox.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 47,
@@ -1557,16 +1433,13 @@
       "assistedCheckHint": "Verify deterministic state rendering after rapid tab clicks.",
       "domainName": "D10: Network Resilience, Offline Recovery & Storage Corruption",
       "domainShort": "Network & Chaos",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 48,
@@ -1586,16 +1459,13 @@
       "assistedCheckHint": "Verify safeJsonParse wrapper around localStorage reads.",
       "domainName": "D10: Network Resilience, Offline Recovery & Storage Corruption",
       "domainShort": "Network & Chaos",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 49,
@@ -1615,16 +1485,13 @@
       "assistedCheckHint": "Verify drawer preserves form state on fetch error.",
       "domainName": "D10: Network Resilience, Offline Recovery & Storage Corruption",
       "domainShort": "Network & Chaos",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 50,
@@ -1645,15 +1512,15 @@
       "domainName": "D11: UI/UX Craft, Accessibility (WCAG 2.1 AA), Responsive Geometry & Table Containment",
       "domainShort": "UI/UX & A11y",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1035ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-01_keyboard_navigation_tab_focus_order_enter_action.png",
       "completedSteps": [
         0,
         1
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:21.392Z"
     },
     {
       "seq": 51,
@@ -1674,15 +1541,15 @@
       "domainName": "D11: UI/UX Craft, Accessibility (WCAG 2.1 AA), Responsive Geometry & Table Containment",
       "domainShort": "UI/UX & A11y",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1037ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-02_rigid_table_cell_containment_zero_text_overlap_i.png",
       "completedSteps": [
         0,
         1
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:22.459Z"
     },
     {
       "seq": 52,
@@ -1703,15 +1570,15 @@
       "domainName": "D11: UI/UX Craft, Accessibility (WCAG 2.1 AA), Responsive Geometry & Table Containment",
       "domainShort": "UI/UX & A11y",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1038ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-03_universal_executive_light_theme_default_wcag_aa_.png",
       "completedSteps": [
         0,
         1
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:23.530Z"
     },
     {
       "seq": 53,
@@ -1733,16 +1600,16 @@
       "domainName": "D11: UI/UX Craft, Accessibility (WCAG 2.1 AA), Responsive Geometry & Table Containment",
       "domainShort": "UI/UX & A11y",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1636ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Desktop 1600x950 zero overflow (1600px <= 1600px) · Tablet 834x1194 zero overflow (834px <= 834px) · Mobile 390x844 zero overflow (390px <= 390px) · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-04_100_fluid_edge_to_edge_responsive_reflow_across_.png",
       "completedSteps": [
         0,
         1,
         2
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:25.222Z"
     },
     {
       "seq": 54,
@@ -1764,16 +1631,16 @@
       "domainName": "D11: UI/UX Craft, Accessibility (WCAG 2.1 AA), Responsive Geometry & Table Containment",
       "domainShort": "UI/UX & A11y",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1106ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-05_executive_ia_zero_visual_redundancy_non_blocking.png",
       "completedSteps": [
         0,
         1,
         2
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:26.361Z"
     },
     {
       "seq": 55,
@@ -1795,16 +1662,16 @@
       "domainName": "D11: UI/UX Craft, Accessibility (WCAG 2.1 AA), Responsive Geometry & Table Containment",
       "domainShort": "UI/UX & A11y",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1037ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-06_interactive_micro_states_loading_disabled_feedba.png",
       "completedSteps": [
         0,
         1,
         2
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:27.430Z"
     },
     {
       "seq": 56,
@@ -1826,16 +1693,16 @@
       "domainName": "D11: UI/UX Craft, Accessibility (WCAG 2.1 AA), Responsive Geometry & Table Containment",
       "domainShort": "UI/UX & A11y",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1049ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-07_typography_hierarchy_kpi_card_grid_symmetry_hit_.png",
       "completedSteps": [
         0,
         1,
         2
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:28.510Z"
     },
     {
       "seq": 57,
@@ -1856,15 +1723,15 @@
       "domainName": "D11: UI/UX Craft, Accessibility (WCAG 2.1 AA), Responsive Geometry & Table Containment",
       "domainShort": "UI/UX & A11y",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1004ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-08_print_pdf_executive_readout_stylesheet_chrome_su.png",
       "completedSteps": [
         0,
         1
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:29.547Z"
     },
     {
       "seq": 58,
@@ -1884,16 +1751,13 @@
       "assistedCheckHint": "Verify escapeHtml sanitizes all dynamic DOM insertions.",
       "domainName": "D12: Security Sanitization, Privacy Masking & Audit Trail",
       "domainShort": "Security & Audit",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_rule58_feedback_modal.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 59,
@@ -1913,16 +1777,13 @@
       "assistedCheckHint": "Verify literal string handling in API handlers.",
       "domainName": "D12: Security Sanitization, Privacy Masking & Audit Trail",
       "domainShort": "Security & Audit",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_rule58_feedback_modal.png",
-      "completedSteps": [
-        0,
-        1
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 60,
@@ -1943,17 +1804,13 @@
       "assistedCheckHint": "Verify auditLog array records every status mutation.",
       "domainName": "D12: Security Sanitization, Privacy Masking & Audit Trail",
       "domainShort": "Security & Audit",
-      "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "status": "Untested",
+      "actualResult": "",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_rule58_feedback_modal.png",
-      "completedSteps": [
-        0,
-        1,
-        2
-      ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "evidencePath": "",
+      "completedSteps": [],
+      "testedBy": "QA Engineer",
+      "testedAt": null
     },
     {
       "seq": 61,
@@ -1975,16 +1832,16 @@
       "domainName": "D13: Product IA, Essential Pages & 4-Workflow Optimization (Business/User/Tech/Ops)",
       "domainShort": "IA, Pages & 4-Workflows",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1203ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-01_landing_page_homepage_command_center_completenes.png",
       "completedSteps": [
         0,
         1,
         2
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:30.785Z"
     },
     {
       "seq": 62,
@@ -2006,16 +1863,16 @@
       "domainName": "D13: Product IA, Essential Pages & 4-Workflow Optimization (Business/User/Tech/Ops)",
       "domainShort": "IA, Pages & 4-Workflows",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1181ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-02_right_number_of_pages_workspace_tabs_cognitive_l.png",
       "completedSteps": [
         0,
         1,
         2
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:31.999Z"
     },
     {
       "seq": 63,
@@ -2037,16 +1894,16 @@
       "domainName": "D13: Product IA, Essential Pages & 4-Workflow Optimization (Business/User/Tech/Ops)",
       "domainShort": "IA, Pages & 4-Workflows",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1198ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-03_right_number_of_links_buttons_zero_dead_anchors_.png",
       "completedSteps": [
         0,
         1,
         2
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:33.230Z"
     },
     {
       "seq": 64,
@@ -2068,16 +1925,16 @@
       "domainName": "D13: Product IA, Essential Pages & 4-Workflow Optimization (Business/User/Tech/Ops)",
       "domainShort": "IA, Pages & 4-Workflows",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1180ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-04_user_onboarding_first_run_guided_quick_start_exp.png",
       "completedSteps": [
         0,
         1,
         2
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:34.443Z"
     },
     {
       "seq": 65,
@@ -2099,16 +1956,16 @@
       "domainName": "D13: Product IA, Essential Pages & 4-Workflow Optimization (Business/User/Tech/Ops)",
       "domainShort": "IA, Pages & 4-Workflows",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1186ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-05_interactive_user_guide_standard_operating_proced.png",
       "completedSteps": [
         0,
         1,
         2
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:35.660Z"
     },
     {
       "seq": 66,
@@ -2130,16 +1987,16 @@
       "domainName": "D13: Product IA, Essential Pages & 4-Workflow Optimization (Business/User/Tech/Ops)",
       "domainShort": "IA, Pages & 4-Workflows",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1168ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-06_about_us_system_architecture_version_provenance_.png",
       "completedSteps": [
         0,
         1,
         2
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:36.866Z"
     },
     {
       "seq": 67,
@@ -2160,15 +2017,15 @@
       "domainName": "D13: Product IA, Essential Pages & 4-Workflow Optimization (Business/User/Tech/Ops)",
       "domainShort": "IA, Pages & 4-Workflows",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1172ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-07_business_workflow_optimization_audit_value_reali.png",
       "completedSteps": [
         0,
         1
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:38.071Z"
     },
     {
       "seq": 68,
@@ -2189,15 +2046,15 @@
       "domainName": "D13: Product IA, Essential Pages & 4-Workflow Optimization (Business/User/Tech/Ops)",
       "domainShort": "IA, Pages & 4-Workflows",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1216ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-08_user_workflow_optimization_audit_3_click_task_de.png",
       "completedSteps": [
         0,
         1
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:39.320Z"
     },
     {
       "seq": 69,
@@ -2218,15 +2075,15 @@
       "domainName": "D13: Product IA, Essential Pages & 4-Workflow Optimization (Business/User/Tech/Ops)",
       "domainShort": "IA, Pages & 4-Workflows",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1193ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-09_technical_workflow_optimization_audit_latency_ze.png",
       "completedSteps": [
         0,
         1
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:40.546Z"
     },
     {
       "seq": 70,
@@ -2247,30 +2104,21 @@
       "domainName": "D13: Product IA, Essential Pages & 4-Workflow Optimization (Business/User/Tech/Ops)",
       "domainShort": "IA, Pages & 4-Workflows",
       "status": "Pass",
-      "actualResult": "[Zyvoriq v3.5.0-omni-swarm E2E Verified] Passed on revision zyvoriq-00004-llt (https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI & http://127.0.0.1:3000/swarm-MUI). HTTP 200, SQLite dev.db connected=true, Rule 54 Light Theme (#f8fafc), 0px overflow.",
+      "actualResult": "[Headless Chrome 1200ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions",
       "defectId": "",
-      "evidencePath": "/evidence/zyvoriq/zyvoriq_after_swarm_studio_main.png",
+      "evidencePath": "/evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-10_operational_workflow_optimization_audit_health_p.png",
       "completedSteps": [
         0,
         1
       ],
-      "testedBy": "Headless Chrome + Nitin Aggarwal",
-      "testedAt": "2026-10-23T06:09:40.249Z"
+      "testedBy": "Headless Chrome (Puppeteer/CDP)",
+      "testedAt": "2026-10-23T15:31:41.776Z"
     }
   ],
   "auditLog": [
     {
-      "id": "AUD-ZYV-70",
-      "timestamp": "2026-10-23T06:09:40.249Z",
-      "testId": "ZYV-FULL-70",
-      "fromStatus": "Untested",
-      "toStatus": "Pass (70/70)",
-      "tester": "Headless Chrome (Zyvoriq v3.5.0 E2E Suite)",
-      "notes": "Redeployed zyvoriq-00004-llt to Cloud Run (https://zyvoriq-248990048888.cr.gclb.goog), fixed SQLite dev.db auto-fallback (RCA-ZYV-01) & OCI permissions (RCA-ZYV-02), and verified 10/10 Zyvoriq journeys + 70/70 E2E matrix cases with 6 Retina screenshots."
-    },
-    {
       "id": "AUD-0032",
-      "timestamp": "2026-10-23T05:53:48.120Z",
+      "timestamp": "2026-10-23T15:31:41.807Z",
       "testId": "D01-06",
       "action": "STATUS_CHANGE",
       "fromStatus": "Untested",
@@ -2280,7 +2128,7 @@
     },
     {
       "id": "AUD-0031",
-      "timestamp": "2026-10-23T05:53:48.117Z",
+      "timestamp": "2026-10-23T15:31:41.805Z",
       "testId": "D01-05",
       "action": "STATUS_CHANGE",
       "fromStatus": "Untested",
@@ -2290,7 +2138,7 @@
     },
     {
       "id": "AUD-0030",
-      "timestamp": "2026-10-23T05:53:48.115Z",
+      "timestamp": "2026-10-23T15:31:41.804Z",
       "testId": "D06-01",
       "action": "STATUS_CHANGE",
       "fromStatus": "Untested",
@@ -2300,7 +2148,7 @@
     },
     {
       "id": "AUD-0029",
-      "timestamp": "2026-10-23T05:53:48.111Z",
+      "timestamp": "2026-10-23T15:31:41.802Z",
       "testId": "D04-01",
       "action": "STATUS_CHANGE",
       "fromStatus": "Untested",
@@ -2310,7 +2158,7 @@
     },
     {
       "id": "AUD-0028",
-      "timestamp": "2026-10-23T05:53:48.108Z",
+      "timestamp": "2026-10-23T15:31:41.801Z",
       "testId": "D03-05",
       "action": "STATUS_CHANGE",
       "fromStatus": "Untested",
@@ -2320,7 +2168,7 @@
     },
     {
       "id": "AUD-0027",
-      "timestamp": "2026-10-23T05:53:48.106Z",
+      "timestamp": "2026-10-23T15:31:41.799Z",
       "testId": "D03-01",
       "action": "STATUS_CHANGE",
       "fromStatus": "Untested",
@@ -2330,7 +2178,7 @@
     },
     {
       "id": "AUD-0026",
-      "timestamp": "2026-10-23T05:53:48.104Z",
+      "timestamp": "2026-10-23T15:31:41.798Z",
       "testId": "D02-04",
       "action": "STATUS_CHANGE",
       "fromStatus": "Untested",
@@ -2340,7 +2188,7 @@
     },
     {
       "id": "AUD-0025",
-      "timestamp": "2026-10-23T05:53:48.102Z",
+      "timestamp": "2026-10-23T15:31:41.796Z",
       "testId": "D02-01",
       "action": "STATUS_CHANGE",
       "fromStatus": "Untested",
@@ -2350,7 +2198,7 @@
     },
     {
       "id": "AUD-0024",
-      "timestamp": "2026-10-23T05:53:48.099Z",
+      "timestamp": "2026-10-23T15:31:41.794Z",
       "testId": "D01-04",
       "action": "STATUS_CHANGE",
       "fromStatus": "Untested",
@@ -2360,7 +2208,7 @@
     },
     {
       "id": "AUD-0023",
-      "timestamp": "2026-10-23T05:53:48.097Z",
+      "timestamp": "2026-10-23T15:31:41.793Z",
       "testId": "D01-03",
       "action": "STATUS_CHANGE",
       "fromStatus": "Untested",
@@ -2370,7 +2218,7 @@
     },
     {
       "id": "AUD-0022",
-      "timestamp": "2026-10-23T05:53:48.094Z",
+      "timestamp": "2026-10-23T15:31:41.791Z",
       "testId": "D01-02",
       "action": "STATUS_CHANGE",
       "fromStatus": "Untested",
@@ -2380,143 +2228,213 @@
     },
     {
       "id": "AUD-0021",
-      "timestamp": "2026-10-23T05:53:48.066Z",
+      "timestamp": "2026-10-23T15:31:41.776Z",
       "testId": "D13-10",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1399ms)",
+      "toStatus": "Pass (1200ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1399ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 29 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-10_operational_workflow_optimization_audit_health_p.png"
+      "notes": "[Headless Chrome 1200ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-10_operational_workflow_optimization_audit_health_p.png"
     },
     {
       "id": "AUD-0020",
-      "timestamp": "2026-10-23T05:53:46.632Z",
+      "timestamp": "2026-10-23T15:31:40.546Z",
       "testId": "D13-09",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1399ms)",
+      "toStatus": "Pass (1193ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1399ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 29 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-09_technical_workflow_optimization_audit_latency_ze.png"
+      "notes": "[Headless Chrome 1193ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-09_technical_workflow_optimization_audit_latency_ze.png"
     },
     {
       "id": "AUD-0019",
-      "timestamp": "2026-10-23T05:53:45.199Z",
+      "timestamp": "2026-10-23T15:31:39.320Z",
       "testId": "D13-08",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1348ms)",
+      "toStatus": "Pass (1216ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1348ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 29 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-08_user_workflow_optimization_audit_3_click_task_de.png"
+      "notes": "[Headless Chrome 1216ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-08_user_workflow_optimization_audit_3_click_task_de.png"
     },
     {
       "id": "AUD-0018",
-      "timestamp": "2026-10-23T05:53:43.819Z",
+      "timestamp": "2026-10-23T15:31:38.071Z",
       "testId": "D13-07",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1303ms)",
+      "toStatus": "Pass (1172ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1303ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 29 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-07_business_workflow_optimization_audit_value_reali.png"
+      "notes": "[Headless Chrome 1172ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-07_business_workflow_optimization_audit_value_reali.png"
     },
     {
       "id": "AUD-0017",
-      "timestamp": "2026-10-23T05:53:42.484Z",
+      "timestamp": "2026-10-23T15:31:36.866Z",
       "testId": "D13-06",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1284ms)",
+      "toStatus": "Pass (1168ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1284ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 29 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-06_about_us_system_architecture_version_provenance_.png"
+      "notes": "[Headless Chrome 1168ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-06_about_us_system_architecture_version_provenance_.png"
     },
     {
       "id": "AUD-0016",
-      "timestamp": "2026-10-23T05:53:41.167Z",
+      "timestamp": "2026-10-23T15:31:35.660Z",
       "testId": "D13-05",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1286ms)",
+      "toStatus": "Pass (1186ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1286ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 29 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-05_interactive_user_guide_standard_operating_proced.png"
+      "notes": "[Headless Chrome 1186ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-05_interactive_user_guide_standard_operating_proced.png"
     },
     {
       "id": "AUD-0015",
-      "timestamp": "2026-10-23T05:53:39.850Z",
+      "timestamp": "2026-10-23T15:31:34.443Z",
       "testId": "D13-04",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1256ms)",
+      "toStatus": "Pass (1180ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1256ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 29 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-04_user_onboarding_first_run_guided_quick_start_exp.png"
+      "notes": "[Headless Chrome 1180ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-04_user_onboarding_first_run_guided_quick_start_exp.png"
     },
     {
       "id": "AUD-0014",
-      "timestamp": "2026-10-23T05:53:38.563Z",
+      "timestamp": "2026-10-23T15:31:33.230Z",
       "testId": "D13-03",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1334ms)",
+      "toStatus": "Pass (1198ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1334ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 29 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-03_right_number_of_links_buttons_zero_dead_anchors_.png"
+      "notes": "[Headless Chrome 1198ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-03_right_number_of_links_buttons_zero_dead_anchors_.png"
     },
     {
       "id": "AUD-0013",
-      "timestamp": "2026-10-23T05:53:37.196Z",
+      "timestamp": "2026-10-23T15:31:31.999Z",
       "testId": "D13-02",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1463ms)",
+      "toStatus": "Pass (1181ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1463ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 29 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-02_right_number_of_pages_workspace_tabs_cognitive_l.png"
+      "notes": "[Headless Chrome 1181ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-02_right_number_of_pages_workspace_tabs_cognitive_l.png"
     },
     {
       "id": "AUD-0012",
-      "timestamp": "2026-10-23T05:53:35.698Z",
+      "timestamp": "2026-10-23T15:31:30.785Z",
       "testId": "D13-01",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1376ms)",
+      "toStatus": "Pass (1203ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1376ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 29 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-01_landing_page_homepage_command_center_completenes.png"
+      "notes": "[Headless Chrome 1203ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Product IA & 4-Workflow Optimization Verified: KPI Y=197px (<=220px), 1 Nav Rail, 4 Workspace Views, 14 Domain Pills, 43 Links (0 dead), 454 Labeled Buttons, 6/6 Surfaces (Landing, Homepage, Onboarding, Guide, About, Contact) & 100% Business/User/Tech/Ops Scores · Zero uncaught JS page exceptions | Evidence: /evidence/D13_Product_IA_Pages_And_4_Workflow_Optimization/D13-01_landing_page_homepage_command_center_completenes.png"
     },
     {
       "id": "AUD-0011",
-      "timestamp": "2026-10-23T05:53:34.275Z",
+      "timestamp": "2026-10-23T15:31:29.547Z",
       "testId": "D11-08",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1254ms)",
+      "toStatus": "Pass (1004ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1254ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions | Evidence: /evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-08_print_pdf_executive_readout_stylesheet_chrome_su.png"
+      "notes": "[Headless Chrome 1004ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions | Evidence: /evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-08_print_pdf_executive_readout_stylesheet_chrome_su.png"
     },
     {
       "id": "AUD-0010",
-      "timestamp": "2026-10-23T05:53:32.975Z",
+      "timestamp": "2026-10-23T15:31:28.510Z",
       "testId": "D11-07",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1194ms)",
+      "toStatus": "Pass (1049ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1194ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions | Evidence: /evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-07_typography_hierarchy_kpi_card_grid_symmetry_hit_.png"
+      "notes": "[Headless Chrome 1049ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions | Evidence: /evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-07_typography_hierarchy_kpi_card_grid_symmetry_hit_.png"
     },
     {
       "id": "AUD-0009",
-      "timestamp": "2026-10-23T05:53:31.748Z",
+      "timestamp": "2026-10-23T15:31:27.430Z",
       "testId": "D11-06",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1118ms)",
+      "toStatus": "Pass (1037ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1118ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions | Evidence: /evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-06_interactive_micro_states_loading_disabled_feedba.png"
+      "notes": "[Headless Chrome 1037ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions | Evidence: /evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-06_interactive_micro_states_loading_disabled_feedba.png"
     },
     {
       "id": "AUD-0008",
-      "timestamp": "2026-10-23T05:53:30.597Z",
+      "timestamp": "2026-10-23T15:31:26.361Z",
       "testId": "D11-05",
       "action": "HEADLESS_BATCH_RUN",
       "fromStatus": "Untested",
-      "toStatus": "Pass (1107ms)",
+      "toStatus": "Pass (1106ms)",
       "tester": "Headless Chrome (Puppeteer/CDP)",
-      "notes": "[Headless Chrome 1107ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions | Evidence: /evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-05_executive_ia_zero_visual_redundancy_non_blocking.png"
+      "notes": "[Headless Chrome 1106ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions | Evidence: /evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-05_executive_ia_zero_visual_redundancy_non_blocking.png"
+    },
+    {
+      "id": "AUD-0007",
+      "timestamp": "2026-10-23T15:31:25.222Z",
+      "testId": "D11-04",
+      "action": "HEADLESS_BATCH_RUN",
+      "fromStatus": "Untested",
+      "toStatus": "Pass (1636ms)",
+      "tester": "Headless Chrome (Puppeteer/CDP)",
+      "notes": "[Headless Chrome 1636ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Desktop 1600x950 zero overflow (1600px <= 1600px) · Tablet 834x1194 zero overflow (834px <= 834px) · Mobile 390x844 zero overflow (390px <= 390px) · Zero uncaught JS page exceptions | Evidence: /evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-04_100_fluid_edge_to_edge_responsive_reflow_across_.png"
+    },
+    {
+      "id": "AUD-0006",
+      "timestamp": "2026-10-23T15:31:23.530Z",
+      "testId": "D11-03",
+      "action": "HEADLESS_BATCH_RUN",
+      "fromStatus": "Untested",
+      "toStatus": "Pass (1038ms)",
+      "tester": "Headless Chrome (Puppeteer/CDP)",
+      "notes": "[Headless Chrome 1038ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions | Evidence: /evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-03_universal_executive_light_theme_default_wcag_aa_.png"
+    },
+    {
+      "id": "AUD-0005",
+      "timestamp": "2026-10-23T15:31:22.459Z",
+      "testId": "D11-02",
+      "action": "HEADLESS_BATCH_RUN",
+      "fromStatus": "Untested",
+      "toStatus": "Pass (1037ms)",
+      "tester": "Headless Chrome (Puppeteer/CDP)",
+      "notes": "[Headless Chrome 1037ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions | Evidence: /evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-02_rigid_table_cell_containment_zero_text_overlap_i.png"
+    },
+    {
+      "id": "AUD-0004",
+      "timestamp": "2026-10-23T15:31:21.392Z",
+      "testId": "D11-01",
+      "action": "HEADLESS_BATCH_RUN",
+      "fromStatus": "Untested",
+      "toStatus": "Pass (1035ms)",
+      "tester": "Headless Chrome (Puppeteer/CDP)",
+      "notes": "[Headless Chrome 1035ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · UI/UX Craft verified: 6 symmetrical KPI cards (delta=0px), 0 text overlaps, Light Theme (rgb(248, 250, 252)), 1 primary nav rail, inline confirmation=true, @media print=true · Zero uncaught JS page exceptions | Evidence: /evidence/D11_Accessibility_WCAG_AA_Keyboard_Responsive_UX/D11-01_keyboard_navigation_tab_focus_order_enter_action.png"
+    },
+    {
+      "id": "AUD-0003",
+      "timestamp": "2026-10-23T15:31:20.321Z",
+      "testId": "D01-01",
+      "action": "HEADLESS_AUTO_RUN",
+      "fromStatus": "Untested",
+      "toStatus": "Pass (1045ms)",
+      "tester": "Headless Chrome (Puppeteer/CDP)",
+      "notes": "[Headless Chrome 1045ms] PASS: Desktop 1600x950 zero horizontal overflow (0px) · Table cell containment verified (0 overflowing cells) · Page rendered \"E2E Functional Test Runner & Documentation Hub\" with 509 interactive controls · Zero uncaught JS page exceptions | Evidence: /evidence/D01_Authentication_Session_Identity/D01-01_standard_valid_login_session_bootstrap.png"
+    },
+    {
+      "id": "AUD-0002",
+      "timestamp": "2026-10-23T15:31:18.862Z",
+      "testId": "ASSISTED_PROBE",
+      "action": "LIVE_URL_CHECK",
+      "fromStatus": "http://localhost:4190",
+      "toStatus": "HTTP 200 (4ms)",
+      "tester": "Nitin Aggarwal",
+      "notes": "Title: \"E2E Functional Test Runner & Documentation Hub\" | Cache-Control no-store: true | Landmarks: header/nav/main=true/true/true"
+    },
+    {
+      "id": "AUD-0001",
+      "timestamp": "2026-10-23T03:01:58.352Z",
+      "testId": "SYSTEM",
+      "action": "SUITE_INITIALIZED",
+      "fromStatus": "N/A",
+      "toStatus": "Ready (60 Cases across 12 Domains)",
+      "tester": "System Harness",
+      "notes": "Initialized Universal Manual & Assisted E2E Functional Test Matrix."
     }
   ]
 }

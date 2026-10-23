@@ -1,7 +1,7 @@
 {
   "ok": true,
-  "verifiedAt": "2026-10-23T05:53:51.556Z",
-  "totalDurationMs": 60,
+  "verifiedAt": "2026-10-23T15:31:46.361Z",
+  "totalDurationMs": 34,
   "totalJourneys": 8,
   "passedJourneys": 8,
   "failedJourneys": 0,
@@ -54,7 +54,7 @@
       "workflowType": "User & Operational Onboarding Workflow",
       "stepsChain": "Update Target Profile → Run Assisted HTTP Probe → Verify State Persistence → Log Probe Telemetry",
       "status": "Pass",
-      "durationMs": 29,
+      "durationMs": 14,
       "logicalGate": {
         "pass": true,
         "summary": "Profile state machine & 70 Total == 28 Pass + 1 Fail + 1 Blocked + 0 Skipped + 40 Untested conserved; non-destructive probe keeps test counts invariant."
@@ -69,7 +69,7 @@
       },
       "operationalGate": {
         "pass": true,
-        "summary": "Audit entry AUD-0033 recorded ASSISTED_PROBE (HTTP 200 (4ms)) at 2026-10-23T05:53:51.521Z."
+        "summary": "Audit entry AUD-0033 recorded ASSISTED_PROBE (HTTP 200 (4ms)) at 2026-10-23T15:31:46.339Z."
       }
     },
     {
@@ -78,7 +78,7 @@
       "workflowType": "Core Functional & Data Persistence Workflow (D04/D05)",
       "stepsChain": "Reject Whitespace-Only Input (HTTP 400) → Create Custom Case (70→71) → Log Pass → Delete & Restore (71→70)",
       "status": "Pass",
-      "durationMs": 10,
+      "durationMs": 6,
       "logicalGate": {
         "pass": true,
         "summary": "Total dynamically expanded 70 → 71 on Create and restored 71 → 70 on Delete; ascending ID order (D04-07) preserved."
@@ -102,7 +102,7 @@
       "workflowType": "Business Release Governance & Defect Triage Workflow",
       "stepsChain": "Log P0 Failure (D01-05 + BUG-40219) → Recompute P0 Blocker Telemetry → Trigger HOLD Release Gate → Escalate to Executive Readout",
       "status": "Pass",
-      "durationMs": 6,
+      "durationMs": 3,
       "logicalGate": {
         "pass": true,
         "summary": "Boolean Release Gate invariant verified: p0Blockers (1) > 0 ⟹ Gate = \"HOLD (1 P0 FAIL)\"."
@@ -133,7 +133,7 @@
       },
       "functionalGate": {
         "pass": true,
-        "summary": "Verified non-empty 2x PNG screenshots on disk across D01 (828343 B), D11 (814865 B), and D13 (724738 B)."
+        "summary": "Verified non-empty 2x PNG screenshots on disk across D01 (828343 B), D11 (814956 B), and D13 (724738 B)."
       },
       "technicalGate": {
         "pass": true,
@@ -174,7 +174,7 @@
       "workflowType": "Frontend Design System & Accessibility Workflow (D11)",
       "stepsChain": "Audit Light Theme Contrast → Verify Table Cell Containment → Test Keyboard/Escape Navigation → Verify 1600/834/390px Reflow",
       "status": "Pass",
-      "durationMs": 3,
+      "durationMs": 1,
       "logicalGate": {
         "pass": true,
         "summary": "8/8 D11 UI/UX & Accessibility test cases (D11-01..D11-08) executed and passed in Headless Chrome."
@@ -222,7 +222,7 @@
       "workflowType": "Operational Reporting, Compliance & Data Export Workflow (D09/D12)",
       "stepsChain": "Generate Markdown Readout → Generate RFC-4180 CSV Matrix → Escape Formula Prefixes (=,+,-,@) → Export Full JSON Snapshot",
       "status": "Pass",
-      "durationMs": 5,
+      "durationMs": 3,
       "logicalGate": {
         "pass": true,
         "summary": "3-Way Export Parity: JSON (70 cases), CSV (70 data rows + 1 header), and Markdown all match live state 1:1."
