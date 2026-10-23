@@ -1,7 +1,7 @@
 {
   "ok": true,
-  "verifiedAt": "2026-10-23T15:31:46.361Z",
-  "totalDurationMs": 34,
+  "verifiedAt": "2026-10-23T15:50:38.964Z",
+  "totalDurationMs": 33,
   "totalJourneys": 8,
   "passedJourneys": 8,
   "failedJourneys": 0,
@@ -69,7 +69,7 @@
       },
       "operationalGate": {
         "pass": true,
-        "summary": "Audit entry AUD-0033 recorded ASSISTED_PROBE (HTTP 200 (4ms)) at 2026-10-23T15:31:46.339Z."
+        "summary": "Audit entry AUD-0033 recorded ASSISTED_PROBE (HTTP 200 (4ms)) at 2026-10-23T15:50:38.943Z."
       }
     },
     {
@@ -133,7 +133,7 @@
       },
       "functionalGate": {
         "pass": true,
-        "summary": "Verified non-empty 2x PNG screenshots on disk across D01 (828343 B), D11 (814956 B), and D13 (724738 B)."
+        "summary": "Verified non-empty 2x PNG screenshots on disk across D01 (828343 B), D11 (814936 B), and D13 (724738 B)."
       },
       "technicalGate": {
         "pass": true,
@@ -150,7 +150,7 @@
       "workflowType": "User Discovery, Filtering & Error-Recovery Workflow (D03/D06)",
       "stepsChain": "Filter by Domain + Priority + Live Query → Sync URL Query Params → Handle 0-Match Regex Query → 1-Click Reset All Filters",
       "status": "Pass",
-      "durationMs": 2,
+      "durationMs": 1,
       "logicalGate": {
         "pass": true,
         "summary": "Conjunctive predicate logic (Domain ∩ Priority ∩ Search) returned 1 exact match(es); unmatched query returned 0 without throwing."
@@ -174,7 +174,7 @@
       "workflowType": "Frontend Design System & Accessibility Workflow (D11)",
       "stepsChain": "Audit Light Theme Contrast → Verify Table Cell Containment → Test Keyboard/Escape Navigation → Verify 1600/834/390px Reflow",
       "status": "Pass",
-      "durationMs": 1,
+      "durationMs": 2,
       "logicalGate": {
         "pass": true,
         "summary": "8/8 D11 UI/UX & Accessibility test cases (D11-01..D11-08) executed and passed in Headless Chrome."
@@ -222,7 +222,7 @@
       "workflowType": "Operational Reporting, Compliance & Data Export Workflow (D09/D12)",
       "stepsChain": "Generate Markdown Readout → Generate RFC-4180 CSV Matrix → Escape Formula Prefixes (=,+,-,@) → Export Full JSON Snapshot",
       "status": "Pass",
-      "durationMs": 3,
+      "durationMs": 2,
       "logicalGate": {
         "pass": true,
         "summary": "3-Way Export Parity: JSON (70 cases), CSV (70 data rows + 1 header), and Markdown all match live state 1:1."

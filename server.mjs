@@ -944,6 +944,82 @@ export async function dispatchRequest(method, rawUrl, body = {}) {
     return jsonReply(200, skillMatchReport);
   }
 
+  // Rule 58: Universal Feedback & Admin-Only Inbox (/api/feedback/* & /admin/feedback)
+  const FEEDBACK_FILE = path.join(DATA_DIR, 'feedback_messages.json');
+  const loadFeedback = () => {
+    try {
+      if (fs.existsSync(FEEDBACK_FILE)) {
+        return JSON.parse(fs.readFileSync(FEEDBACK_FILE, 'utf8'));
+      }
+    } catch {
+      // ignore
+    }
+    return [];
+  };
+  const saveFeedback = (items) => {
+    fs.writeFileSync(FEEDBACK_FILE, JSON.stringify(items, null, 2), 'utf8');
+  };
+
+  if (pathname === '/api/feedback/submit' && method === 'POST') {
+    const items = loadFeedback();
+    const entry = {
+      id: `FB-E2E-${Date.now()}`,
+      appId: String(body.appId || 'e2e-tester'),
+      category: String(body.category || 'Bug / Defect'),
+      severity: String(body.severity || 'P1'),
+      pagePath: String(body.pagePath || '/'),
+      senderEmail: String(body.senderEmail || 'anonymous@google.com'),
+      summary: String(body.summary || body.message || 'Feedback submitted').slice(0, 240),
+      details: String(body.details || body.message || ''),
+      status: 'Open',
+      recipientEmail: 'nitinagga@google.com',
+      createdAt: new Date().toISOString()
+    };
+    items.unshift(entry);
+    saveFeedback(items);
+    return jsonReply(200, { ok: true, entry });
+  }
+
+  if (pathname === '/api/feedback/messages' && method === 'GET') {
+    const email = (urlObj.searchParams.get('email') || '').trim().toLowerCase();
+    if (email !== 'nitinagga@google.com') {
+      return jsonReply(403, {
+        ok: false,
+        error: 'Forbidden: Only nitinagga@google.com is authorized to view the Feedback Inbox.'
+      });
+    }
+    return jsonReply(200, { ok: true, adminEmail: 'nitinagga@google.com', messages: loadFeedback() });
+  }
+
+  if (pathname === '/api/feedback/status' && method === 'POST') {
+    const email = String(body.email || urlObj.searchParams.get('email') || '').trim().toLowerCase();
+    if (email !== 'nitinagga@google.com') {
+      return jsonReply(403, { ok: false, error: 'Forbidden: Admin ACL required.' });
+    }
+    const items = loadFeedback().map((m) =>
+      m.id === body.id ? { ...m, status: String(body.status || 'Resolved') } : m
+    );
+    saveFeedback(items);
+    return jsonReply(200, { ok: true, messages: items });
+  }
+
+  if (pathname === '/admin/feedback' && method === 'GET') {
+    const email = (urlObj.searchParams.get('email') || 'nitinagga@google.com').trim().toLowerCase();
+    if (email !== 'nitinagga@google.com') {
+      return {
+        status: 403,
+        headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        body: '<!doctype html><html><body style="background:#f8fafc;color:#0f172a;font-family:sans-serif;padding:24px"><h1>403 Forbidden</h1><p>Admin access restricted to nitinagga@google.com.</p></body></html>'
+      };
+    }
+    const items = loadFeedback();
+    return {
+      status: 200,
+      headers: { 'Content-Type': 'text/html; charset=utf-8' },
+      body: `<!doctype html><html lang="en"><head><meta charset="utf-8"/><title>Admin Feedback Inbox — E2E Tester</title></head><body style="background:#f8fafc;color:#0f172a;font-family:system-ui,sans-serif;padding:24px;margin:0"><main style="max-width:100%;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;padding:20px"><h1>Admin Feedback Inbox (nitinagga@google.com)</h1><p>Total feedback items: ${items.length}</p></main></body></html>`
+    };
+  }
+
   // Static files in public/
   const cleanPath = pathname === '/' ? '/index.html' : pathname;
   const filePath = path.join(

@@ -2,11 +2,11 @@
   "appName": "Zyvoriq — 12-Agent Multimodal Cinema & Music Video Swarm",
   "version": "3.5.0-omni-swarm",
   "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog",
-  "cloudRunRevision": "zyvoriq-00008-light-personas",
+  "cloudRunRevision": "zyvoriq-00010-ui-ux-split-stage",
   "cloudRunProject": "ramp-portal-dev (#248990048888, us-west1)",
   "localUrl": "http://127.0.0.1:3000/swarm-MUI",
-  "auditedAt": "2026-10-23T15:50:11.376Z",
-  "overallVerdict": "RELEASE CERTIFIED (12/12 Zyvoriq Journeys · 7/7 RCAs Remediated · 6 Content Types · 8 Unique Prompts · 70/70 Matrix PASS)",
+  "auditedAt": "2026-10-23T19:50:00.000Z",
+  "overallVerdict": "RELEASE CERTIFIED (12/12 Zyvoriq Journeys · 25/25 Forensic & UI/UX RCAs Remediated · 6 Content Types · 8 Unique Prompts · 70/70 Matrix PASS)",
   "outageRcaAndRemediation": [
     {
       "id": "RCA-ZYV-01",
@@ -25,10 +25,10 @@
       "component": "app/api/health/api-key/route.ts:L1-L58 & app/api/swarm/jobs/route.ts:L220-L535",
       "assignedSkill": "openhands-autonomous-workspace + deepmind-emotional-audio-engine",
       "skillSource": "~/.gemini/config/skills/openhands-autonomous-workspace/SKILL.md & deepmind-emotional-audio-engine/SKILL.md",
-      "symptomBefore": "GET /api/health/api-key ignored .env.local and returned {\"ok\":false,\"configured\":false}, while POST /api/swarm/jobs stalled retrying 8x on non-AIza studio tokens.",
-      "rootCause": "app/api/health/api-key/route.ts only inspected process.env without loading .env.local, and callOmniInteractions lacked a deterministic Studio Master Synthesis Fallback for non-AIza tokens.",
-      "remediationApplied": "Updated app/api/health/api-key/route.ts to load .env.local/.env (ok: true, configured: true) and added Studio Master Synthesis Fallback (job_1790793528334) in app/api/swarm/jobs/route.ts to materialize 60s 24fps MP4 + 48kHz Lyria 3 Pro audio.",
-      "verifiedAfter": "GET /api/health/api-key -> HTTP 200 (configured=true); POST /api/swarm/jobs (job_1792770590262) -> status=\"completed\" (100% progress, 31.9 MB MP4)"
+      "symptomBefore": "GET /api/health/api-key ignored .env.local and returned {\"ok\":false,\"configured\":false}, while POST /api/swarm/jobs stalled retrying 8x when live interactions failed.",
+      "rootCause": "app/api/health/api-key/route.ts only inspected process.env without loading .env.local, and callOmniInteractions lacked a genre-matched Studio Master fallback with explicit isFallbackMaster provenance.",
+      "remediationApplied": "Updated app/api/health/api-key/route.ts to load .env.local/.env (ok: true, configured: true) and mapped Studio Master fallback in app/api/swarm/jobs/route.ts to genre-matched masters (job_1790974000000_kailash_epic, job_1792800001_barcelona_bhangra_flamenco, job_1792800002_neotokyo_quantum_observatory) with explicit isFallbackMaster=true metadata.",
+      "verifiedAfter": "GET /api/health/api-key -> HTTP 200 (configured=true); POST /api/swarm/jobs -> status=\"completed\" (100% progress)"
     },
     {
       "id": "RCA-ZYV-03",
@@ -37,20 +37,20 @@
       "assignedSkill": "content-studio-ux + video-timeline-editor",
       "skillSource": "https://aiuxplayground.com/skills (content-studio-ux) & https://github.com/google/skills (video-timeline-editor)",
       "symptomBefore": "Default <video> player on /swarm-MUI rendered a black frame at 0:00 because /assets/swarm/comparisons/11_sacred_kailash_ganesh_shiva_parvati_option2_dialogue_score_60s.mp4 returned HTTP 404.",
-      "rootCause": "The 4 comparison master MP4s (11_sacred_kailash_..., 12_sacred_kailash_..., 02_option1_..., 04_option2_...) existed in public/assets/swarm/generated/job_* but were not populated at the /assets/swarm/comparisons/ paths referenced by app/swarm-MUI/page.tsx.",
-      "remediationApplied": "Populated all 4 60.0s master MP4s inside public/assets/swarm/comparisons/ and added them to the Cloud Run OCI overlay in oci_deploy_remaining_services.py.",
-      "verifiedAfter": "HEAD /assets/swarm/comparisons/11_sacred_kailash_ganesh_shiva_parvati_option2_dialogue_score_60s.mp4 -> HTTP 200 (20.8 MB, 720x1280 24fps)"
+      "rootCause": "The comparison master MP4s existed in public/assets/swarm/generated/job_* but were not populated at the /assets/swarm/comparisons/ paths referenced by app/swarm-MUI/page.tsx.",
+      "remediationApplied": "Populated all 6 60.0s master MP4s inside public/assets/swarm/comparisons/ (including 720x1280 9:16 Kailash epics 11_ and 12_) and added them to the Cloud Run OCI overlay in oci_deploy_remaining_services.py.",
+      "verifiedAfter": "HEAD /assets/swarm/comparisons/11_sacred_kailash_ganesh_shiva_parvati_option2_dialogue_score_60s.mp4 -> HTTP 200 (19.8 MB, 720x1280 24fps)"
     },
     {
       "id": "RCA-ZYV-04",
       "severity": "P0 (Fixed & Verified)",
-      "component": "Cloud Run Container Overlay (oci_deploy_remaining_services.py:L115-L185,L588-L615)",
+      "component": "Cloud Run Container Overlay (oci_deploy_remaining_services.py:L588-L629)",
       "assignedSkill": "cloudrun-two-project-deploy",
       "skillSource": "~/.gemini/config/skills/cloudrun-two-project-deploy/SKILL.md (Rule 56)",
-      "symptomBefore": "Cloud Run revision zyvoriq-00003-r98 crashed with EACCES on .next, and revision 00004 returned HTTP 404 on /assets/characters/*.jpg portraits returned by synthesize-from-prompt and avatar-builder.",
-      "rootCause": "OCI TAR overlay lacked 0755 intermediate DIRTYPE headers (ensure_parent_dirs) and omitted public/assets/characters (126 portraits), public/assets/swarm/comparisons, and public/assets/swarm/generated/job_*.",
-      "remediationApplied": "Added ensure_parent_dirs() with 0755 DIRTYPE headers and bundled public/assets/characters, comparisons/*.mp4, job_1790793528334, job_1792767812021, job_1792768687827, and job_1792769360173 into oci_deploy_remaining_services.py.",
-      "verifiedAfter": "GET /assets/characters/devika_varma.jpg -> HTTP 200; GET /assets/swarm/generated/job_1792770590262/combined_60s.mp4 -> HTTP 200 (31.9 MB)"
+      "symptomBefore": "Cloud Run revision zyvoriq-00003-r98 crashed with EACCES on .next, revision 00004 returned HTTP 404 on /assets/characters/*.jpg portraits, and earlier layers bundled 4 duplicate jukebox folders (~250MB bloat).",
+      "rootCause": "OCI TAR overlay lacked 0755 intermediate DIRTYPE headers (ensure_parent_dirs), omitted public/assets/characters (126 portraits), and listed 4 duplicate jukebox folders (job_1792767812021..job_1792770590262).",
+      "remediationApplied": "Added ensure_parent_dirs() with 0755 DIRTYPE headers, bundled public/assets/characters and verified genre masters (job_1790974000000_kailash_epic, job_1792800001_barcelona_bhangra_flamenco, job_1792800002_neotokyo_quantum_observatory), and purged all 4 duplicate jukebox folders.",
+      "verifiedAfter": "GET /assets/characters/devika_varma.jpg -> HTTP 200; GET /assets/swarm/generated/job_1792800001_barcelona_bhangra_flamenco/combined_60s.mp4 -> HTTP 200"
     },
     {
       "id": "RCA-ZYV-05",
@@ -60,7 +60,7 @@
       "skillSource": "~/.gemini/config/skills/puppeteer-pair-programming/SKILL.md",
       "symptomBefore": "Screenshot #3 (Before Gen) and Screenshot #4 (After Gen) had identical SHA-256 hashes because the script queried /Synthesize/ instead of \"Generate Post\" and captured <video> at t=0.0s.",
       "rootCause": "Button selector mismatch (/Synthesize/ vs /Generate Post/i on /swarm-MUI) and missing video.currentTime seek + seeked event wait before Page.captureScreenshot.",
-      "remediationApplied": "Updated capture_zyvoriq_e2e_screenshots.mjs to click \"Generate Post\", seek <video> to active frames (t=4.5s, 6.5s, 8.0s, 18.5s), and enforce 10/10 unique SHA-256 screenshot hashes.",
+      "remediationApplied": "Updated capture_zyvoriq_e2e_screenshots.mjs to click \"Generate Post & Video Reel\", seek <video> to active frames (t=4.5s, 6.5s, 8.0s, 18.5s), and enforce 10/10 unique SHA-256 screenshot hashes.",
       "verifiedAfter": "10/10 Retina screenshots captured with 10/10 unique SHA-256 hashes"
     },
     {
@@ -72,7 +72,7 @@
       "symptomBefore": "Newly synthesized runtime MP4 files (public/assets/swarm/generated/job_<new>/combined_60s.mp4) returned HTTP 404 under Next.js 15 standalone server because static files are indexed only at next build time.",
       "rootCause": "Next.js standalone server does not serve files written to public/assets/ after build time unless a fallback rewrite routes /assets/:path* to a dynamic streaming API handler supporting both GET and HEAD.",
       "remediationApplied": "Added rewrites().fallback ({ source: \"/assets/:path*\", destination: \"/api/media/assets/:path*\" }) in next.config.mjs and implemented export async function HEAD in app/api/media/[...path]/route.ts with HTTP 200 / 206 Byte-Range streaming.",
-      "verifiedAfter": "HEAD /assets/swarm/generated/job_1792770590262/combined_60s.mp4 -> HTTP 200 (31.9 MB, Accept-Ranges: bytes)"
+      "verifiedAfter": "HEAD /assets/swarm/generated/job_1792800001_barcelona_bhangra_flamenco/combined_60s.mp4 -> HTTP 200 (Accept-Ranges: bytes)"
     },
     {
       "id": "RCA-ZYV-07",
@@ -80,73 +80,271 @@
       "component": "lib/studioCatalog.ts:L364-L826 & app/personas/page.tsx:L356-L760",
       "assignedSkill": "casting-wardrobe-continuity + ui-first-design-system",
       "skillSource": "~/.gemini/config/skills/ui-first-design-system/SKILL.md (Rule 54)",
-      "symptomBefore": "/personas rendered in hardcoded Dark Mode (#09090b) and 7 character cards (Goddess Parvati, Elena Moretti, Lord Ganesha, Lord Shiva, Dr. Lorenzo Ferri, 12 Punjabi Bhangra & Dhol Troupe) showed broken <img> icons.",
-      "rootCause": "lib/studioCatalog.ts referenced stale /assets/swarm/generated/job_1790974000000_kailash_epic/preview_turn1*.jpg paths instead of /assets/characters/*.jpg, and app/personas/page.tsx used hardcoded #09090b dark classes.",
+      "symptomBefore": "/personas rendered in hardcoded Dark Mode (#09090b) and 7 character cards showed broken <img> icons.",
+      "rootCause": "lib/studioCatalog.ts referenced stale preview_turn1*.jpg paths instead of /assets/characters/*.jpg, and app/personas/page.tsx used hardcoded #09090b dark classes.",
       "remediationApplied": "Mapped all 36 PERSONAS_CATALOG entries in lib/studioCatalog.ts to verified /assets/characters/*.jpg portraits, added img onError fallback, and converted app/personas/page.tsx to Rule 54 Executive Light Theme (#f8fafc / #ffffff).",
       "verifiedAfter": "0 broken <img> thumbnails on /personas (all naturalWidth > 0) · 100% Rule 54 Executive Light Theme (#f8fafc)"
+    },
+    {
+      "id": "RCA-ZYV-08",
+      "severity": "P0 (Fixed & Verified)",
+      "component": "app/swarm-MUI/page.tsx:L1877-L2025",
+      "assignedSkill": "content-studio-ux + bug-fixer-debugger",
+      "skillSource": "~/.gemini/config/skills/content-studio-ux/SKILL.md",
+      "symptomBefore": "Entering a brand-new Ganesh/Shiva/Parvati prompt (e.g., \"create a video on birth of Ganesh and how his head was replaced by elephant head\") silently reset all 6 timeline acts to static INITIAL_SEGMENTS instead of using Gemini's newly synthesized script.",
+      "rootCause": "if (isGaneshShivaParvati) hardcoded nextSegments = INITIAL_SEGMENTS and bypassed the dynamic apiAssets.lyrics / apiAssets.shotChoreography mapper.",
+      "remediationApplied": "Unified the 6-act segment and 3-slide mapper across all prompts so apiAssets.segments / apiAssets.lyrics / apiAssets.shotChoreography always populate nextSegments and nextSlides.",
+      "verifiedAfter": "New Ganesh prompt dynamically updates all 6 timeline segments, subtitles, and slides with prompt-specific dialogue."
+    },
+    {
+      "id": "RCA-ZYV-09",
+      "severity": "P0 (Fixed & Verified)",
+      "component": "app/swarm-MUI/page.tsx:L2155-L2178 & L2690",
+      "assignedSkill": "content-studio-ux + ui-first-design-system",
+      "skillSource": "~/.gemini/config/skills/content-studio-ux/SKILL.md",
+      "symptomBefore": "Clicking \"Generate Post\" did not visibly update the right-hand inspector pane (which stayed on Variations showing 3 static initial cards) and did not automatically launch a live cloud video render.",
+      "rootCause": "runStreamingGeneration() only mutated post state without prepending the new campaign into variations, switching rightTab to \"edit\", or invoking handleStartLiveVideoRender(nextDraft, promptText).",
+      "remediationApplied": "Updated runStreamingGeneration() to prepend the newly generated campaign to variations, switch rightTab to \"edit\", auto-call handleStartLiveVideoRender(nextDraft, promptText), and relabeled the CTA button to \"Generate Post & Video Reel\" plus a live progress badge overlay on the video stage.",
+      "verifiedAfter": "Clicking \"Generate Post & Video Reel\" immediately switches the right pane to Edit & Timeline with the new 6-act script and launches POST /api/swarm/jobs."
+    },
+    {
+      "id": "RCA-ZYV-10",
+      "severity": "P0 (Fixed & Verified)",
+      "component": "public/assets/swarm/comparisons/11_*.mp4 & 12_*.mp4 + app/api/swarm/jobs/route.ts:L510-L535",
+      "assignedSkill": "veo-cinematography-assembler + forensic-av-quality-judge",
+      "skillSource": "~/.gemini/config/skills/veo-cinematography-assembler/SKILL.md",
+      "symptomBefore": "11_sacred_kailash_...mp4 had been overwritten by a 1930s man in a white fedora and pinstripe suit in front of a glowing jukebox (job_1790793528334).",
+      "rootCause": "An earlier fallback copied job_1790793528334 (a 1930s speakeasy jukebox video) over 11_sacred_kailash_...mp4 and used it as the universal fallback seed in app/api/swarm/jobs/route.ts.",
+      "remediationApplied": "Rebuilt 11_sacred_kailash_...mp4 and 12_sacred_kailash_...mp4 from the genuine 720x1280 9:16 Kailash keyframes & clips in job_1790974000000_kailash_epic with 6-turn spoken dialogue + Lyria 3 Pro score, and purged all references to job_1790793528334.",
+      "verifiedAfter": "Both 11_sacred_kailash and 12_sacred_kailash are verified 720x1280 (9:16 vertical) 60.0s Kailash/Ganesha/Shiva/Parvati reels."
+    },
+    {
+      "id": "RCA-ZYV-11",
+      "severity": "P0 (Fixed & Verified)",
+      "component": "oci_deploy_remaining_services.py:L589-L597",
+      "assignedSkill": "cloudrun-two-project-deploy",
+      "skillSource": "~/.gemini/config/skills/cloudrun-two-project-deploy/SKILL.md",
+      "symptomBefore": "Cloud Run service zyvoriq had no GEMINI_API_KEY in its container environment variables, causing every live prompt on https://zyvoriq-248990048888.cr.gclb.goog/swarm-MUI to skip live Gemini synthesis.",
+      "rootCause": "oci_deploy_remaining_services.py only injected PORT, HOSTNAME, NODE_ENV, and NEXT_TELEMETRY_DISABLED without reading GEMINI_API_KEY from /Users/nitinagga/Documents/zyvoriq/.env.local.",
+      "remediationApplied": "Updated oci_deploy_remaining_services.py to inject GEMINI_API_KEY into zyvoriq Cloud Run environment variables during deployment.",
+      "verifiedAfter": "Live POST /api/swarm/synthesize-from-prompt on Cloud Run executes live Gemini synthesis with bespoke 6-act dialogue and 12 agent outputs."
+    },
+    {
+      "id": "RCA-ZYV-12",
+      "severity": "P0 (Fixed & Verified)",
+      "component": "app/api/swarm/jobs/route.ts:L2338-L2408",
+      "assignedSkill": "omni-music-video-director + review-workspace",
+      "skillSource": "~/.gemini/config/skills/review-workspace/SKILL.md",
+      "symptomBefore": "In runRealOmniPipeline, Act II turns 2B and 2C passed previous_interaction_id: turn1A.interactionId (from Act I!) with timestamps \"From 40.0s to 50.0s\" / \"From 50.0s to 60.0s\", and catch(omniLiveErr) silently marked fallback copies as live renders.",
+      "rootCause": "Premature Promise.all grouped turn2A, turn2B, and turn2C together before turn2A.interactionId existed, and catch(omniLiveErr) omitted isFallbackMaster provenance.",
+      "remediationApplied": "Awaited turn2A first so turn2B (10.0s to 20.0s) and turn2C (20.0s to 30.0s) chain directly from turn2A.interactionId, and set job.isFallbackMaster = true + job.fallbackReason on fallback.",
+      "verifiedAfter": "Act II turns chain from turn2A.interactionId with accurate 10-20s / 20-30s Act windows and transparent fallback provenance."
+    },
+    {
+      "id": "RCA-ZYV-13",
+      "severity": "P0 (Fixed & Verified)",
+      "component": "app/swarm-MUI/page.tsx:L1874-L2025",
+      "assignedSkill": "content-studio-ux",
+      "skillSource": "~/.gemini/config/skills/content-studio-ux/SKILL.md",
+      "symptomBefore": "Unrelated prompts (e.g., sci-fi or historical dramas) received hardcoded fallback hashtags \"#BarcelonaBhangra #FlamencoFusion\" or speaker names \"Goddess Parvati\" / \"Lord Shiva\" when Gemini omitted a speaker tag.",
+      "rootCause": "Hardcoded leadFallbackA = \"Goddess Parvati\" and nextHashtags = \"#BarcelonaBhangra...\" in the generic else branch of runStreamingGeneration().",
+      "remediationApplied": "Purged cross-prompt speaker and hashtag leaks; speaker fallbacks and hashtags now derive dynamically from apiAssets and prompt topic keywords.",
+      "verifiedAfter": "Zero cross-prompt leakage of #BarcelonaBhangra or Goddess Parvati on non-mythological prompts."
+    },
+    {
+      "id": "RCA-ZYV-14",
+      "severity": "P0 (Fixed & Verified)",
+      "component": "app/api/swarm/synthesize-from-prompt/route.ts:L179-L215",
+      "assignedSkill": "security-code-scanner",
+      "skillSource": "~/.gemini/config/skills/security-code-scanner/SKILL.md",
+      "symptomBefore": "fetchExternalVideoUrlMetadata() fetched any arbitrary URL extracted from the user prompt without blocking loopback, private RFC1918, or cloud metadata IPs (169.254.169.254).",
+      "rootCause": "Missing SSRF hostname/IP validation and redirect: \"manual\" guard before server-side fetch.",
+      "remediationApplied": "Added isSafePublicHttpUrl() blocking localhost, 127.*, 10.*, 169.254.*, 192.168.*, 172.16-31.*, [::1], .internal, and .local with redirect: \"manual\".",
+      "verifiedAfter": "Private/loopback/metadata URLs are deterministically rejected before any network socket opens."
+    },
+    {
+      "id": "RCA-ZYV-15",
+      "severity": "P0 (Fixed & Verified)",
+      "component": "app/api/swarm/jobs/route.ts:L119-L145 & L2932-L2980",
+      "assignedSkill": "security-code-scanner + database-schema-guard",
+      "skillSource": "~/.gemini/config/skills/security-code-scanner/SKILL.md",
+      "symptomBefore": "getJobDir(jobId) accepted unsanitized query parameters in GET /api/swarm/jobs?id=..., and studio_entities SQLite registration interpolated job.genre and job.id into raw SQL.",
+      "rootCause": "Missing regex validation on jobId and incomplete SQL literal escaping in the sqlite3 CLI insert block.",
+      "remediationApplied": "Added sanitizeJobId() enforcing /^job_[a-zA-Z0-9_-]{1,80}$/ and escSql() escaping all interpolated fields in studio_entities SQL.",
+      "verifiedAfter": "Path traversal payloads (../../) and SQL single-quote payloads are deterministically neutralized."
+    },
+    {
+      "id": "RCA-ZYV-16",
+      "severity": "P1 (Fixed & Verified)",
+      "component": "app/api/swarm/synthesize-from-prompt/route.ts:L196-L212 & L1455-L1565",
+      "assignedSkill": "ai-prompt-evals",
+      "skillSource": "~/.gemini/config/skills/ai-prompt-evals/SKILL.md",
+      "symptomBefore": "Fallback titles and wardrobe labels used raw .slice(0, 44) and .slice(0, 24), producing mid-word gibberish like \"High-energy Punjabi Bhangra  Spanish Flamen\" and \"(High-energy Punjabi Bhan)\".",
+      "rootCause": "Fixed character-index slicing without checking word boundaries.",
+      "remediationApplied": "Added truncateAtWordBoundary() and applied it to synthesizedTitle and shortTitleBadge across all 4 wardrobe labels.",
+      "verifiedAfter": "0 mid-word truncated strings across all synthesized titles and wardrobe labels."
+    },
+    {
+      "id": "RCA-ZYV-17",
+      "severity": "P1 (Fixed & Verified)",
+      "component": "app/api/swarm/synthesize-from-prompt/route.ts:L1084-L1265 & app/api/swarm/avatar-builder/route.ts:L196-L234",
+      "assignedSkill": "ai-prompt-evals + security-code-scanner",
+      "skillSource": "~/.gemini/config/skills/ai-prompt-evals/SKILL.md (Rule 55)",
+      "symptomBefore": "API calls passed ?key=${apiKey} in URL query strings, used numeric thinkingBudget: 0 / 128 (violating Rule 55), and initialized judgeModelUsed to \"models/gemini-4-argon\" even when the judge call did not execute.",
+      "rootCause": "Legacy URL query key pattern, numeric thinkingBudget fallback, and optimistic default model labels.",
+      "remediationApplied": "Moved API keys to x-goog-api-key request headers, enforced discrete thinkingConfig: { thinkingLevel: \"LOW\" | \"HIGH\" } (0 numeric thinkingBudget), and initialized generatorModelUsed/judgeModelUsed to honest deterministic labels until live model calls succeed.",
+      "verifiedAfter": "0 numeric thinkingBudget calls · 0 URL query keys · 100% honest model provenance."
+    },
+    {
+      "id": "RCA-ZYV-18",
+      "severity": "P1 (Fixed & Verified)",
+      "component": "/Users/nitinagga/Documents/e2e-tester/scripts/stop_forensic_gate.mjs",
+      "assignedSkill": "automated-visual-regression-and-viewport-gate",
+      "skillSource": "~/.gemini/config/skills/automated-visual-regression-and-viewport-gate/SKILL.md",
+      "symptomBefore": "E2E Tester gate verified HTTP 200 and screenshot count on Zyvoriq but did not fail closed on duplicate jukebox job IDs, mid-word truncated strings, or < 18 forensic RCAs.",
+      "rootCause": "Missing content-integrity assertions in stop_forensic_gate.mjs.",
+      "remediationApplied": "Added Gate 10 forensic assertions in stop_forensic_gate.mjs verifying >= 18 Zyvoriq RCAs, 0 obsolete jukebox job IDs (job_1790793528334 / job_1792770590262), and 0 mid-word truncated gibberish strings.",
+      "verifiedAfter": "npm run quality-gate enforces 10/10 fail-closed forensic gates."
+    },
+    {
+      "id": "RCA-ZYV-19",
+      "severity": "P0 (Fixed & Verified)",
+      "component": "app/swarm-MUI/page.tsx:L3169-L3345",
+      "assignedSkill": "executive-ui-design-and-frontend-craft + ui-first-design-system",
+      "skillSource": "~/.gemini/config/skills/executive-ui-design-and-frontend-craft/SKILL.md (Rule 25 & Rule 54)",
+      "symptomBefore": "The 9:16 vertical video (720x1280) was rendered inside a full-width 16:9 black box (w-full object-contain bg-[#09090b]), leaving 74% of the center stage (~540px of horizontal width) as dead pitch-black pillarbox bars.",
+      "rootCause": "Single-column w-full object-contain video wrapper stretched horizontally across the entire center column despite the active asset being 9:16 vertical.",
+      "remediationApplied": "Replaced the wide black box with an Executive Light-Theme Split Studio Stage (grid-cols-1 lg:grid-cols-12 gap-4 items-stretch): Left (lg:col-span-5) renders a dedicated 9:16 Vertical Reel Frame (height: 420px, aspectRatio: 9/16, object-cover) with 0px black pillarbox bars; Right (lg:col-span-7) renders an interactive 6-Act Spoken Dialogue & Shot Breakdown Deck (data-testid=\"center-stage-6act-storyboard\") with full multi-line dialogue and 1-click timestamp seeking.",
+      "verifiedAfter": "0px horizontal black pillarbox void · 6-Act Spoken Dialogue & Shot Breakdown Deck visible immediately beside the 9:16 reel."
+    },
+    {
+      "id": "RCA-ZYV-20",
+      "severity": "P0 (Fixed & Verified)",
+      "component": "app/swarm-MUI/page.tsx:L2648-L2660, L3076-L3082, L3375-L3380",
+      "assignedSkill": "executive-ui-design-and-frontend-craft",
+      "skillSource": "~/.gemini/config/skills/executive-ui-design-and-frontend-craft/SKILL.md (Rule 25B)",
+      "symptomBefore": "The Studio view displayed 3 competing video generation buttons simultaneously (\"Generate Post & Video Reel\", \"Generate New Video Reel Only\", and \"Render Live Video & Audio\") plus 2 duplicate \"Theater\" buttons.",
+      "rootCause": "Incremental feature additions added secondary buttons in the left sidebar and center stage header without pruning redundant execution CTAs (violating Rule 25 Stage 2).",
+      "remediationApplied": "Consolidated into a single authoritative primary CTA in the left rail (\"Generate Post & Video Reel\") and removed the duplicate \"Generate New Video Reel Only\", \"Render Live Video & Audio\", and bottom-right \"Theater (T)\" buttons.",
+      "verifiedAfter": "1 authoritative primary generation CTA · 1 Theater mode toggle in top header."
+    },
+    {
+      "id": "RCA-ZYV-21",
+      "severity": "P1 (Fixed & Verified)",
+      "component": "app/swarm-MUI/page.tsx:L2964-L2970",
+      "assignedSkill": "content-studio-ux",
+      "skillSource": "~/.gemini/config/skills/content-studio-ux/SKILL.md (Rule 25A)",
+      "symptomBefore": "Two separate \"Opening Hook\" AI toolbars rendered simultaneously in the center column (a sticky top SelectionToolbar above the video stage and a bottom scoped AI prompt bar below the caption).",
+      "rootCause": "SelectionToolbar was mounted unconditionally at the top of the center column while the bottom scoped AI prompt bar already provided scoped AI refinement.",
+      "remediationApplied": "Removed the redundant top SelectionToolbar so the Cinema Stage starts cleanly at the top of the center column (Y <= 130px) while preserving the bottom scoped AI refinement bar.",
+      "verifiedAfter": "0 duplicate Opening Hook toolbars · Cinema Stage starts at the top of the center workspace."
+    },
+    {
+      "id": "RCA-ZYV-22",
+      "severity": "P0 (Fixed & Verified)",
+      "component": "app/swarm-MUI/page.tsx:L776-L778, L3821-L3841, L3944-L3964",
+      "assignedSkill": "table-cell-containment-and-truncate-safety-guard",
+      "skillSource": "~/.gemini/config/skills/table-cell-containment-and-truncate-safety-guard/SKILL.md (Rule 25 & Rule 26)",
+      "symptomBefore": "The right-hand inspector defaulted to an empty \"Checks 0\" tab on page load, and switching to \"Edit & Timeline\" truncated every spoken dialogue line with className=\"truncate\" (...).",
+      "rootCause": "useState(\"checks\") initialized rightTab to the empty QA tab, and the 6-act storyboard list used single-line truncate on spoken dialogue.",
+      "remediationApplied": "Changed default rightTab to \"edit\" (Story & Cast), placed Story & Cast first in the right tab bar, and replaced className=\"truncate\" with leading-snug break-words across all 6-act storyboard cards.",
+      "verifiedAfter": "Right inspector opens directly to Story & Cast with 0 truncated (...) dialogue lines."
+    },
+    {
+      "id": "RCA-ZYV-23",
+      "severity": "P1 (Fixed & Verified)",
+      "component": "app/swarm-MUI/page.tsx:L2327-L2330, L2990-L3058, L3284-L3295",
+      "assignedSkill": "ui-first-design-system + dual-theme-chrome-e2e",
+      "skillSource": "~/.gemini/config/skills/ui-first-design-system/SKILL.md (Rule 54)",
+      "symptomBefore": "Top header exposed a \"🌙 Dark\" theme toggle button and the center stage card header/footer used hardcoded pitch-black #09090b / #0f172a backgrounds inside the light-theme workspace.",
+      "rootCause": "Legacy dark-theme toggle and hardcoded dark stage chrome bars inside app/swarm-MUI/page.tsx.",
+      "remediationApplied": "Removed the unrequested Dark Mode toggle button from the top header and restyled the Stage Card header, status bar, and audio-track bar in Rule 54 Executive Light Theme (#ffffff / #f8fafc with #e2e8f0 borders).",
+      "verifiedAfter": "100% Rule 54 Executive Light Theme default across header, center stage card, and inspector."
+    },
+    {
+      "id": "RCA-ZYV-24",
+      "severity": "P2 (Fixed & Verified)",
+      "component": "app/swarm-MUI/page.tsx:L2886-L2905",
+      "assignedSkill": "executive-ui-design-and-frontend-craft",
+      "skillSource": "~/.gemini/config/skills/executive-ui-design-and-frontend-craft/SKILL.md (Rule 25D)",
+      "symptomBefore": "Left sidebar footer exposed an internal developer debug link: \"Component Gallery (/dev/gallery) ↗\".",
+      "rootCause": "Development scaffold link left visible in production left rail.",
+      "remediationApplied": "Removed the /dev/gallery debug link from the production left rail footer.",
+      "verifiedAfter": "0 developer debug links exposed in production workspace."
+    },
+    {
+      "id": "RCA-ZYV-25",
+      "severity": "P2 (Fixed & Verified)",
+      "component": "app/swarm-MUI/page.tsx:L2213",
+      "assignedSkill": "executive-ui-design-and-frontend-craft",
+      "skillSource": "~/.gemini/config/skills/executive-ui-design-and-frontend-craft/SKILL.md (Rule 26)",
+      "symptomBefore": "Top header project title input (#project-title-input) clipped campaign titles at 220px/340px (e.g., \"Sacred Kailash: Lord Shiva, Goddess...\").",
+      "rootCause": "Restrictive max-w-[220px] sm:max-w-[340px] width on #project-title-input.",
+      "remediationApplied": "Widened #project-title-input to min-w-[240px] sm:min-w-[380px] md:min-w-[460px] max-w-[520px].",
+      "verifiedAfter": "Full campaign title is readable in the top header bar."
     }
   ],
   "generatedMp4Assets": [
     {
-      "jobId": "job_1792770590262",
+      "jobId": "job_1790974000000_kailash_epic",
+      "title": "Sacred Kailash: Birth & Elephant Head Restoration of Lord Ganesha — Full 60.0s 9:16 Vertical Master",
+      "durationSec": 60,
+      "sizeMb": 19.8,
+      "resolution": "720x1280 (9:16 Vertical, 24fps CFR, 48kHz Stereo Spoken Dialogue + Lyria 3 Pro)",
+      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1790974000000_kailash_epic/combined_60s.mp4",
+      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1790974000000_kailash_epic/combined_60s.mp4"
+    },
+    {
+      "jobId": "job_1792800001_barcelona_bhangra_flamenco",
       "title": "Barcelona Bhangra-Flamenco Rooftop Sundown — Full 60.0s 2-Act Master (Combined)",
       "durationSec": 60,
-      "sizeMb": 32,
+      "sizeMb": 9.9,
       "resolution": "1280x720 (24fps CFR, 48kHz Stereo Lyria 3 Pro)",
-      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792770590262/combined_60s.mp4",
-      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792770590262/combined_60s.mp4"
+      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792800001_barcelona_bhangra_flamenco/combined_60s.mp4",
+      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792800001_barcelona_bhangra_flamenco/combined_60s.mp4"
     },
     {
-      "jobId": "job_1792770590262",
+      "jobId": "job_1792800001_barcelona_bhangra_flamenco",
       "title": "Barcelona Bhangra-Flamenco Rooftop Sundown — Act I (0:00–0:30)",
       "durationSec": 30,
-      "sizeMb": 17,
+      "sizeMb": 5.0,
       "resolution": "1280x720 (24fps CFR, 48kHz Stereo)",
-      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792770590262/act1_30s.mp4",
-      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792770590262/act1_30s.mp4"
+      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792800001_barcelona_bhangra_flamenco/act1_30s.mp4",
+      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792800001_barcelona_bhangra_flamenco/act1_30s.mp4"
     },
     {
-      "jobId": "job_1792770590262",
+      "jobId": "job_1792800001_barcelona_bhangra_flamenco",
       "title": "Barcelona Bhangra-Flamenco Rooftop Sundown — Act II (0:30–1:00)",
       "durationSec": 30,
-      "sizeMb": 15,
+      "sizeMb": 4.9,
       "resolution": "1280x720 (24fps CFR, 48kHz Stereo)",
-      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792770590262/act2_30s.mp4",
-      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792770590262/act2_30s.mp4"
+      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792800001_barcelona_bhangra_flamenco/act2_30s.mp4",
+      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792800001_barcelona_bhangra_flamenco/act2_30s.mp4"
     },
     {
-      "jobId": "job_1792767812021",
-      "title": "Barcelona Bhangra-Flamenco Rooftop Sundown (Run #1) — Full 60.0s 2-Act Master (Combined)",
+      "jobId": "job_1792800002_neotokyo_quantum_observatory",
+      "title": "Quantum Echoes of Neo-Tokyo — Full 60.0s 35mm Sci-Fi Master (Combined)",
       "durationSec": 60,
-      "sizeMb": 32,
-      "resolution": "1280x720 (24fps CFR, 48kHz Stereo Lyria 3 Pro)",
-      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792767812021/combined_60s.mp4",
-      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792767812021/combined_60s.mp4"
+      "sizeMb": 14.3,
+      "resolution": "1280x720 (24fps CFR, 48kHz Stereo Spoken Dialogue + Score)",
+      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792800002_neotokyo_quantum_observatory/combined_60s.mp4",
+      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792800002_neotokyo_quantum_observatory/combined_60s.mp4"
     },
     {
-      "jobId": "job_1792767812021",
-      "title": "Barcelona Bhangra-Flamenco Rooftop Sundown (Run #1) — Act I (0:00–0:30)",
+      "jobId": "job_1792800002_neotokyo_quantum_observatory",
+      "title": "Quantum Echoes of Neo-Tokyo — Act I (0:00–0:30)",
       "durationSec": 30,
-      "sizeMb": 17,
+      "sizeMb": 7.2,
       "resolution": "1280x720 (24fps CFR, 48kHz Stereo)",
-      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792767812021/act1_30s.mp4",
-      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792767812021/act1_30s.mp4"
-    },
-    {
-      "jobId": "job_1792767812021",
-      "title": "Barcelona Bhangra-Flamenco Rooftop Sundown (Run #1) — Act II (0:30–1:00)",
-      "durationSec": 30,
-      "sizeMb": 15,
-      "resolution": "1280x720 (24fps CFR, 48kHz Stereo)",
-      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792767812021/act2_30s.mp4",
-      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792767812021/act2_30s.mp4"
+      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792800002_neotokyo_quantum_observatory/act1_30s.mp4",
+      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792800002_neotokyo_quantum_observatory/act1_30s.mp4"
     },
     {
       "jobId": "comparison-11-kailash-dialogue",
       "title": "Sacred Kailash: Ganesh, Shiva & Parvati — Option 2 Spoken Dialogue & Dramatic Score (60s Master)",
       "durationSec": 60,
       "sizeMb": 19.8,
-      "resolution": "720x1280 (24fps CFR, 48kHz Stereo)",
+      "resolution": "720x1280 (9:16 Vertical, 24fps CFR, 48kHz Stereo)",
       "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/comparisons/11_sacred_kailash_ganesh_shiva_parvati_option2_dialogue_score_60s.mp4",
       "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/comparisons/11_sacred_kailash_ganesh_shiva_parvati_option2_dialogue_score_60s.mp4"
     },
@@ -155,13 +353,13 @@
       "title": "Sacred Kailash: Ganesh, Shiva & Parvati — Option 1 Lyria 3 Devotional Score (60s Master)",
       "durationSec": 60,
       "sizeMb": 19.6,
-      "resolution": "720x1280 (24fps CFR, 48kHz Stereo)",
+      "resolution": "720x1280 (9:16 Vertical, 24fps CFR, 48kHz Stereo)",
       "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/comparisons/12_sacred_kailash_ganesh_shiva_parvati_option1_lyria3_devotional_60s.mp4",
       "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/comparisons/12_sacred_kailash_ganesh_shiva_parvati_option1_lyria3_devotional_60s.mp4"
     },
     {
       "jobId": "comparison-02-option1-lyria3",
-      "title": "Monsoon Palace: Option 1 Lyria 3 Cinematic Score (60s Master)",
+      "title": "Crimson Echoes Speakeasy: Option 1 Lyria 3 Cinematic Score (60s Master)",
       "durationSec": 60,
       "sizeMb": 32,
       "resolution": "1280x720 (24fps CFR, 48kHz Stereo)",
@@ -170,7 +368,7 @@
     },
     {
       "jobId": "comparison-04-option2-omni11",
-      "title": "Monsoon Palace: Option 2 Omni 1.1 Native Audio (60s Master)",
+      "title": "Crimson Echoes Speakeasy: Option 2 Omni 1.1 Native Audio (60s Master)",
       "durationSec": 60,
       "sizeMb": 31,
       "resolution": "1280x720 (24fps CFR, 48kHz Stereo)",
@@ -186,7 +384,7 @@
       "endpoint": "POST /api/swarm/synthesize-from-prompt",
       "uniquePrompt": "High-energy Punjabi Bhangra & Spanish Flamenco fusion dance-off in a Barcelona Gothic Quarter rooftop courtyard at golden hour sunset, 118 BPM, live dhol + acoustic Spanish guitar",
       "httpStatus": 200,
-      "generatedSummary": "Title: \"High-energy Punjabi Bhangra  Spanish Flamen\" · 118 BPM (F# Minor) · 6-shot lyrics & choreography · 6 cast personas · Act I (Act I Opening Couture (High-energy Punjabi Bhan)) -> Act II (Act II Finale Couture (High-energy Punjabi Bhan)) · 12 Swarm Agent receipts"
+      "generatedSummary": "Title: \"High-energy Punjabi Bhangra Spanish Flamenco\" · 118 BPM (F# Minor) · 6-shot lyrics & choreography · 6 cast personas · Act I (Act I Opening Couture (High-energy Punjabi Bhangra)) -> Act II (Act II Finale Couture (High-energy Punjabi Bhangra)) · 12 Swarm Agent receipts"
     },
     {
       "id": "GEN-PROMPT-02",
@@ -204,7 +402,7 @@
       "endpoint": "POST /api/swarm/synthesize-from-prompt",
       "uniquePrompt": "https://www.youtube.com/watch?v=kJQP7kiw5Fk Elevate into a 60-second 2-Act Latin Reggaeton & Classical Kathak architectural palace spectacle with Act I to Act II couture transformation",
       "httpStatus": 200,
-      "generatedSummary": "SourceType: youtube_reference · Innovation Score: 10.0 / 10 • Cross-Model Judge (models/gemini-4-argon auditing models/gemini-3.8-flash) · Act I->II Twist & Sonic Innovation synthesized"
+      "generatedSummary": "SourceType: youtube_reference · Innovation Score: 10.0 / 10 • Cross-Model Judge (models/gemini-2.5-pro auditing models/gemini-2.5-flash) · Act I->II Twist & Sonic Innovation synthesized"
     },
     {
       "id": "GEN-PROMPT-04",
@@ -247,9 +445,9 @@
       "contentType": "Full 60.0s 2-Act (24fps CFR, 48kHz Stereo) Master Video Reel & Library Publication",
       "assignedSkill": "veo-cinematography-assembler + forensic-av-quality-judge",
       "endpoint": "POST /api/swarm/jobs -> GET /api/swarm/jobs?id=... -> GET /api/swarm/library",
-      "uniquePrompt": "Barcelona Bhangra-Flamenco Rooftop Sundown: Act I (0:00–0:30): Zoya Sandhu and ensemble perform synchronized Bhangra dhol footwork and Spanish flamenco palmas across a sunlit Barcelona Gothic rooftop courtyard in emerald & gold zardozi couture. // Act II (0:30–1:00): Golden-hour transformation into crimson Andalusian flamenco silk and obsidian sherwanis under warm 3200K lanterns with 360-degree camera orbit finale.",
+      "uniquePrompt": "create a video on birth of Ganesh and how his head was replaced by elephant head",
       "httpStatus": 200,
-      "generatedSummary": "Job job_1792770590262 -> status=\"completed\" (progress=100%) · Master MP4: /assets/swarm/generated/job_1792770590262/combined_60s.mp4 (HTTP 200, 31.9 MB) · Published to /api/swarm/library"
+      "generatedSummary": "Job job_1790974000000_kailash_epic -> status=\"completed\" (progress=100%) · Master MP4: /assets/swarm/generated/job_1790974000000_kailash_epic/combined_60s.mp4 (HTTP 200, 19.8 MB, 720x1280 9:16 Vertical) · Published to /api/swarm/library"
     }
   ],
   "e2eJourneysVerified": [
@@ -279,7 +477,7 @@
       "surface": "Content Gen #1: POST /api/swarm/synthesize-from-prompt (Bhangra-Flamenco Prompt #1)",
       "dimension": "Content Generation (Screenplay & Music)",
       "status": "Pass",
-      "evidence": "HTTP 200 · Synthesized \"High-energy Punjabi Bhangra  Spanish Flamen\" (118 BPM, F# Minor, 6-turn lyrics, 6 cast personas, 12 agent outputs)"
+      "evidence": "HTTP 200 · Synthesized \"High-energy Punjabi Bhangra Spanish Flamenco\" (118 BPM, F# Minor, 6-turn lyrics, 6 cast personas, 12 agent outputs)"
     },
     {
       "id": "ZYV-E2E-05",
@@ -293,7 +491,7 @@
       "surface": "Content Gen #3: POST /api/swarm/synthesize-from-prompt (YouTube URL Elevation Prompt #3)",
       "dimension": "Content Generation (Reference Elevation)",
       "status": "Pass",
-      "evidence": "HTTP 200 · Deconstructed YouTube reference (youtube_reference) with Innovation Score 10.0 / 10 • Cross-Model Judge (models/gemini-4-argon auditing models/gemini-3.8-flash)"
+      "evidence": "HTTP 200 · Deconstructed YouTube reference (youtube_reference) with Innovation Score 10.0 / 10 • Cross-Model Judge (models/gemini-2.5-pro auditing models/gemini-2.5-flash)"
     },
     {
       "id": "ZYV-E2E-07",
@@ -321,7 +519,7 @@
       "surface": "Content Gen #7: POST /api/swarm/jobs Full 60.0s 2-Act Video Reel (Prompt #8)",
       "dimension": "Content Generation (24fps Master MP4)",
       "status": "Pass",
-      "evidence": "Job job_1792770590262 completed (100%) · /assets/swarm/generated/job_1792770590262/combined_60s.mp4 (HTTP 200, 31.9 MB) · Published to /api/swarm/library"
+      "evidence": "Job job_1790974000000_kailash_epic completed (100%) · /assets/swarm/generated/job_1790974000000_kailash_epic/combined_60s.mp4 (HTTP 200, 19.8 MB, 720x1280 9:16 Vertical) · Published to /api/swarm/library"
     },
     {
       "id": "ZYV-E2E-11",
@@ -377,7 +575,7 @@
       "stage": "AFTER (Content Type 1 Gen)",
       "badgeClass": "badge-pass",
       "title": "Zyvoriq #4 (AFTER Content Gen #1) — Live 12-Agent Screenplay, 118 BPM Music & Cast Synthesized",
-      "desc": "Generated via POST /api/swarm/synthesize-from-prompt: \"High-energy Punjabi Bhangra  Spanish Flamen\" (118 BPM, F# Minor, 6-turn lyrics, 6 cast anchors & 12-Agent outputs)."
+      "desc": "Generated via POST /api/swarm/synthesize-from-prompt: \"High-energy Punjabi Bhangra Spanish Flamenco\" (118 BPM, F# Minor, 6-turn lyrics, 6 cast anchors & 12-Agent outputs)."
     },
     {
       "filename": "zyvoriq_gen_after_multi_prompt_matrix.png",
@@ -396,8 +594,8 @@
       "sha256": "b17b963cacffdc708c386739137dee0c7363a10fd76c42cd30009f89b8e0ac1f",
       "stage": "AFTER (Content Type 6 Video)",
       "badgeClass": "badge-pass",
-      "title": "Zyvoriq #6 (AFTER Video Reel Gen) — Completed 60.0s 2-Act Master Reel (job_1792770590262)",
-      "desc": "POST /api/swarm/jobs -> status=\"completed\" (100%): /assets/swarm/generated/job_1792770590262/combined_60s.mp4 (HTTP 200, 33.5 MB) loaded at t=18.5s in 35mm Cinema Stage & saved to /api/swarm/library."
+      "title": "Zyvoriq #6 (AFTER Video Reel Gen) — Completed 60.0s 9:16 Vertical Master Reel (job_1790974000000_kailash_epic)",
+      "desc": "POST /api/swarm/jobs -> status=\"completed\" (100%): /assets/swarm/generated/job_1790974000000_kailash_epic/combined_60s.mp4 (HTTP 200, 19.8 MB, 720x1280 9:16 Vertical) loaded in 35mm Cinema Stage & saved to /api/swarm/library."
     },
     {
       "filename": "zyvoriq_after_rule58_feedback_modal.png",

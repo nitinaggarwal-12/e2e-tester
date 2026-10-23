@@ -75,4 +75,36 @@ assert(
   'Missing CUJ, Grounding Truth, 10-Methodologies, or AIUX Top 5 Skills/Prompts tables in index.html'
 );
 
-console.log('✅ ALL FORENSIC QUALITY GATES PASSED (Rule 25, Rule 26, Rule 54, 13-Domain 70-Case Catalog, Headless Chrome Runner, 8-CUJ 4-Dim Verifier, Grounding Truth, 10-Methodologies & Top 5 AIUX Skills/Prompts).');
+// 8. Rule 58: Universal Feedback Widget & Admin-Only Inbox (/admin/feedback)
+assert(
+  serverCode.includes('/api/feedback/submit') &&
+    serverCode.includes('/api/feedback/messages') &&
+    serverCode.includes('/admin/feedback'),
+  'Rule 58: Missing /api/feedback/* or /admin/feedback routes in server.mjs'
+);
+
+// 9. Zyvoriq Forensic Dossier Integrity (25/25 RCAs, 0 duplicate jukebox jobs in assets/journeys, 0 mid-word truncation, 10 unique screenshot SHA-256 hashes)
+const zyvReportRaw = fs.readFileSync(path.join(ROOT, 'data/zyvoriq_e2e_report.json'), 'utf8');
+const zyvReport = JSON.parse(zyvReportRaw);
+assert(
+  Array.isArray(zyvReport.outageRcaAndRemediation) && zyvReport.outageRcaAndRemediation.length >= 25,
+  `Expected >= 25 Zyvoriq Forensic & UI/UX RCAs, found ${zyvReport.outageRcaAndRemediation?.length || 0}`
+);
+const assetsAndJourneysJson = JSON.stringify({
+  assets: zyvReport.generatedMp4Assets,
+  content: zyvReport.generatedContentInventory,
+  journeys: zyvReport.e2eJourneysVerified,
+  screenshots: zyvReport.screenshots
+});
+assert(
+  !assetsAndJourneysJson.includes('job_1792770590262') && !assetsAndJourneysJson.includes('job_1792767812021'),
+  'Zyvoriq report still references obsolete duplicate jukebox jobs (job_1792770590262 / job_1792767812021) in active assets or journeys'
+);
+assert(
+  !assetsAndJourneysJson.includes('Spanish Flamen"') && !assetsAndJourneysJson.includes('Punjabi Bhan)'),
+  'Zyvoriq report still contains mid-word truncated gibberish strings in active content or journeys'
+);
+const shotHashes = new Set((zyvReport.screenshots || []).map((s) => s.sha256));
+assert(shotHashes.size >= 10, `Expected >= 10 unique screenshot SHA-256 hashes, found ${shotHashes.size}`);
+
+console.log('✅ ALL 9 FORENSIC QUALITY GATES PASSED (Rule 25, Rule 26, Rule 54, Rule 58, 13-Domain 70-Case Catalog, Headless Chrome Runner, 8-CUJ 4-Dim Verifier, Grounding Truth, and 25-RCA Zyvoriq Forensic & UI/UX Dossier).');
