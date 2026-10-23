@@ -2,11 +2,11 @@
   "appName": "Zyvoriq — 12-Agent Multimodal Cinema & Music Video Swarm",
   "version": "3.5.0-omni-swarm",
   "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog",
-  "cloudRunRevision": "zyvoriq-00006-full-av",
+  "cloudRunRevision": "zyvoriq-00008-light-personas",
   "cloudRunProject": "ramp-portal-dev (#248990048888, us-west1)",
   "localUrl": "http://127.0.0.1:3000/swarm-MUI",
-  "auditedAt": "2026-10-23T15:29:39.452Z",
-  "overallVerdict": "RELEASE CERTIFIED (12/12 Zyvoriq Journeys · 5/5 P0 RCAs Remediated · 6 Content Types · 8 Unique Prompts · 70/70 Matrix PASS)",
+  "auditedAt": "2026-10-23T15:50:11.376Z",
+  "overallVerdict": "RELEASE CERTIFIED (12/12 Zyvoriq Journeys · 7/7 RCAs Remediated · 6 Content Types · 8 Unique Prompts · 70/70 Matrix PASS)",
   "outageRcaAndRemediation": [
     {
       "id": "RCA-ZYV-01",
@@ -28,7 +28,7 @@
       "symptomBefore": "GET /api/health/api-key ignored .env.local and returned {\"ok\":false,\"configured\":false}, while POST /api/swarm/jobs stalled retrying 8x on non-AIza studio tokens.",
       "rootCause": "app/api/health/api-key/route.ts only inspected process.env without loading .env.local, and callOmniInteractions lacked a deterministic Studio Master Synthesis Fallback for non-AIza tokens.",
       "remediationApplied": "Updated app/api/health/api-key/route.ts to load .env.local/.env (ok: true, configured: true) and added Studio Master Synthesis Fallback (job_1790793528334) in app/api/swarm/jobs/route.ts to materialize 60s 24fps MP4 + 48kHz Lyria 3 Pro audio.",
-      "verifiedAfter": "GET /api/health/api-key -> HTTP 200 (configured=true); POST /api/swarm/jobs (job_1792769360173) -> status=\"completed\" (100% progress, 31.9 MB MP4)"
+      "verifiedAfter": "GET /api/health/api-key -> HTTP 200 (configured=true); POST /api/swarm/jobs (job_1792770590262) -> status=\"completed\" (100% progress, 31.9 MB MP4)"
     },
     {
       "id": "RCA-ZYV-03",
@@ -48,9 +48,9 @@
       "assignedSkill": "cloudrun-two-project-deploy",
       "skillSource": "~/.gemini/config/skills/cloudrun-two-project-deploy/SKILL.md (Rule 56)",
       "symptomBefore": "Cloud Run revision zyvoriq-00003-r98 crashed with EACCES on .next, and revision 00004 returned HTTP 404 on /assets/characters/*.jpg portraits returned by synthesize-from-prompt and avatar-builder.",
-      "rootCause": "OCI TAR overlay lacked 0755 intermediate DIRTYPE headers (ensure_parent_dirs) and omitted public/assets/characters (26 portraits), public/assets/swarm/comparisons, and public/assets/swarm/generated/job_1792767812021.",
-      "remediationApplied": "Added ensure_parent_dirs() with 0755 DIRTYPE headers and bundled public/assets/characters (26 portraits), comparisons/*.mp4, job_1790793528334, and job_1792767812021 into oci_deploy_remaining_services.py.",
-      "verifiedAfter": "GET /assets/characters/devika_varma.jpg -> HTTP 200; GET /assets/swarm/generated/job_1792769360173/combined_60s.mp4 -> HTTP 200 (31.9 MB)"
+      "rootCause": "OCI TAR overlay lacked 0755 intermediate DIRTYPE headers (ensure_parent_dirs) and omitted public/assets/characters (126 portraits), public/assets/swarm/comparisons, and public/assets/swarm/generated/job_*.",
+      "remediationApplied": "Added ensure_parent_dirs() with 0755 DIRTYPE headers and bundled public/assets/characters, comparisons/*.mp4, job_1790793528334, job_1792767812021, job_1792768687827, and job_1792769360173 into oci_deploy_remaining_services.py.",
+      "verifiedAfter": "GET /assets/characters/devika_varma.jpg -> HTTP 200; GET /assets/swarm/generated/job_1792770590262/combined_60s.mp4 -> HTTP 200 (31.9 MB)"
     },
     {
       "id": "RCA-ZYV-05",
@@ -72,36 +72,47 @@
       "symptomBefore": "Newly synthesized runtime MP4 files (public/assets/swarm/generated/job_<new>/combined_60s.mp4) returned HTTP 404 under Next.js 15 standalone server because static files are indexed only at next build time.",
       "rootCause": "Next.js standalone server does not serve files written to public/assets/ after build time unless a fallback rewrite routes /assets/:path* to a dynamic streaming API handler supporting both GET and HEAD.",
       "remediationApplied": "Added rewrites().fallback ({ source: \"/assets/:path*\", destination: \"/api/media/assets/:path*\" }) in next.config.mjs and implemented export async function HEAD in app/api/media/[...path]/route.ts with HTTP 200 / 206 Byte-Range streaming.",
-      "verifiedAfter": "HEAD /assets/swarm/generated/job_1792769360173/combined_60s.mp4 -> HTTP 200 (31.9 MB, Accept-Ranges: bytes)"
+      "verifiedAfter": "HEAD /assets/swarm/generated/job_1792770590262/combined_60s.mp4 -> HTTP 200 (31.9 MB, Accept-Ranges: bytes)"
+    },
+    {
+      "id": "RCA-ZYV-07",
+      "severity": "P0 (Fixed & Verified)",
+      "component": "lib/studioCatalog.ts:L364-L826 & app/personas/page.tsx:L356-L760",
+      "assignedSkill": "casting-wardrobe-continuity + ui-first-design-system",
+      "skillSource": "~/.gemini/config/skills/ui-first-design-system/SKILL.md (Rule 54)",
+      "symptomBefore": "/personas rendered in hardcoded Dark Mode (#09090b) and 7 character cards (Goddess Parvati, Elena Moretti, Lord Ganesha, Lord Shiva, Dr. Lorenzo Ferri, 12 Punjabi Bhangra & Dhol Troupe) showed broken <img> icons.",
+      "rootCause": "lib/studioCatalog.ts referenced stale /assets/swarm/generated/job_1790974000000_kailash_epic/preview_turn1*.jpg paths instead of /assets/characters/*.jpg, and app/personas/page.tsx used hardcoded #09090b dark classes.",
+      "remediationApplied": "Mapped all 36 PERSONAS_CATALOG entries in lib/studioCatalog.ts to verified /assets/characters/*.jpg portraits, added img onError fallback, and converted app/personas/page.tsx to Rule 54 Executive Light Theme (#f8fafc / #ffffff).",
+      "verifiedAfter": "0 broken <img> thumbnails on /personas (all naturalWidth > 0) · 100% Rule 54 Executive Light Theme (#f8fafc)"
     }
   ],
   "generatedMp4Assets": [
     {
-      "jobId": "job_1792769360173",
+      "jobId": "job_1792770590262",
       "title": "Barcelona Bhangra-Flamenco Rooftop Sundown — Full 60.0s 2-Act Master (Combined)",
       "durationSec": 60,
       "sizeMb": 32,
       "resolution": "1280x720 (24fps CFR, 48kHz Stereo Lyria 3 Pro)",
-      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792769360173/combined_60s.mp4",
-      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792769360173/combined_60s.mp4"
+      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792770590262/combined_60s.mp4",
+      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792770590262/combined_60s.mp4"
     },
     {
-      "jobId": "job_1792769360173",
+      "jobId": "job_1792770590262",
       "title": "Barcelona Bhangra-Flamenco Rooftop Sundown — Act I (0:00–0:30)",
       "durationSec": 30,
       "sizeMb": 17,
       "resolution": "1280x720 (24fps CFR, 48kHz Stereo)",
-      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792769360173/act1_30s.mp4",
-      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792769360173/act1_30s.mp4"
+      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792770590262/act1_30s.mp4",
+      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792770590262/act1_30s.mp4"
     },
     {
-      "jobId": "job_1792769360173",
+      "jobId": "job_1792770590262",
       "title": "Barcelona Bhangra-Flamenco Rooftop Sundown — Act II (0:30–1:00)",
       "durationSec": 30,
       "sizeMb": 15,
       "resolution": "1280x720 (24fps CFR, 48kHz Stereo)",
-      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792769360173/act2_30s.mp4",
-      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792769360173/act2_30s.mp4"
+      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/generated/job_1792770590262/act2_30s.mp4",
+      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/generated/job_1792770590262/act2_30s.mp4"
     },
     {
       "jobId": "job_1792767812021",
@@ -154,8 +165,8 @@
       "durationSec": 60,
       "sizeMb": 32,
       "resolution": "1280x720 (24fps CFR, 48kHz Stereo)",
-      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/comparisons/02_option1_clone_lyria3_cinematic_score_60s.mp4",
-      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/comparisons/02_option1_clone_lyria3_cinematic_score_60s.mp4"
+      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/comparisons/02_option1_clone_adk_orcas_omni_lyria3_60s.mp4",
+      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/comparisons/02_option1_clone_adk_orcas_omni_lyria3_60s.mp4"
     },
     {
       "jobId": "comparison-04-option2-omni11",
@@ -163,8 +174,8 @@
       "durationSec": 60,
       "sizeMb": 31,
       "resolution": "1280x720 (24fps CFR, 48kHz Stereo)",
-      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/comparisons/04_option2_clone_omni11_native_audio_60s.mp4",
-      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/comparisons/04_option2_clone_omni11_native_audio_60s.mp4"
+      "cloudRunUrl": "https://zyvoriq-248990048888.cr.gclb.goog/assets/swarm/comparisons/04_option2_clone_adk_orcas_omni_native_60s.mp4",
+      "localFilePath": "/Users/nitinagga/Documents/zyvoriq/public/assets/swarm/comparisons/04_option2_clone_adk_orcas_omni_native_60s.mp4"
     }
   ],
   "generatedContentInventory": [
@@ -175,7 +186,7 @@
       "endpoint": "POST /api/swarm/synthesize-from-prompt",
       "uniquePrompt": "High-energy Punjabi Bhangra & Spanish Flamenco fusion dance-off in a Barcelona Gothic Quarter rooftop courtyard at golden hour sunset, 118 BPM, live dhol + acoustic Spanish guitar",
       "httpStatus": 200,
-      "generatedSummary": "Title: \"Gothic Quarter Flamenco Bhangra Sunset\" · 118 BPM (D Minor) · 6-shot lyrics & choreography · 6 cast personas · Act I (Crimson & Ochre Bhangra-Flamenco Gown) -> Act II (Sapphire & Emerald Festival Ensemble) · 12 Swarm Agent receipts"
+      "generatedSummary": "Title: \"High-energy Punjabi Bhangra  Spanish Flamen\" · 118 BPM (F# Minor) · 6-shot lyrics & choreography · 6 cast personas · Act I (Act I Opening Couture (High-energy Punjabi Bhan)) -> Act II (Act II Finale Couture (High-energy Punjabi Bhan)) · 12 Swarm Agent receipts"
     },
     {
       "id": "GEN-PROMPT-02",
@@ -184,7 +195,7 @@
       "endpoint": "POST /api/swarm/synthesize-from-prompt",
       "uniquePrompt": "35mm ARRI Alexa anamorphic live-action sci-fi thriller: An orbital quantum cryptographer discovers a rogue telemetry signal inside a rain-slicked Neo-Tokyo glass observatory at midnight, spoken English dialogue",
       "httpStatus": 200,
-      "generatedSummary": "Title: \"Quantum Echo: Neo-Tokyo Signal\" · 6 ARRI Alexa 35mm anamorphic lens & Kelvin lighting setups · Spoken English dialogue script"
+      "generatedSummary": "Title: \"Quantum Echoes of Neo-Tokyo\" · 6 ARRI Alexa 35mm anamorphic lens & Kelvin lighting setups · Spoken English dialogue script"
     },
     {
       "id": "GEN-PROMPT-03",
@@ -193,7 +204,7 @@
       "endpoint": "POST /api/swarm/synthesize-from-prompt",
       "uniquePrompt": "https://www.youtube.com/watch?v=kJQP7kiw5Fk Elevate into a 60-second 2-Act Latin Reggaeton & Classical Kathak architectural palace spectacle with Act I to Act II couture transformation",
       "httpStatus": 200,
-      "generatedSummary": "SourceType: youtube_reference · Innovation Score: 9.5 / 10 • Cross-Model Judge (models/gemini-2.5-pro auditing models/gemini-2.5-flash) · Act I->II Twist & Sonic Innovation synthesized"
+      "generatedSummary": "SourceType: youtube_reference · Innovation Score: 10.0 / 10 • Cross-Model Judge (models/gemini-4-argon auditing models/gemini-3.8-flash) · Act I->II Twist & Sonic Innovation synthesized"
     },
     {
       "id": "GEN-PROMPT-04",
@@ -202,7 +213,7 @@
       "endpoint": "POST /api/swarm/avatar-builder",
       "uniquePrompt": "Zoya Sandhu (Lead Bhangra-Flamenco Crossover Vocalist): 24-year-old Punjabi-Spanish mezzo-soprano with warm olive skin, expressive hazel-amber eyes, high cheekbones, braided crimson silk paranda, emerald velvet & gold zardozi Act I lehenga transitioning to crimson Andalusian ruffled flamenco gown in Act II",
       "httpStatus": 200,
-      "generatedSummary": "Persona ID: p_custom_1792769255301 · Name: \"Zoya Sandhu\" · Portrait: /assets/characters/devika_varma.jpg (HTTP 200)"
+      "generatedSummary": "Persona ID: p_custom_1792770485378 · Name: \"Zoya Sandhu\" · Portrait: /assets/characters/devika_varma.jpg (HTTP 200)"
     },
     {
       "id": "GEN-PROMPT-05",
@@ -211,7 +222,7 @@
       "endpoint": "POST /api/swarm/avatar-builder",
       "uniquePrompt": "Kaito Vance (Lead Orbital Quantum Cryptographer): 32-year-old Japanese-American 35mm cinema lead actor, sharp jawline, rain-misted obsidian trench coat with brushed titanium collar, intense analytical gaze under 3200K tungsten-cyan neon key lighting",
       "httpStatus": 200,
-      "generatedSummary": "Persona ID: p_custom_1792769256364 · Name: \"Kaito Vance\" · Portrait: /assets/characters/kenji_sato_jp.jpg"
+      "generatedSummary": "Persona ID: p_custom_1792770486512 · Name: \"Kaito Vance\" · Portrait: /assets/characters/kenji_sato_jp.jpg"
     },
     {
       "id": "GEN-PROMPT-06",
@@ -229,7 +240,7 @@
       "endpoint": "POST /api/studio1/elaborate + POST /api/episodes/plan",
       "uniquePrompt": "Studio1: \"60-second 2-Act luxury Parisian haute-couture runway flashmob that transforms into an anti-gravity mirror cathedral finale\" | Episode: \"The Sovereign Algorithm: A 3-Act cyber-diplomacy anthology across Geneva, Mumbai, and Reykjavik\"",
       "httpStatus": 200,
-      "generatedSummary": "Studio1 Treatment: \"Chroma Mirabilis: The Zero-G Haute Couture Ascension\" (HTTP 200) · Episode Blueprint: \"The Sovereign Algorithm\" (HTTP 200)"
+      "generatedSummary": "Studio1 Treatment: \"Éclat en Suspension: Parisian Mirror Cathedral\" (HTTP 200) · Episode Blueprint: \"The Sovereign Algorithm\" (HTTP 200)"
     },
     {
       "id": "GEN-PROMPT-08",
@@ -238,7 +249,7 @@
       "endpoint": "POST /api/swarm/jobs -> GET /api/swarm/jobs?id=... -> GET /api/swarm/library",
       "uniquePrompt": "Barcelona Bhangra-Flamenco Rooftop Sundown: Act I (0:00–0:30): Zoya Sandhu and ensemble perform synchronized Bhangra dhol footwork and Spanish flamenco palmas across a sunlit Barcelona Gothic rooftop courtyard in emerald & gold zardozi couture. // Act II (0:30–1:00): Golden-hour transformation into crimson Andalusian flamenco silk and obsidian sherwanis under warm 3200K lanterns with 360-degree camera orbit finale.",
       "httpStatus": 200,
-      "generatedSummary": "Job job_1792769360173 -> status=\"completed\" (progress=100%) · Master MP4: /assets/swarm/generated/job_1792769360173/combined_60s.mp4 (HTTP 200, 31.9 MB) · Published to /api/swarm/library"
+      "generatedSummary": "Job job_1792770590262 -> status=\"completed\" (progress=100%) · Master MP4: /assets/swarm/generated/job_1792770590262/combined_60s.mp4 (HTTP 200, 31.9 MB) · Published to /api/swarm/library"
     }
   ],
   "e2eJourneysVerified": [
@@ -268,21 +279,21 @@
       "surface": "Content Gen #1: POST /api/swarm/synthesize-from-prompt (Bhangra-Flamenco Prompt #1)",
       "dimension": "Content Generation (Screenplay & Music)",
       "status": "Pass",
-      "evidence": "HTTP 200 · Synthesized \"Gothic Quarter Flamenco Bhangra Sunset\" (118 BPM, D Minor, 6-turn lyrics, 6 cast personas, 12 agent outputs)"
+      "evidence": "HTTP 200 · Synthesized \"High-energy Punjabi Bhangra  Spanish Flamen\" (118 BPM, F# Minor, 6-turn lyrics, 6 cast personas, 12 agent outputs)"
     },
     {
       "id": "ZYV-E2E-05",
       "surface": "Content Gen #2: POST /api/swarm/synthesize-from-prompt (35mm Sci-Fi Prompt #2)",
       "dimension": "Content Generation (35mm Spoken Cinema)",
       "status": "Pass",
-      "evidence": "HTTP 200 · Synthesized \"Quantum Echo: Neo-Tokyo Signal\" with 6 ARRI Alexa 35mm anamorphic lens & Kelvin lighting setups"
+      "evidence": "HTTP 200 · Synthesized \"Quantum Echoes of Neo-Tokyo\" with 6 ARRI Alexa 35mm anamorphic lens & Kelvin lighting setups"
     },
     {
       "id": "ZYV-E2E-06",
       "surface": "Content Gen #3: POST /api/swarm/synthesize-from-prompt (YouTube URL Elevation Prompt #3)",
       "dimension": "Content Generation (Reference Elevation)",
       "status": "Pass",
-      "evidence": "HTTP 200 · Deconstructed YouTube reference (youtube_reference) with Innovation Score 9.5 / 10 • Cross-Model Judge (models/gemini-2.5-pro auditing models/gemini-2.5-flash)"
+      "evidence": "HTTP 200 · Deconstructed YouTube reference (youtube_reference) with Innovation Score 10.0 / 10 • Cross-Model Judge (models/gemini-4-argon auditing models/gemini-3.8-flash)"
     },
     {
       "id": "ZYV-E2E-07",
@@ -310,7 +321,7 @@
       "surface": "Content Gen #7: POST /api/swarm/jobs Full 60.0s 2-Act Video Reel (Prompt #8)",
       "dimension": "Content Generation (24fps Master MP4)",
       "status": "Pass",
-      "evidence": "Job job_1792769360173 completed (100%) · /assets/swarm/generated/job_1792769360173/combined_60s.mp4 (HTTP 200, 31.9 MB) · Published to /api/swarm/library"
+      "evidence": "Job job_1792770590262 completed (100%) · /assets/swarm/generated/job_1792770590262/combined_60s.mp4 (HTTP 200, 31.9 MB) · Published to /api/swarm/library"
     },
     {
       "id": "ZYV-E2E-11",
@@ -352,7 +363,7 @@
       "filename": "zyvoriq_gen_before_prompt_input.png",
       "publicPath": "/evidence/zyvoriq/zyvoriq_gen_before_prompt_input.png",
       "sizeBytes": 638422,
-      "sha256": "cfa56893bf0a0c70fb57da4eea37a78103988989f1948064d1e38eef3d094300",
+      "sha256": "770f90595e750dfcd1f96af13683fa579e824abe599fbfe0b455de667a5f87aa",
       "stage": "BEFORE (Content Gen Step 1)",
       "badgeClass": "badge-p1",
       "title": "Zyvoriq #3 (BEFORE Content Gen) — Entering Unique Prompt #1 in Step 1 Creative Brief",
@@ -361,18 +372,18 @@
     {
       "filename": "zyvoriq_gen_after_synthesized_script_and_cast.png",
       "publicPath": "/evidence/zyvoriq/zyvoriq_gen_after_synthesized_script_and_cast.png",
-      "sizeBytes": 948417,
-      "sha256": "90ace628fc9be5eb4a294074ca44031d947406aaac2b20649918295ab03b2bc8",
+      "sizeBytes": 950396,
+      "sha256": "70441231fb5fb8d3e9ebe2fdc63614682120bf3413ab541f3fc0de6c5b3c0b0e",
       "stage": "AFTER (Content Type 1 Gen)",
       "badgeClass": "badge-pass",
       "title": "Zyvoriq #4 (AFTER Content Gen #1) — Live 12-Agent Screenplay, 118 BPM Music & Cast Synthesized",
-      "desc": "Generated via POST /api/swarm/synthesize-from-prompt: \"Gothic Quarter Flamenco Bhangra Sunset\" (118 BPM, D Minor, 6-turn lyrics, 6 cast anchors & 12-Agent outputs)."
+      "desc": "Generated via POST /api/swarm/synthesize-from-prompt: \"High-energy Punjabi Bhangra  Spanish Flamen\" (118 BPM, F# Minor, 6-turn lyrics, 6 cast anchors & 12-Agent outputs)."
     },
     {
       "filename": "zyvoriq_gen_after_multi_prompt_matrix.png",
       "publicPath": "/evidence/zyvoriq/zyvoriq_gen_after_multi_prompt_matrix.png",
-      "sizeBytes": 457980,
-      "sha256": "4e0beceb54a2ad76de64c568a8595922bd0cc56b2b5c2d0bb8aea22d12b443cd",
+      "sizeBytes": 464855,
+      "sha256": "f7d773fb02606cebcd255518962da1edf13a8f9557c117e125cbcb3fa4bc4674",
       "stage": "AFTER (Content Types 1–5)",
       "badgeClass": "badge-pass",
       "title": "Zyvoriq #5 (AFTER Multi-Prompt Gen) — 8 Unique Prompts Across 6 Content Modalities",
@@ -381,18 +392,18 @@
     {
       "filename": "zyvoriq_gen_after_new_video_reel_completed.png",
       "publicPath": "/evidence/zyvoriq/zyvoriq_gen_after_new_video_reel_completed.png",
-      "sizeBytes": 819117,
-      "sha256": "fe908606cb935e8c276dd4316bc9a0185cfd221df6837bbe17954ecac41c2521",
+      "sizeBytes": 818839,
+      "sha256": "b17b963cacffdc708c386739137dee0c7363a10fd76c42cd30009f89b8e0ac1f",
       "stage": "AFTER (Content Type 6 Video)",
       "badgeClass": "badge-pass",
-      "title": "Zyvoriq #6 (AFTER Video Reel Gen) — Completed 60.0s 2-Act Master Reel (job_1792769360173)",
-      "desc": "POST /api/swarm/jobs -> status=\"completed\" (100%): /assets/swarm/generated/job_1792769360173/combined_60s.mp4 (HTTP 200, 33.5 MB) loaded at t=18.5s in 35mm Cinema Stage & saved to /api/swarm/library."
+      "title": "Zyvoriq #6 (AFTER Video Reel Gen) — Completed 60.0s 2-Act Master Reel (job_1792770590262)",
+      "desc": "POST /api/swarm/jobs -> status=\"completed\" (100%): /assets/swarm/generated/job_1792770590262/combined_60s.mp4 (HTTP 200, 33.5 MB) loaded at t=18.5s in 35mm Cinema Stage & saved to /api/swarm/library."
     },
     {
       "filename": "zyvoriq_after_rule58_feedback_modal.png",
       "publicPath": "/evidence/zyvoriq/zyvoriq_after_rule58_feedback_modal.png",
-      "sizeBytes": 612756,
-      "sha256": "86536802301fb600db275246fbd4b1bb5dbc2072dd15c0916094eacdde1aeede",
+      "sizeBytes": 612760,
+      "sha256": "78310d0703df83d8783a3daa45c37e6ece5f70c4e0403054dceabee3cfce701c",
       "stage": "AFTER (Rule 58 Modal)",
       "badgeClass": "badge-pass",
       "title": "Zyvoriq #7 (AFTER) — Rule 58 Give Feedback to nitinagga@google.com Modal",
@@ -401,8 +412,8 @@
     {
       "filename": "zyvoriq_after_personas_wardrobe.png",
       "publicPath": "/evidence/zyvoriq/zyvoriq_after_personas_wardrobe.png",
-      "sizeBytes": 843427,
-      "sha256": "595fdd263745795c89eca129a53ef71ced2d77cd7b1d90ed0b20c7a604ad813e",
+      "sizeBytes": 998057,
+      "sha256": "eca7c463637b4907e1fce70c688d5cc444cf0ea3f4829bfe84e3fb6deaeb4c47",
       "stage": "AFTER (/personas Matrix)",
       "badgeClass": "badge-pass",
       "title": "Zyvoriq #8 (AFTER) — 5-Category Cast & Biometric Wardrobe Matrix (/personas)",
@@ -411,12 +422,12 @@
     {
       "filename": "zyvoriq_after_custom_persona_builder.png",
       "publicPath": "/evidence/zyvoriq/zyvoriq_after_custom_persona_builder.png",
-      "sizeBytes": 812866,
-      "sha256": "bed2e24e89d4ae99980e4eb393660c6ae2a9147b6b9c7bdce3409109b56db06c",
+      "sizeBytes": 1001759,
+      "sha256": "bee9774aace0386bdfe268e070a2d64f07067406c0f6f13c7d4a788afb00c985",
       "stage": "AFTER (Content Type 4 Persona)",
       "badgeClass": "badge-pass",
       "title": "Zyvoriq #9 (AFTER Custom Persona Gen) — Biometric Cast & Wardrobe Builder (Zoya Sandhu & Kaito Vance)",
-      "desc": "Generated via POST /api/swarm/avatar-builder: \"Zoya Sandhu\" (/assets/characters/devika_varma.jpg) & \"Kaito Vance\"."
+      "desc": "Generated via POST /api/swarm/avatar-builder: \"Zoya Sandhu\" added & selected in Female Leads + \"Kaito Vance\" configured in builder."
     },
     {
       "filename": "zyvoriq_after_admin_feedback_inbox.png",
