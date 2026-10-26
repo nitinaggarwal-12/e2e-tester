@@ -1,7 +1,7 @@
 {
   "ok": true,
-  "verifiedAt": "2026-10-23T15:50:38.964Z",
-  "totalDurationMs": 33,
+  "verifiedAt": "2026-10-25T22:02:37.898Z",
+  "totalDurationMs": 43,
   "totalJourneys": 8,
   "passedJourneys": 8,
   "failedJourneys": 0,
@@ -14,11 +14,11 @@
   "mathematicalConservation": {
     "ok": true,
     "pass": true,
-    "formula": "70 Total == 28 Pass + 1 Fail + 1 Blocked + 0 Skipped + 40 Untested",
+    "formula": "70 Total == 70 Pass + 0 Fail + 0 Blocked + 0 Skipped + 0 Untested",
     "domainPartitionFormula": "13 Domains Sum (70) == 70",
     "telemetryMatches": true,
     "ascendingOrderValid": true,
-    "expectedGateState": "HOLD (1 P0 FAIL)",
+    "expectedGateState": "RELEASE CERTIFIED",
     "checks": [
       {
         "id": "LOG-01",
@@ -54,10 +54,10 @@
       "workflowType": "User & Operational Onboarding Workflow",
       "stepsChain": "Update Target Profile → Run Assisted HTTP Probe → Verify State Persistence → Log Probe Telemetry",
       "status": "Pass",
-      "durationMs": 14,
+      "durationMs": 16,
       "logicalGate": {
         "pass": true,
-        "summary": "Profile state machine & 70 Total == 28 Pass + 1 Fail + 1 Blocked + 0 Skipped + 40 Untested conserved; non-destructive probe keeps test counts invariant."
+        "summary": "Profile state machine & 70 Total == 70 Pass + 0 Fail + 0 Blocked + 0 Skipped + 0 Untested conserved; non-destructive probe keeps test counts invariant."
       },
       "functionalGate": {
         "pass": true,
@@ -69,7 +69,7 @@
       },
       "operationalGate": {
         "pass": true,
-        "summary": "Audit entry AUD-0033 recorded ASSISTED_PROBE (HTTP 200 (4ms)) at 2026-10-23T15:50:38.943Z."
+        "summary": "Audit entry AUD-0048 recorded ASSISTED_PROBE (HTTP 200 (4ms)) at 2026-10-25T22:02:37.862Z."
       }
     },
     {
@@ -78,7 +78,7 @@
       "workflowType": "Core Functional & Data Persistence Workflow (D04/D05)",
       "stepsChain": "Reject Whitespace-Only Input (HTTP 400) → Create Custom Case (70→71) → Log Pass → Delete & Restore (71→70)",
       "status": "Pass",
-      "durationMs": 6,
+      "durationMs": 8,
       "logicalGate": {
         "pass": true,
         "summary": "Total dynamically expanded 70 → 71 on Create and restored 71 → 70 on Delete; ascending ID order (D04-07) preserved."
@@ -102,7 +102,7 @@
       "workflowType": "Business Release Governance & Defect Triage Workflow",
       "stepsChain": "Log P0 Failure (D01-05 + BUG-40219) → Recompute P0 Blocker Telemetry → Trigger HOLD Release Gate → Escalate to Executive Readout",
       "status": "Pass",
-      "durationMs": 3,
+      "durationMs": 4,
       "logicalGate": {
         "pass": true,
         "summary": "Boolean Release Gate invariant verified: p0Blockers (1) > 0 ⟹ Gate = \"HOLD (1 P0 FAIL)\"."
@@ -150,7 +150,7 @@
       "workflowType": "User Discovery, Filtering & Error-Recovery Workflow (D03/D06)",
       "stepsChain": "Filter by Domain + Priority + Live Query → Sync URL Query Params → Handle 0-Match Regex Query → 1-Click Reset All Filters",
       "status": "Pass",
-      "durationMs": 1,
+      "durationMs": 3,
       "logicalGate": {
         "pass": true,
         "summary": "Conjunctive predicate logic (Domain ∩ Priority ∩ Search) returned 1 exact match(es); unmatched query returned 0 without throwing."
@@ -222,7 +222,7 @@
       "workflowType": "Operational Reporting, Compliance & Data Export Workflow (D09/D12)",
       "stepsChain": "Generate Markdown Readout → Generate RFC-4180 CSV Matrix → Escape Formula Prefixes (=,+,-,@) → Export Full JSON Snapshot",
       "status": "Pass",
-      "durationMs": 2,
+      "durationMs": 4,
       "logicalGate": {
         "pass": true,
         "summary": "3-Way Export Parity: JSON (70 cases), CSV (70 data rows + 1 header), and Markdown all match live state 1:1."

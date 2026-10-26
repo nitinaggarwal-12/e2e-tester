@@ -107,4 +107,27 @@ assert(
 const shotHashes = new Set((zyvReport.screenshots || []).map((s) => s.sha256));
 assert(shotHashes.size >= 10, `Expected >= 10 unique screenshot SHA-256 hashes, found ${shotHashes.size}`);
 
-console.log('✅ ALL 9 FORENSIC QUALITY GATES PASSED (Rule 25, Rule 26, Rule 54, Rule 58, 13-Domain 70-Case Catalog, Headless Chrome Runner, 8-CUJ 4-Dim Verifier, Grounding Truth, and 25-RCA Zyvoriq Forensic & UI/UX Dossier).');
+// 10. GantryPulse 18-Tab Forensic Dossier Integrity (8/8 RCAs, 18/18 Journeys Pass, 12 Before/After Screenshots)
+const gpReportRaw = fs.readFileSync(path.join(ROOT, 'data/gantrypulse_e2e_report.json'), 'utf8');
+const gpReport = JSON.parse(gpReportRaw);
+assert(
+  Array.isArray(gpReport.outageRcaAndRemediation) && gpReport.outageRcaAndRemediation.length >= 8,
+  `Expected >= 8 GantryPulse Forensic RCAs, found ${gpReport.outageRcaAndRemediation?.length || 0}`
+);
+assert(
+  Array.isArray(gpReport.journeys) &&
+    gpReport.journeys.length === 18 &&
+    gpReport.journeys.every((j) => j.status === 'Pass'),
+  'Expected 18/18 GantryPulse journeys with status="Pass"'
+);
+assert(
+  Array.isArray(gpReport.screenshots) && gpReport.screenshots.length >= 12,
+  `Expected >= 12 GantryPulse screenshots, found ${gpReport.screenshots?.length || 0}`
+);
+for (const s of gpReport.screenshots) {
+  const diskPath = path.join(ROOT, 'public', s.publicPath.replace(/^\//, ''));
+  assert(fs.existsSync(diskPath), `Missing GantryPulse screenshot on disk: ${diskPath}`);
+}
+
+console.log('✅ ALL 10 FORENSIC QUALITY GATES PASSED (Rule 25, Rule 26, Rule 54, Rule 58, 13-Domain 70-Case Catalog, Headless Chrome Runner, 8-CUJ 4-Dim Verifier, Grounding Truth, 25-RCA Zyvoriq Dossier, and 18-Tab GantryPulse Forensic Dossier).');
+

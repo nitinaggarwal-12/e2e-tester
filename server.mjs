@@ -23,6 +23,7 @@ const DATA_DIR = path.join(__dirname, 'data');
 const STATE_FILE = path.join(DATA_DIR, 'e2e_execution_state.json');
 const CATALOG_FILE = path.join(DATA_DIR, 'e2e_test_cases.json');
 const ZYVORIQ_REPORT_FILE = path.join(DATA_DIR, 'zyvoriq_e2e_report.json');
+const GANTRYPULSE_REPORT_FILE = path.join(DATA_DIR, 'gantrypulse_e2e_report.json');
 const PORT = Number(process.env.PORT || 4190);
 
 export function loadZyvoriqE2EReport() {
@@ -32,6 +33,17 @@ export function loadZyvoriqE2EReport() {
     }
   } catch (err) {
     console.error('Error loading zyvoriq_e2e_report.json:', err);
+  }
+  return null;
+}
+
+export function loadGantryPulseE2EReport() {
+  try {
+    if (fs.existsSync(GANTRYPULSE_REPORT_FILE)) {
+      return JSON.parse(fs.readFileSync(GANTRYPULSE_REPORT_FILE, 'utf8'));
+    }
+  } catch (err) {
+    console.error('Error loading gantrypulse_e2e_report.json:', err);
   }
   return null;
 }
@@ -213,6 +225,86 @@ export async function dispatchRequest(method, rawUrl, body = {}) {
     return jsonReply(200, { ok: Boolean(zyv), zyvoriqE2EReport: zyv });
   }
 
+  if (pathname === '/api/gantrypulse/e2e-report' && method === 'GET') {
+    const gp = loadGantryPulseE2EReport();
+    return jsonReply(200, { ok: Boolean(gp), gantrypulseE2EReport: gp });
+  }
+
+  if (pathname === '/api/gantrypulse/run-live-audit' && (method === 'POST' || method === 'GET')) {
+    const gp = loadGantryPulseE2EReport() || {};
+    const liveProbe = {
+      probedAt: new Date().toISOString(),
+      frontend5173Reachable: false,
+      backend8765Reachable: false,
+      watermarksCount: 0,
+      lineageFileSha256: null,
+      directBuganizerIssuesVerified: 0,
+      directSfdcCasesVerified: 0
+    };
+    try {
+      const feRes = await fetch('http://127.0.0.1:5173', { signal: AbortSignal.timeout(3000) });
+      liveProbe.frontend5173Reachable = feRes.ok;
+    } catch {
+      liveProbe.frontend5173Reachable = false;
+    }
+    try {
+      const wmRes = await fetch('http://127.0.0.1:8765/api/portal/watermarks', {
+        signal: AbortSignal.timeout(4000)
+      });
+      if (wmRes.ok) {
+        const wmJson = await wmRes.json();
+        liveProbe.backend8765Reachable = true;
+        const wms = wmJson.watermarks || wmJson.sources || [];
+        liveProbe.watermarksCount = Array.isArray(wms) ? wms.length : Object.keys(wms).length;
+      }
+      const sotRes = await fetch('http://127.0.0.1:8765/api/portal/direct-sot-proof', {
+        signal: AbortSignal.timeout(4000)
+      });
+      if (sotRes.ok) {
+        const sotJson = await sotRes.json();
+        const root =
+          sotJson.latestCycle ||
+          sotJson.proof?.latestCycle ||
+          sotJson.auditLog?.latestCycle ||
+          sotJson.proof ||
+          sotJson;
+        const ch = root.directSotChannels || sotJson.directSotChannels || {};
+        liveProbe.lineageFileSha256 =
+          root.lineageFileSha256 || sotJson.lineageFileSha256 || null;
+        liveProbe.directBuganizerIssuesVerified =
+          ch.buganizerDirectSot?.issuesVerifiedDirectFromSot ||
+          root.directBuganizerIssuesVerified ||
+          0;
+        liveProbe.directSfdcCasesVerified =
+          ch.salesforceVectorDirectSot?.casesVerifiedDirectFromSot ||
+          root.directSfdcCasesVerified ||
+          0;
+      }
+      if (!liveProbe.lineageFileSha256) {
+        const auditLogPath =
+          '/Users/nitinagga/Documents/gantry-pulse/.local_backup/direct_sot_sync_audit_log.json';
+        if (fs.existsSync(auditLogPath)) {
+          const auditDisk = JSON.parse(fs.readFileSync(auditLogPath, 'utf8'));
+          const lc = auditDisk.latestCycle || auditDisk;
+          liveProbe.lineageFileSha256 = lc.lineageFileSha256 || null;
+          liveProbe.directBuganizerIssuesVerified =
+            lc.directSotChannels?.buganizerDirectSot?.issuesVerifiedDirectFromSot || 0;
+          liveProbe.directSfdcCasesVerified =
+            lc.directSotChannels?.salesforceVectorDirectSot?.casesVerifiedDirectFromSot || 0;
+        }
+      }
+    } catch {
+      // backend offline fallback
+    }
+    gp.lastLiveProbe = liveProbe;
+    try {
+      fs.writeFileSync(GANTRYPULSE_REPORT_FILE, JSON.stringify(gp, null, 2), 'utf8');
+    } catch {
+      // ignore write error
+    }
+    return jsonReply(200, { ok: true, liveProbe, gantrypulseE2EReport: gp });
+  }
+
   if (pathname === '/api/state' && method === 'GET') {
     const state = loadState();
     const htmlDiag = state.targetAppProfile?.lastHtmlDiagnostics || null;
@@ -226,7 +318,8 @@ export async function dispatchRequest(method, rawUrl, body = {}) {
         htmlDiagnostics: htmlDiag,
         requestedArchetype: state.targetAppProfile?.appArchetype || 'auto'
       }),
-      zyvoriqE2EReport: loadZyvoriqE2EReport()
+      zyvoriqE2EReport: loadZyvoriqE2EReport(),
+      gantrypulseE2EReport: loadGantryPulseE2EReport()
     });
   }
 

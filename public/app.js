@@ -9,6 +9,7 @@ const appState = {
   correctiveActionsReport: null,
   skillMatchReport: null,
   zyvoriqE2EReport: null,
+  gantrypulseE2EReport: null,
   activeTab: 'matrix', // 'matrix' | 'report' | 'audit' | 'ia'
   activeDomain: 'ALL',
   filterCategory: 'ALL',
@@ -99,6 +100,7 @@ async function fetchInitialState() {
     appState.correctiveActionsReport = data.correctiveActionsReport || null;
     appState.skillMatchReport = data.skillMatchReport || null;
     appState.zyvoriqE2EReport = data.zyvoriqE2EReport || null;
+    appState.gantrypulseE2EReport = data.gantrypulseE2EReport || null;
 
     // Validate domain filter against known domains
     if (
@@ -1011,9 +1013,119 @@ function renderExecutiveReport() {
       .join('');
   }
 
-  // Section 4: Complete Before & After Visual Evidence Gallery (14 cards: 8 E2E Hub + 6 Zyvoriq)
+  // Section 4: Complete Before & After Visual Evidence Gallery
   const galleryEl = document.getElementById('report-before-after-gallery');
   const zyvReport = appState.zyvoriqE2EReport;
+  const gpReport = appState.gantrypulseE2EReport;
+
+  // Render Saved GantryPulse (v5.2.0) End-to-End Audit Report & 12 Screenshots Section
+  const gpRcaEl = document.getElementById('gantrypulse-outage-rca-container');
+  const gpJourneysEl = document.getElementById('gantrypulse-journeys-table-container');
+  const gpGalleryEl = document.getElementById('gantrypulse-before-after-gallery');
+
+  if (gpReport && gpRcaEl) {
+    gpRcaEl.innerHTML = `
+      <div style="font-weight:700;font-size:12.5px;color:#0f172a;margin-bottom:6px;">
+        🔧 GantryPulse Root Cause Analysis (RCA), Assigned Remediation Skill &amp; Same-Turn Fixes (${(gpReport.outageRcaAndRemediation || []).length} Issues Remediated &amp; Verified)
+      </div>
+      <table class="table-fixed gp-blue-grid-table">
+        <thead>
+          <tr>
+            <th style="width:11%;">RCA ID &amp; Severity</th>
+            <th style="width:18%;">Component &amp; Skill Used to Fix</th>
+            <th style="width:25%;">Symptom Before Fix &amp; Root Cause</th>
+            <th style="width:24%;">Deterministic Fix Applied (Same-Turn)</th>
+            <th style="width:22%;">Verified After Fix</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${(gpReport.outageRcaAndRemediation || [])
+            .map(
+              (r) => `
+              <tr>
+                <td class="leading-tight break-words">
+                  <strong>${escapeHtml(r.id)}</strong><br/>
+                  <span class="badge badge-pass" style="margin-top:3px;">${escapeHtml(r.severity)}</span>
+                </td>
+                <td class="leading-tight break-words" style="font-size:11.5px;">
+                  <code>${escapeHtml(r.component)}</code><br/>
+                  <span class="badge badge-cat badge-wrap" style="margin-top:4px;display:inline-block;white-space:normal;text-align:left;">🛠️ Skill: ${escapeHtml(r.assignedSkill || 'gantrypulse-forensic-audit')}</span>
+                  ${r.skillSource ? `<div style="font-size:10px;color:#475569;margin-top:2px;">${escapeHtml(r.skillSource)}</div>` : ''}
+                </td>
+                <td class="leading-tight break-words" style="font-size:11.5px;">
+                  <strong>Before:</strong> ${escapeHtml(r.symptomBefore)}<br/>
+                  <span style="color:#475569;"><em>Root Cause:</em> ${escapeHtml(r.rootCause)}</span>
+                </td>
+                <td class="leading-tight break-words" style="font-size:11.5px;color:#065f46;font-weight:600;">
+                  ${escapeHtml(r.remediationApplied)}
+                </td>
+                <td class="leading-tight break-words" style="font-size:11.5px;color:#0f172a;">
+                  <code>${escapeHtml(r.verifiedAfter)}</code>
+                </td>
+              </tr>
+            `
+            )
+            .join('')}
+        </tbody>
+      </table>
+    `;
+  }
+
+  if (gpReport && gpJourneysEl) {
+    const gpJourneys = gpReport.journeys || [];
+    gpJourneysEl.innerHTML = `
+      <div style="font-weight:700;font-size:12.5px;color:#0f172a;margin-bottom:6px;">
+        ✅ ${gpJourneys.length} GantryPulse End-to-End Tab &amp; Workflow Journeys (${gpJourneys.length}/${gpJourneys.length} PASS)
+      </div>
+      <table class="table-fixed gp-blue-grid-table">
+        <thead>
+          <tr>
+            <th style="width:12%;">Journey ID</th>
+            <th style="width:28%;">GantryPulse Route / Surface</th>
+            <th style="width:18%;">Verification Dimension</th>
+            <th style="width:10%;">Status</th>
+            <th style="width:32%;">Live Grounded Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${gpJourneys
+            .map(
+              (j) => `
+              <tr>
+                <td class="leading-tight break-words"><strong>${escapeHtml(j.id)}</strong></td>
+                <td class="leading-tight break-words" style="font-size:12px;"><strong>${escapeHtml(j.surface)}</strong></td>
+                <td class="leading-tight break-words" style="font-size:11.5px;"><span class="badge badge-cat">${escapeHtml(j.dimension)}</span></td>
+                <td><span class="status-pill status-${escapeHtml(j.status)}">${escapeHtml(j.status)}</span></td>
+                <td class="leading-tight break-words" style="font-size:11.5px;color:#065f46;font-weight:600;">${escapeHtml(j.evidence)}</td>
+              </tr>
+            `
+            )
+            .join('')}
+        </tbody>
+      </table>
+    `;
+  }
+
+  if (gpReport && gpGalleryEl && Array.isArray(gpReport.screenshots)) {
+    gpGalleryEl.innerHTML = gpReport.screenshots
+      .map(
+        (s) => `
+          <div style="border:1px solid #cbd5e1;border-radius:8px;background:#ffffff;overflow:hidden;display:flex;flex-direction:column;">
+            <div style="padding:8px 10px;border-bottom:1px solid #e2e8f0;background:#f8fafc;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;">
+                <span class="badge ${escapeHtml(s.badgeClass || 'badge-pass')}">${escapeHtml(s.stage)}</span>
+              </div>
+              <div style="font-weight:700;font-size:12.5px;color:#0f172a;margin-top:4px;" class="leading-tight break-words">${escapeHtml(s.title)}</div>
+              <div style="font-size:11px;color:#475569;margin-top:2px;" class="leading-tight break-words">${escapeHtml(s.desc)}</div>
+            </div>
+            <a href="${escapeHtml(s.publicPath)}" target="_blank" rel="noopener noreferrer" title="Click to open full-resolution GantryPulse PNG">
+              <img src="${escapeHtml(s.publicPath)}" alt="${escapeHtml(s.title)}" style="width:100%;height:175px;object-fit:cover;object-position:top;display:block;" loading="lazy" />
+            </a>
+          </div>
+        `
+      )
+      .join('');
+  }
 
   // Render Saved Zyvoriq (v3.5.0) End-to-End Audit Report & 6 Screenshots Section
   const zyvRcaEl = document.getElementById('zyvoriq-outage-rca-container');
@@ -1276,6 +1388,14 @@ function renderExecutiveReport() {
       }
     ];
 
+    const gantrypulseGalleryItems = (gpReport?.screenshots || []).map((s) => ({
+      stage: s.stage,
+      badgeClass: s.badgeClass || 'badge-pass',
+      title: s.title,
+      desc: s.desc,
+      src: s.publicPath
+    }));
+
     const zyvoriqGalleryItems = (zyvReport?.screenshots || []).map((s) => ({
       stage: s.stage,
       badgeClass: s.badgeClass || 'badge-pass',
@@ -1284,7 +1404,7 @@ function renderExecutiveReport() {
       src: s.publicPath
     }));
 
-    const galleryItems = [...baseGalleryItems, ...zyvoriqGalleryItems];
+    const galleryItems = [...gantrypulseGalleryItems, ...baseGalleryItems, ...zyvoriqGalleryItems];
 
     galleryEl.innerHTML = galleryItems
       .map(
@@ -1827,6 +1947,26 @@ window.addEventListener('DOMContentLoaded', () => {
       btn.disabled = false;
       btn.textContent = origText;
     }
+  });
+
+  // 1-Click Load Saved GantryPulse (18-Tab) End-to-End Audit Report & 12 Before/After Screenshots
+  document.getElementById('load-gantrypulse-e2e-btn')?.addEventListener('click', async () => {
+    const appNameEl = document.getElementById('profile-app-name');
+    const baseUrlEl = document.getElementById('profile-base-url');
+    const envEl = document.getElementById('profile-env');
+    const verEl = document.getElementById('profile-version');
+    if (appNameEl) appNameEl.value = 'GantryPulse — Enterprise Customer Lineage & 6-Hop SoT Portal';
+    if (baseUrlEl) baseUrlEl.value = 'http://127.0.0.1:5173/?tab=certified_sot';
+    if (envEl) envEl.value = 'Production';
+    if (verEl) verEl.value = '5.2.0-forensic-sot';
+    await saveProfile();
+    appState.activeTab = 'report';
+    renderWorkspaceTabs();
+    renderExecutiveReport();
+    setTimeout(() => {
+      document.getElementById('gantrypulse-e2e-saved-report-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+    showToast('Loaded Saved GantryPulse (18-Tab) End-to-End Report + 12 Before/After Screenshots (18/18 Journeys PASS)', 'success');
   });
 
   // 1-Click Load Saved Zyvoriq (v3.5.0) End-to-End Audit Report & 6 Before/After Screenshots

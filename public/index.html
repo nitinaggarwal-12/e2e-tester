@@ -107,10 +107,13 @@
         <button type="button" class="btn btn-primary" id="run-full-url-e2e-btn" title="1-Click Autonomous Target URL E2E Scan + Skill Matching + Corrective Actions & Report">
           🚀 Full URL E2E + Report
         </button>
-        <button type="button" class="btn btn-soft-blue" id="load-zyvoriq-e2e-btn" title="Open Saved Zyvoriq (v3.5.0) End-to-End Audit Report & 6 Live Before/After Screenshots">
+        <button type="button" class="btn btn-soft-blue" id="load-gantrypulse-e2e-btn" title="Open Saved GantryPulse (18-Tab) End-to-End Audit Report, 8 Remediated RCAs &amp; 12 Before/After Screenshots">
+          🛡️ GantryPulse (18-Tab) E2E Report
+        </button>
+        <button type="button" class="btn btn-soft-blue" id="load-zyvoriq-e2e-btn" title="Open Saved Zyvoriq (v3.5.0) End-to-End Audit Report &amp; 6 Live Before/After Screenshots">
           🎬 Zyvoriq (v3.5.0) E2E Report
         </button>
-        <button type="button" class="btn" id="run-headless-suite-btn" title="Execute test cases in background Headless Chrome, capture screenshots, detect issues & auto-document results">
+        <button type="button" class="btn" id="run-headless-suite-btn" title="Execute test cases in background Headless Chrome, capture screenshots, detect issues &amp; auto-document results">
           🤖 Headless Chrome Suite
         </button>
         <a href="http://localhost:4190" target="_blank" rel="noopener noreferrer" class="btn" id="launch-target-url-btn">
@@ -293,7 +296,26 @@
           </div>
         </div>
 
-        <!-- 0. Saved Target App Live E2E Audit Report: Zyvoriq (v3.5.0-omni-swarm) -->
+        <!-- 0A. Saved Target App Live E2E Audit Report: GantryPulse (v5.2.0-forensic-sot) -->
+        <div style="margin-top:18px;background:#f8fafc;border:1px solid #86efac;border-radius:10px;padding:16px;" id="gantrypulse-e2e-saved-report-section">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+            <div>
+              <h3 style="margin:0;font-size:15.5px;color:#0f172a;">
+                🛡️ Saved Target App End-to-End UI/UX &amp; 18-Tab Forensic Audit Report: GantryPulse (v5.2.0-forensic-sot)
+              </h3>
+              <p style="margin:3px 0 0 0;font-size:12px;color:#334155;">
+                Cloud Run Live URL: <a href="https://customer-tracker-248990048888.cr.gclb.goog" target="_blank" rel="noopener noreferrer" style="color:#2563eb;font-weight:700;">https://customer-tracker-248990048888.cr.gclb.goog ↗</a> · 18 Canonical Tabs · 8 UI/UX/Workflow RCAs Remediated · Local: <code>http://127.0.0.1:5173/?tab=certified_sot</code>
+              </p>
+            </div>
+            <span class="status-pill status-Pass" id="gantrypulse-e2e-verdict-badge">18 / 18 Tabs · 8 / 8 RCAs Fixed · 12 Before/After Screenshots PASS ✅</span>
+          </div>
+
+          <div id="gantrypulse-outage-rca-container" style="margin-bottom:12px;"></div>
+          <div id="gantrypulse-journeys-table-container" style="margin-bottom:14px;"></div>
+          <div id="gantrypulse-before-after-gallery" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:10px;"></div>
+        </div>
+
+        <!-- 0B. Saved Target App Live E2E Audit Report: Zyvoriq (v3.5.0-omni-swarm) -->
         <div style="margin-top:18px;background:#f8fafc;border:1px solid #93c5fd;border-radius:10px;padding:16px;" id="zyvoriq-e2e-saved-report-section">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
             <div>

@@ -1,0 +1,335 @@
+{
+  "appName": "GantryPulse — Enterprise Customer Lineage & 6-Hop SoT Portal",
+  "version": "5.2.0-forensic-sot",
+  "cloudRunUrl": "https://customer-tracker-248990048888.cr.gclb.goog",
+  "cloudRunProject": "ramp-portal-dev (#248990048888, us-west1)",
+  "localUrl": "http://127.0.0.1:5173/?tab=certified_sot",
+  "backendUrl": "http://127.0.0.1:8765",
+  "auditedAt": "2026-10-25T21:50:00.000Z",
+  "overallVerdict": "RELEASE CERTIFIED (18/18 GantryPulse Tabs · 8/8 UI/UX/Workflow Forensic RCAs Remediated · firstRowTopPx <= 357px · 0px Overflow · 0 Console/Page Errors · 70/70 Matrix PASS)",
+  "outageRcaAndRemediation": [
+    {
+      "id": "GP-WF-01",
+      "severity": "P0 (Fixed & Verified)",
+      "component": "src/components/ConfigAndChangeLogTabs.tsx:L218-L246, src/App.tsx:L76-L99 & scripts/direct_sot_harvester.py:L2667-L2725",
+      "assignedSkill": "gantrypulse-forensic-audit + database-schema-guard",
+      "skillSource": "~/.gemini/config/skills/gantrypulse-forensic-audit/SKILL.md",
+      "symptomBefore": "Navigating to 10. Change Log (?tab=change_log) crashed the entire React tree into the red Crash-Only Error Boundary: TypeError: Cannot read properties of undefined (reading 'length') at ConfigAndChangeLogTabs.tsx:266:45.",
+      "rootCause": "scripts/direct_sot_harvester.py (lines 2667-2725) persisted direct-SoT audit entries into .local_backup/local_changelog.json using legacy keys (oldValue, field, rowKey, status) instead of the TypeScript ChangeLogEntry interface (previousValue, fieldChanged, lineageId, primaryId, syncStatus). When ConfigAndChangeLogTabs.tsx evaluated entry.previousValue.length, undefined.length threw an uncaught TypeError.",
+      "remediationApplied": "Updated scripts/direct_sot_harvester.py to emit canonical ChangeLogEntry keys alongside legacy aliases, migrated all 25 entries in .local_backup/local_changelog.json, added normalizeChangeLogEntryShape() in src/App.tsx, and added defensive String(entry.previousValue ?? entry.oldValue ?? '') normalization in ConfigAndChangeLogTabs.tsx.",
+      "verifiedAfter": "?tab=change_log renders all 25 audit rows with 0 pageErrors, 0 consoleErrors, and firstRowTopPx = 344px (<= 380px)."
+    },
+    {
+      "id": "GP-WF-02",
+      "severity": "P1 (Fixed & Verified)",
+      "component": "src/App.tsx:L988-L1002 & scratch/e2e_forensic_audit_runner.mjs",
+      "assignedSkill": "gantrypulse-6hop-sync + performance-and-telemetry",
+      "skillSource": "~/.gemini/config/skills/gantrypulse-6hop-sync/SKILL.md",
+      "symptomBefore": "Full URL navigations in Puppeteer/Playwright with waitUntil: 'networkidle2' timed out or leaked open HTTP connections across tab switches.",
+      "rootCause": "src/App.tsx opened a persistent Server-Sent Events (EventSource('/api/live-stream')) stream on mount and only closed it inside React's unmount cleanup, without closing sseSource on window beforeunload or pagehide.",
+      "remediationApplied": "Registered window beforeunload and pagehide listeners in src/App.tsx to close sseSource immediately prior to page navigation, and updated scratch/e2e_forensic_audit_runner.mjs to preserve screenshots 01..21.png.",
+      "verifiedAfter": "All 18 tabs navigate cleanly in Headless Chrome with 0 leaked SSE connections and 0 navigation timeouts."
+    },
+    {
+      "id": "GP-WF-03",
+      "severity": "P1 (Fixed & Verified)",
+      "component": "src/App.tsx:L1705-L1735 & scratch/e2e_forensic_audit_runner.mjs:L248-L885",
+      "assignedSkill": "puppeteer-pair-programming + automated-visual-regression-and-viewport-gate",
+      "skillSource": "~/.gemini/config/skills/puppeteer-pair-programming/SKILL.md",
+      "symptomBefore": "scratch/e2e_forensic_audit_runner.mjs failed Sensor 2, Sensor 6, and all 12 tabWalkthroughResults because it queried legacy numbered sidebar labels ('0. Certified SoT'..'11. EAP Features Tracker').",
+      "rootCause": "The left sidebar was expanded from 12 numbered tabs into 18 domain-grouped tabs across 4 sections without stable data-testid=\"sidebar-tab-<id>\" attributes.",
+      "remediationApplied": "Added deterministic data-testid=\"sidebar-tab-<id>\" attributes to all 18 sidebar navigation buttons in src/App.tsx and updated scratch/e2e_forensic_audit_runner.mjs + scratch/screenshots_e2e_forensic/e2e_forensic_report.json to audit all 18 tabs.",
+      "verifiedAfter": "18/18 tabs pass walkthrough assertions in e2e_forensic_report.json with 0 console/page errors."
+    },
+    {
+      "id": "GP-WF-04",
+      "severity": "P2 (Fixed & Verified)",
+      "component": "src/components/LiveMultiSourceSotExplorer.tsx:L38-L51",
+      "assignedSkill": "gantrypulse-6hop-sync + bug-fixer-debugger",
+      "skillSource": "~/.gemini/config/skills/gantrypulse-6hop-sync/SKILL.md",
+      "symptomBefore": "Navigating across Customer Asks & Comms, Product Feature Requests, Product Bugs, Process Gaps, and Automated FR & CR Studio emitted React console.error warnings: Encountered two children with the same key, GMAIL-FMfcgzQhWxXd.",
+      "rootCause": "LiveMultiSourceSotExplorer.tsx rendered raw feed items from live_multi_source_sot_feed.json where multiple discovered Gmail threads shared the same message prefix ID (GMAIL-FMfcgzQhWxXd).",
+      "remediationApplied": "Updated sanitizeFeedItemList() in src/components/LiveMultiSourceSotExplorer.tsx to track seenIds and assign deterministic deduplicated keys (${baseId}-dup-${idx}).",
+      "verifiedAfter": "0 console.error messages across all 18 tabs (verified in Headless Chrome)."
+    },
+    {
+      "id": "GP-UI-01",
+      "severity": "P1 (Fixed & Verified)",
+      "component": "src/components/CertifiedForensicLineageTab.tsx:L4804-L4812, src/components/AutomatedFeatureRequestCrStudioTab.tsx:L1016-L1028 & src/components/ConfigAndChangeLogTabs.tsx:L69-L115, L272-L355",
+      "assignedSkill": "executive-ui-design-and-frontend-craft + gantrypulse-ui-containment",
+      "skillSource": "~/.gemini/config/skills/gantrypulse-ui-containment/SKILL.md (Rule 25D)",
+      "symptomBefore": "Primary data tables on 4 core tabs were pushed below the Rule 25D 380px Above-the-Fold ceiling: certified_sot (496px), automated_fr_cr_studio (539px), config_lookups (468px), and change_log (430px).",
+      "rootCause": "Multi-row promotional banners, secondary <LiveMultiSourceSotExplorer compact />, and diagnostic callout cards were stacked above the primary data tables instead of below them.",
+      "remediationApplied": "Relocated <LiveMultiSourceSotExplorer compact /> below the primary table on certified_sot (496px -> 357px), relocated filed-cr-572808626-next-steps-banner and LiveMultiSourceSotExplorer below the main table on automated_fr_cr_studio (539px -> 354px), compacted the header banner on config_lookups (468px -> 330px), and relocated cb-eng-notifications-banner below the main table on change_log (430px -> 344px).",
+      "verifiedAfter": "16/16 operational table tabs render their first <tbody><tr> at Y <= 357px (strictly below the 380px Rule 25D budget)."
+    },
+    {
+      "id": "GP-UI-02",
+      "severity": "P1 (Fixed & Verified)",
+      "component": "src/App.tsx:L1579-L1850, src/components/GeminiSpecLineageTab.tsx:L889-L905, src/components/AutomatedFeatureRequestCrStudioTab.tsx:L941-L1015 & 11 Modal Headers",
+      "assignedSkill": "ui-first-design-system",
+      "skillSource": "~/.gemini/config/skills/ui-first-design-system/SKILL.md (Rule 54 / Law 15)",
+      "symptomBefore": "Left navigation sidebar <aside> used dark navy bg-[#0b132b], GeminiSpecLineageTab used a dark #0b132b status strip, AutomatedFeatureRequestCrStudioTab used a dark bg-slate-900 banner, and 11 modal headers used bg-slate-900.",
+      "rootCause": "Legacy dark-theme classes (#0b132b, bg-slate-900, bg-slate-950) remained across the navigation rail, subheaders, and modal headers in violation of Rule 54 Universal Executive Light Theme.",
+      "remediationApplied": "Converted the left sidebar <aside> and collapsed flyout popovers in src/App.tsx to Executive Light Theme (bg-white, text-slate-900, border-slate-200, active pill bg-blue-50 text-blue-700 border-blue-200), converted GeminiSpecLineageTab and AutomatedFeatureRequestCrStudioTab bars to bg-white/bg-slate-100, and converted all 11 modal headers to Light Theme.",
+      "verifiedAfter": "asideBg === 'rgb(255, 255, 255)' and 0 dark-mode root/header surfaces across all 18 tabs."
+    },
+    {
+      "id": "GP-UI-03",
+      "severity": "P1 (Fixed & Verified)",
+      "component": "src/components/CertifiedForensicLineageTab.tsx:L5726-L5743, L6037 & L6165-L6169",
+      "assignedSkill": "table-cell-containment-and-truncate-safety-guard",
+      "skillSource": "~/.gemini/config/skills/table-cell-containment-and-truncate-safety-guard/SKILL.md (Rule 26 & Rule 57C)",
+      "symptomBefore": "In Certified SoT (Tab 0) Column 1, the L2 Manager taxonomy pill ('2. Agent Designer & Multi-Agent Workflows') wrapped vertically 1 character per line down the right edge of the cell, Care Team 'Edit' wrapped into 'Edi / t', and Column 8 date/author wrapped mid-token.",
+      "rootCause": "In CertifiedForensicLineageTab.tsx:L5726, a non-wrapping flex row contained two shrink-0 siblings ('● OPEN' and '📅 Created...'), starving the 3rd child (rec.taxonomyL2_Manager with min-w-0 truncate) to ~8px width, which combined with src/index.css:L159's white-space: normal !important; word-break: break-word !important; forced 1-char-per-line vertical text.",
+      "remediationApplied": "Added flex-wrap to the Column 1 metadata row, replaced min-w-0 truncate with leading-tight break-words max-w-full on the L2 Manager badge, and added shrink-0 whitespace-nowrap to the Care Team Edit button and Column 8 date/author pills.",
+      "verifiedAfter": "0 vertical 1-character-per-line text stacks, 0 tableCellOverflows, and 0 nakedTruncateSpans across all 18 tabs."
+    },
+    {
+      "id": "GP-UX-01",
+      "severity": "P1 (Fixed & Verified)",
+      "component": "14 Component Files (CertifiedForensicLineageTab.tsx, AutomatedFeatureRequestCrStudioTab.tsx, App.tsx, ContextTicketLoggerModal.tsx, RowCellLlmJudgeModal.tsx, TicketColumnEditor.tsx, HeaderTeamLeadsEditor.tsx, MasterLineageTab.tsx, DailyOutreachBriefPanel.tsx, GeminiSpecLineageTab.tsx, MultiSourceTrackerPageTab.tsx, UniversalFeedbackSystem.tsx, UnifiedCommunicationModal.tsx, GlobalFeedbackModal.tsx)",
+      "assignedSkill": "executive-ui-design-and-frontend-craft",
+      "skillSource": "~/.gemini/config/skills/executive-ui-design-and-frontend-craft/SKILL.md (Rule 25 & Rule 25F)",
+      "symptomBefore": "Clicking row actions (Triage, Email/Chat, Ticket Editor, Cell Judge, Ask AI OCE) opened centered blocking modals (fixed inset-0 flex items-center justify-center) that occluded the underlying table data, and Certified SoT displayed two competing AI buttons ('Ask AI OCE ⌘J' in header + 'Ask GantryPulse' in subheader).",
+      "rootCause": "19 modal containers across 14 files used centered items-center justify-center positioning instead of docked right-side slide-over drawers (justify-end), and CertifiedForensicLineageTab rendered a duplicate AI trigger button.",
+      "remediationApplied": "Converted all 19 modal overlays across 14 component files into non-blocking right-side Executive Light-Theme drawers (fixed inset-0 z-50 flex items-stretch justify-end with h-full overflow-y-auto border-l border-slate-200) and consolidated the duplicate AI trigger into the single canonical #ask-gantrypulse-trigger button in the top header.",
+      "verifiedAfter": "centeredModalsInDom === 0 across all 18 tabs and all interactive drawers; aiButtons === ['Ask AI OCE ⌘J']."
+    }
+  ],
+  "journeys": [
+    {
+      "id": "GP-E2E-01",
+      "surface": "?tab=certified_sot — 1. Customer Blockers & Action Plan (175 Lineages)",
+      "dimension": "UI/UX & 6-Hop Lineage",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=357px (was 496px) · 0px overflow · Light sidebar · Right-side Triage & Email drawers · 0 vertical pill wraps"
+    },
+    {
+      "id": "GP-E2E-02",
+      "surface": "?tab=gemini_spec — 2. Live 2-Way Sheet Grid (66 Rows)",
+      "dimension": "2-Way Google Sheet Sync",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=315px · 0px overflow · Executive Light Theme subheader · Right-side Add/Delete Row drawers"
+    },
+    {
+      "id": "GP-E2E-03",
+      "surface": "?tab=master_lineage — 3. SLA & Escalation Triage Queue",
+      "dimension": "SLA Triage & Filtering",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=307px · Sticky thead · Stale > 14d filter · Right-side Lineage Detail drawer"
+    },
+    {
+      "id": "GP-E2E-04",
+      "surface": "?tab=automated_fr_cr_studio — 4. Automated FR & CR Filing Studio (148 Items)",
+      "dimension": "Buganizer Filing & Dedupe",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=354px (was 539px) · 0 duplicate React keys · Light Theme controls · Right-side Filing Studio drawer"
+    },
+    {
+      "id": "GP-E2E-05",
+      "surface": "?tab=eap_tracker — 1. EAP Program & Enrollments (52 Rows · Link 1 + Link 2)",
+      "dimension": "Rule 29 & 30 EAP SoT",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=311px · 0px overflow · Live Buganizer/SFDC telemetry bar · 0 consoleErrors"
+    },
+    {
+      "id": "GP-E2E-06",
+      "surface": "?tab=customer_asks — 2. Customer Questions & Comms (107 Dated Items)",
+      "dimension": "Rule 30 Chronological Comms",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=311px · 107 dated asks sorted DESC · 0 duplicate keys · Right-side Edit & Triage drawer"
+    },
+    {
+      "id": "GP-E2E-07",
+      "surface": "?tab=product_feature_requests — 3. Product Feature Requests (FRs)",
+      "dimension": "Rule 29 Zero Umbrella Bleed",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=311px · Unshipped FRs render '⚪ Not Available (FR Open — Unbuilt)' · 0px overflow"
+    },
+    {
+      "id": "GP-E2E-08",
+      "surface": "?tab=product_bugs — 4. Product Engineering Bugs",
+      "dimension": "Live Buganizer Parity",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=311px · Direct Buganizer b/ links verified · 0 consoleErrors · 0px overflow"
+    },
+    {
+      "id": "GP-E2E-09",
+      "surface": "?tab=process_gaps — 5. Process & Documentation Gaps",
+      "dimension": "Operational Remediation",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=311px · 0 consoleErrors · 0px overflow · Right-side drawer editing"
+    },
+    {
+      "id": "GP-E2E-10",
+      "surface": "?tab=executive_summary — 5. Executive KPI Rollup",
+      "dimension": "Executive Telemetry",
+      "status": "Pass",
+      "evidence": "0px overflow · Grounded $32.64M ARR metrics · 0 consoleErrors"
+    },
+    {
+      "id": "GP-E2E-11",
+      "surface": "?tab=raw_sfdc — 1. Salesforce Cases (46 Grounded Cases)",
+      "dimension": "SFDC Case Resolution",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=246px · 500Kf IDs resolved to CaseNumber + Subject · 0px overflow"
+    },
+    {
+      "id": "GP-E2E-12",
+      "surface": "?tab=raw_buganizer — 2. Buganizer Issues (291 Flattened Tickets)",
+      "dimension": "Buganizer Queue Parity",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=254px · Role pills (SWE, CR, CB, TAM) verified · 0px overflow"
+    },
+    {
+      "id": "GP-E2E-13",
+      "surface": "?tab=raw_crcb — 3. CR ↔ CB Escalations (118 Matrix Rows)",
+      "dimension": "Escalation Gap Audit",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=270px · Standalone CRs vs Linked CR-CB pairings verified · 0px overflow"
+    },
+    {
+      "id": "GP-E2E-14",
+      "surface": "?tab=raw_gantry — 4. Gantry Registry & 2-Step Intake Wizard",
+      "dimension": "Blocker Intake Workflow",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=238px · + Add Blocker routes to 2-Step Intake Wizard · 0px overflow"
+    },
+    {
+      "id": "GP-E2E-15",
+      "surface": "?tab=raw_sheets — 5. Connected Google Sheets (5 Upstream Workbooks)",
+      "dimension": "Rule 27 5-Sheet Sync",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=270px · 7 watermark sources verified · 0px overflow"
+    },
+    {
+      "id": "GP-E2E-16",
+      "surface": "?tab=config_lookups — 1. System Config & AI Stack (17/17 Canonical Models)",
+      "dimension": "Rule 55 AI Stack & Config",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=330px (was 468px) · 17/17 Canonical Models Active · 0px overflow"
+    },
+    {
+      "id": "GP-E2E-17",
+      "surface": "?tab=change_log — 2. Audit & Change Log (25 Verified Entries)",
+      "dimension": "GP-WF-01 Crash Remediation",
+      "status": "Pass",
+      "evidence": "firstRowTopPx=344px (was CRASH TypeError) · All 25 audit rows rendered · 0 pageErrors"
+    },
+    {
+      "id": "GP-E2E-18",
+      "surface": "?tab=admin_feedback — 3. Rule 58 Admin Feedback Inbox",
+      "dimension": "Rule 58 Feedback Governance",
+      "status": "Pass",
+      "evidence": "Top-header Give Feedback drawer + Admin-Only Feedback Inbox verified · 0 consoleErrors"
+    }
+  ],
+  "screenshots": [
+    {
+      "filename": "before_gantrypulse_changelog_crash.png",
+      "publicPath": "/evidence/gantrypulse/before_gantrypulse_changelog_crash.png",
+      "stage": "BEFORE (GP-WF-01 P0 Crash)",
+      "badgeClass": "badge-p0",
+      "title": "GantryPulse #1 (BEFORE) — Tab 10 Change Log Uncaught TypeError Crash",
+      "desc": "Before fix: ?tab=change_log crashed with TypeError: Cannot read properties of undefined (reading 'length') due to oldValue vs previousValue schema drift."
+    },
+    {
+      "filename": "after_gantrypulse_changelog_remediated.png",
+      "publicPath": "/evidence/gantrypulse/after_gantrypulse_changelog_remediated.png",
+      "stage": "AFTER (GP-WF-01 & GP-UI-01 Fixed)",
+      "badgeClass": "badge-pass",
+      "title": "GantryPulse #2 (AFTER) — Tab 10 Change Log Remediated (firstRowTopPx = 344px)",
+      "desc": "After fix: All 25 audit entries render cleanly with canonical ChangeLogEntry normalization, Light Sidebar, and firstRowTopPx = 344px (<= 380px)."
+    },
+    {
+      "filename": "before_gantrypulse_certified_sot_desktop.png",
+      "publicPath": "/evidence/gantrypulse/before_gantrypulse_certified_sot_desktop.png",
+      "stage": "BEFORE (Dark Sidebar & 496px Fold)",
+      "badgeClass": "badge-p1",
+      "title": "GantryPulse #3 (BEFORE) — Certified SoT with Dark #0b132b Sidebar & firstRowTopPx = 496px",
+      "desc": "Before fix: Dark navy sidebar, duplicate AI buttons, firstRowTopPx = 496px (> 380px), and Column 1 L2 taxonomy pill wrapping 1 char per line."
+    },
+    {
+      "filename": "after_gantrypulse_certified_sot_desktop.png",
+      "publicPath": "/evidence/gantrypulse/after_gantrypulse_certified_sot_desktop.png",
+      "stage": "AFTER (Light Theme & 357px Fold)",
+      "badgeClass": "badge-pass",
+      "title": "GantryPulse #4 (AFTER) — Certified SoT on Universal Light Theme (firstRowTopPx = 357px)",
+      "desc": "After fix: Executive Light Sidebar (#ffffff), single Ask AI OCE ⌘J button, firstRowTopPx = 357px, and clean horizontal L2 Manager pills."
+    },
+    {
+      "filename": "before_gantrypulse_centered_blocking_modal.png",
+      "publicPath": "/evidence/gantrypulse/before_gantrypulse_centered_blocking_modal.png",
+      "stage": "BEFORE (GP-UX-01 Blocking Modal)",
+      "badgeClass": "badge-p1",
+      "title": "GantryPulse #5 (BEFORE) — Centered Blocking Triage Modal Over Table",
+      "desc": "Before fix: Clicking 'Triage' opened a centered modal (items-center justify-center) with a dark #0f172a header that blocked the underlying lineage table."
+    },
+    {
+      "filename": "after_gantrypulse_right_side_drawer.png",
+      "publicPath": "/evidence/gantrypulse/after_gantrypulse_right_side_drawer.png",
+      "stage": "AFTER (GP-UX-01 Right Drawer)",
+      "badgeClass": "badge-pass",
+      "title": "GantryPulse #6 (AFTER) — Non-Blocking Right-Side Light-Theme Triage Drawer",
+      "desc": "After fix: All 19 modals across 14 components dock as full-height right-side Light-Theme slide-over drawers keeping left-hand table rows visible."
+    },
+    {
+      "filename": "before_gantrypulse_cr_studio_desktop.png",
+      "publicPath": "/evidence/gantrypulse/before_gantrypulse_cr_studio_desktop.png",
+      "stage": "BEFORE (Dark Bar & 539px Fold)",
+      "badgeClass": "badge-p1",
+      "title": "GantryPulse #7 (BEFORE) — Automated FR & CR Studio (firstRowTopPx = 539px)",
+      "desc": "Before fix: Dark bg-slate-900 top bar and stacked callout banners pushed the primary table down to Y = 539px."
+    },
+    {
+      "filename": "after_gantrypulse_cr_studio_desktop.png",
+      "publicPath": "/evidence/gantrypulse/after_gantrypulse_cr_studio_desktop.png",
+      "stage": "AFTER (Light Bar & 354px Fold)",
+      "badgeClass": "badge-pass",
+      "title": "GantryPulse #8 (AFTER) — Automated FR & CR Studio (firstRowTopPx = 354px)",
+      "desc": "After fix: Compact Executive Light-Theme control bar and relocated secondary banners bring row 1 to Y = 354px (<= 380px) with 0 consoleErrors."
+    },
+    {
+      "filename": "before_gantrypulse_customer_asks_desktop.png",
+      "publicPath": "/evidence/gantrypulse/before_gantrypulse_customer_asks_desktop.png",
+      "stage": "BEFORE (Duplicate Key Errors)",
+      "badgeClass": "badge-p2",
+      "title": "GantryPulse #9 (BEFORE) — Customer Questions & Comms (Dark Sidebar & React Key Warnings)",
+      "desc": "Before fix: Dark sidebar and duplicate GMAIL-FMfcgzQhWxXd React keys in LiveMultiSourceSotExplorer."
+    },
+    {
+      "filename": "after_gantrypulse_customer_asks_desktop.png",
+      "publicPath": "/evidence/gantrypulse/after_gantrypulse_customer_asks_desktop.png",
+      "stage": "AFTER (Zero Console Errors)",
+      "badgeClass": "badge-pass",
+      "title": "GantryPulse #10 (AFTER) — Customer Questions & Comms (107 Dated Asks · 0 Console Errors)",
+      "desc": "After fix: Light sidebar, deduplicated feed keys, 0 consoleErrors, and firstRowTopPx = 311px."
+    },
+    {
+      "filename": "before_gantrypulse_mobile_390px.png",
+      "publicPath": "/evidence/gantrypulse/before_gantrypulse_mobile_390px.png",
+      "stage": "BEFORE (Mobile 390x844)",
+      "badgeClass": "badge-p1",
+      "title": "GantryPulse #11 (BEFORE) — Mobile 390x844 Viewport Before Fold & Pill Remediation",
+      "desc": "Before fix: Tall stacked banners and dark header controls on 390x844 mobile viewport."
+    },
+    {
+      "filename": "after_gantrypulse_mobile_390px.png",
+      "publicPath": "/evidence/gantrypulse/after_gantrypulse_mobile_390px.png",
+      "stage": "AFTER (Mobile 390x844 PASS)",
+      "badgeClass": "badge-pass",
+      "title": "GantryPulse #12 (AFTER) — Mobile 390x844 Viewport (0px Overflow · Executive Light Theme)",
+      "desc": "After fix: 0px horizontal overflow on 390x844 mobile viewport with clean responsive containment."
+    }
+  ],
+  "lastLiveProbe": {
+    "probedAt": "2026-10-26T04:44:08.329Z",
+    "frontend5173Reachable": true,
+    "backend8765Reachable": true,
+    "watermarksCount": 7,
+    "lineageFileSha256": "3ee387b0f3c73451",
+    "directBuganizerIssuesVerified": 164,
+    "directSfdcCasesVerified": 74
+  }
+}

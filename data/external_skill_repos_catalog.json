@@ -1,14 +1,14 @@
 {
   "ok": true,
-  "evaluatedAt": "2026-10-23T15:50:38.959Z",
-  "targetUrl": "http://localhost:4190",
-  "appName": "Web / SaaS Application",
+  "evaluatedAt": "2026-10-25T22:02:37.909Z",
+  "targetUrl": "http://127.0.0.1:5173/?tab=certified_sot",
+  "appName": "GantryPulse — Enterprise Customer Lineage & 6-Hop SoT Portal",
   "fingerprint": {
     "detectedArchetype": "web-saas-dashboard",
     "detectedArchetypeLabel": "🖥️ Web / SaaS Dashboard, Data Tables & CRUD Portal",
-    "detectionMode": "Autonomous URL + DOM Fingerprint",
+    "detectionMode": "User-Selected Override",
     "signals": [
-      "Live DOM has 10 <table>(s), 20 <button>(s), 12 form control(s), and semantic landmarks (header/nav/main=true/true/true)"
+      "Explicit archetype override: 🖥️ Web / SaaS Dashboard, Data Tables & CRUD Portal"
     ]
   },
   "availableArchetypes": [

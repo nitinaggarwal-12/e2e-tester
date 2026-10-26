@@ -1,0 +1,1 @@
+/Users/nitinagga/.gemini/config/AGENTS.md
