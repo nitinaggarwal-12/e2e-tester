@@ -5,13 +5,13 @@
   "buildProject": "nitina-ggarwal-sandbox-647724",
   "runProject": "ramp-portal-dev",
   "region": "us-west1",
-  "latestReadyRevisionName": "e2et-00006-qfj",
-  "latestCreatedRevisionName": "e2et-00006-qfj",
+  "latestReadyRevisionName": "e2et-00008-6zg",
+  "latestCreatedRevisionName": "e2et-00008-6zg",
   "readyStatus": "True",
   "trafficPercent": 100,
-  "image": "us-west1-docker.pkg.dev/ramp-portal-dev/cloud-run-source-deploy/e2et:v20261023-193046-rule58",
-  "startupProbeLog": "Default STARTUP TCP/HTTP probe succeeded for e2et-00006-qfj",
+  "image": "us-west1-docker.pkg.dev/ramp-portal-dev/cloud-run-source-deploy/e2et:v20261026-121703-rule58",
+  "startupProbeLog": "Default STARTUP TCP/HTTP probe succeeded for e2et-00008-6zg",
   "catalogDemosCount": 13,
   "catalogTilesCount": 14,
-  "verifiedAt": "2026-10-23T19:31:22Z"
+  "verifiedAt": "2026-10-26T12:17:38Z"
 }
